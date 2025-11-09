@@ -1,0 +1,28 @@
+body { font-family: 'Poppins', sans-serif; margin:0; background:#f8f9fa; color:#333;}
+.header { display:flex; justify-content:space-between; align-items:center; background:#1e3a8a; color:white; padding:15px 30px;}
+.logo { font-size:1.8em; font-weight:bold; }
+.menu a { color:white; text-decoration:none; margin:0 15px;}
+.menu a:hover { text-decoration:underline; }
+.search { display:flex; align-items:center; }
+.search input { padding:6px; border:none; border-radius:4px 0 0 4px;}
+.search button { padding:6px 10px; background:#2563eb; border:none; color:white; border-radius:0 4px 4px 0;}
+section { padding:50px 20px; text-align:center;}
+h2 { font-size:2em; margin-bottom:20px; color:#1e3a8a;}
+.sobre p, .cursos p { max-width:700px; margin:auto; }
+.cursos-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px; margin-top:30px; }
+.curso-card { background:white; border-radius:10px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1); transition:0.3s;}
+.curso-card:hover { transform:scale(1.02);}
+.curso-card img { width:100%; height:180px; border-radius:10px; object-fit:cover; }
+form { margin-top:15px; display:flex; flex-direction:column; gap:10px; }
+input, select { padding:10px; border-radius:6px; border:1px solid #ccc;}
+button { padding:10px; background:#1e3a8a; color:white; border:none; border-radius:6px; cursor:pointer;}
+button:hover { background:#2563eb; }
+.especial { background:#f0f7ff; border:1px solid #2563eb;}
+.revistas-grid { display:flex; justify-content:center; flex-wrap:wrap; gap:20px;}
+.revista-item { width:260px; background:white; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); overflow:hidden;}
+.revista-item img { width:100%; height:180px; object-fit:cover;}
+footer { background:#111827; color:white; padding:20px; text-align:center;}
+footer .redes a { color:white; margin:0 10px; font-size:1.5em; transition:0.3s;}
+footer .redes a:hover { color:#2563eb; }
+.curso-card, .revista-item { animation:fadeInUp 1s ease-in-out;}
+@keyframes fadeInUp { 0% {opacity:0; transform:translateY(20px);} 100% {opacity:1; transform:translateY(0);} }

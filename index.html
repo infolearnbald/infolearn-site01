@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infolearn - Formação Profissional</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1 class="logo">Infolearn</h1>
+    <nav class="menu">
+      <a href="#sobre">Sobre</a>
+      <a href="#cursos">Cursos</a>
+      <a href="#noticias">Notícias</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="search">
+      <input type="text" id="searchInput" placeholder="Pesquisar cursos...">
+      <button id="searchBtn"><i class="fas fa-search"></i></button>
+    </div>
+  </header>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="sobre">
+    <h2>Sobre a Infolearn</h2>
+    <p>A Infolearn é uma instituição dedicada à formação técnica e profissional, comprometida em desenvolver habilidades práticas e preparar alunos para o mercado de trabalho moderno.</p>
+    <div class="info-grid">
+      <div>
+        <h3>Missão</h3>
+        <p>Capacitar pessoas com conhecimento técnico e criativo de alta qualidade.</p>
+      </div>
+      <div>
+        <h3>Visão</h3>
+        <p>Ser referência nacional em ensino profissional e tecnológico.</p>
+      </div>
+      <div>
+        <h3>Valores</h3>
+        <p>Inovação, ética, compromisso e excelência.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURSOS -->
+  <section id="cursos" class="cursos">
+    <h2>Nossos Cursos</h2>
+    <div class="cursos-grid">
+
+      <!-- Programação -->
+      <div class="curso-card">
+        <img src="curso4.jpg" alt="Programação">
+        <h3>Programação</h3>
+        <p>Aprenda lógica e linguagens modernas para desenvolver software e aplicações.</p>
+        <p><strong>Online:</strong> 450 MT/mês | <strong>Presencial:</strong> 2500 MT/mês</p>
+        <form class="form-whatsapp" data-phone="258844180213">
+          <input type="text" name="nome" placeholder="Seu nome" required>
+          <input type="email" name="email" placeholder="Seu e-mail" required>
+          <select name="duracao" required>
+            <option value="">Escolha a duração</option>
+            <option>1 mês</option>
+            <option>3 meses</option>
+          </select>
+          <button type="submit">Matricular-se</button>
+        </form>
+      </div>
+
+      <!-- Design Gráfico -->
+      <div class="curso-card">
+        <img src="curso5.jpg" alt="Design Gráfico">
+        <h3>Design Gráfico</h3>
+        <p>Domine Photoshop, Illustrator e criação de identidades visuais profissionais.</p>
+        <p><strong>Online:</strong> 450 MT/mês | <strong>Presencial:</strong> 2500 MT/mês</p>
+        <form class="form-whatsapp" data-phone="258867101103">
+          <input type="text" name="nome" placeholder="Seu nome" required>
+          <input type="email" name="email" placeholder="Seu e-mail" required>
+          <select name="duracao" required>
+            <option value="">Escolha a duração</option>
+            <option>1 mês</option>
+            <option>3 meses</option>
+          </select>
+          <button type="submit">Matricular-se</button>
+        </form>
+      </div>
+
+      <!-- Inglês -->
+      <div class="curso-card especial">
+        <img src="curso9.jpg" alt="Curso de Inglês">
+        <h3>Curso de Inglês (Somente Online)</h3>
+        <p>Aprenda inglês com professores especializados e aulas interativas. Valor: <strong>3600 MT/mês</strong></p>
+        <form class="form-whatsapp" data-phone="258877537100">
+          <input type="text" name="nome" placeholder="Nome completo" required>
+          <input type="email" name="email" placeholder="Seu e-mail" required>
+          <input type="tel" name="whatsapp" placeholder="Número de WhatsApp" required>
+          <select name="nivel" required>
+            <option value="">Selecione o nível</option>
+            <option>Básico</option>
+            <option>Intermediário</option>
+            <option>Avançado</option>
+          </select>
+          <select name="duracao" required>
+            <option value="">Escolha a duração</option>
+            <option>1 mês</option>
+            <option>3 meses</option>
+          </select>
+          <button type="submit">Matricular-se</button>
+        </form>
+      </div>
+
+      <!-- Marketing -->
+      <div class="curso-card">
+        <img src="curso8.jpg" alt="Marketing Digital">
+        <h3>Marketing Digital e Vendas</h3>
+        <p>Aprenda estratégias de marketing e vendas com ferramentas modernas e práticas.</p>
+        <p><strong>Online:</strong> 450 MT/mês | <strong>Presencial:</strong> 2500 MT/mês</p>
+        <form class="form-whatsapp" data-phone="258844180213">
+          <input type="text" name="nome" placeholder="Seu nome" required>
+          <input type="email" name="email" placeholder="Seu e-mail" required>
+          <select name="duracao" required>
+            <option value="">Escolha a duração</option>
+            <option>1 mês</option>
+            <option>3 meses</option>
+          </select>
+          <button type="submit">Matricular-se</button>
+        </form>
+      </div>
+
+      <!-- Eletricidade -->
+      <div class="curso-card">
+        <img src="curso10.jpg" alt="Eletricidade">
+        <h3>Eletricidade</h3>
+        <p>Curso técnico voltado para práticas de instalação e manutenção elétrica.</p>
+        <p><strong>Online:</strong> 450 MT/mês | <strong>Presencial:</strong> 2500 MT/mês</p>
+        <form class="form-whatsapp" data-phone="258844180213">
+          <input type="text" name="nome" placeholder="Seu nome" required>
+          <input type="email" name="email" placeholder="Seu e-mail" required>
+          <select name="duracao" required>
+            <option value="">Escolha a duração</option>
+            <option>1 mês</option>
+            <option>3 meses</option>
+          </select>
+          <button type="submit">Matricular-se</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NOTÍCIAS / REVISTAS -->
+  <section id="noticias" class="noticias">
+    <h2>Revistas & Notícias</h2>
+    <div class="revistas-grid">
+      <div class="revista-item">
+        <img src="revista1.jpg" alt="Revista Infolearn">
+        <p>Revista Infolearn — Tendências e novidades do mundo digital.</p>
+      </div>
+      <div class="revista-item">
+        <img src="revista2.jpg" alt="Inovação">
+        <p>Inovação e Tecnologia na educação profissional de Moçambique.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Infolearn — Todos os direitos reservados.</p>
+    <div class="redes">
+      <a href="https://facebook.com/profile.php?id=1000897879627" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://wa.me/258844180213" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+/html>
