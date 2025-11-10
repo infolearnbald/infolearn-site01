@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Infolearn - Formação Profissional</title>
-  <link rel="stylesheet" href="style.css">
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Icons (coloque suas ícones em /icons/ se quiser) -->
+  <meta name="theme-color" content="#1e3a8a" />
+  <link rel="icon" href="icons/icon-192.png" />
+
+  <link rel="stylesheet" href="style.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
   <!-- HEADER -->
   <header class="header">
-    <h1 class="logo">Infolearn</h1>
-    <nav class="menu">
-      <a href="#sobre">Sobre</a>
-      <a href="#cursos">Cursos</a>
-      <a href="#noticias">Notícias</a>
-      <a href="#contato">Contato</a>
-    </nav>
-    <div class="search">
-      <input type="text" id="searchInput" placeholder="Pesquisar cursos...">
-      <button id="searchBtn"><i class="fas fa-search"></i></button>
+    <div class="header-inner">
+      <h1 class="logo">Infolearn</h1>
+      <nav class="menu">
+        <a href="#sobre">Sobre</a>
+        <a href="#cursos">Cursos</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#noticias">Notícias</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      <!-- Pesquisa (lupa) -->
+      <div class="search">
+        <input type="text" id="searchInput" placeholder="Pesquisar cursos ou palavras-chave...">
+        <button id="searchBtn" aria-label="Pesquisar"><i class="fas fa-search"></i></button>
+      </div>
     </div>
   </header>
 
   <!-- SOBRE -->
   <section id="sobre" class="sobre">
     <h2>Sobre a Infolearn</h2>
-    <p>A Infolearn é uma instituição dedicada à formação técnica e profissional, comprometida em desenvolver habilidades práticas e preparar alunos para o mercado de trabalho moderno.</p>
+    <p>A Infolearn é uma instituição dedicada à formação técnica e profissional, comprometida em desenvolver habilidades práticas e preparar alunos para o mercado de trabalho moderno — agora com cursos 100% online e certificado.</p>
     <div class="info-grid">
       <div>
         <h3>Missão</h3>
@@ -46,54 +58,92 @@
 
   <!-- CURSOS -->
   <section id="cursos" class="cursos">
-    <h2>Nossos Cursos</h2>
+    <h2>Nossos Cursos (100% Online)</h2>
+    <p class="sub">Aulas disponíveis por WhatsApp ou Zoom — selecione no formulário. Pagamentos via M-Pesa ou e-mola. Certificado ao final.</p>
+
     <div class="cursos-grid">
 
-      <!-- Programação -->
-      <div class="curso-card">
+      <!-- Programação (mantido) -->
+      <div class="curso-card" data-course-id="programacao">
         <img src="curso4.jpg" alt="Programação">
         <h3>Programação</h3>
         <p>Aprenda lógica e linguagens modernas para desenvolver software e aplicações.</p>
-        <p><strong>Online:</strong> 450 MT/mês | <strong>Presencial:</strong> 2500 MT/mês</p>
-        <form class="form-whatsapp" data-phone="258844180213">
-          <input type="text" name="nome" placeholder="Seu nome" required>
-          <input type="email" name="email" placeholder="Seu e-mail" required>
+        <p class="preco"><strong>Preço:</strong> 450 MT/mês | 2500 MT (presencial removido — agora online)</p>
+        <p class="stat">Aderiram: <span class="counter" data-id="programacao">0</span></p>
+
+        <form class="form-whatsapp" data-phone="258844180213" data-course="Programação">
+          <input type="hidden" name="curso" value="Programação" />
+          <input type="text" name="nome" placeholder="Seu nome" required />
+          <input type="email" name="email" placeholder="Seu e-mail" required />
           <select name="duracao" required>
             <option value="">Escolha a duração</option>
             <option>1 mês</option>
             <option>3 meses</option>
           </select>
+          <label>Modo de aula:</label>
+          <select name="modo" required>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Zoom">Zoom</option>
+          </select>
+          <label>Pagamento:</label>
+          <select name="pagamento" required>
+            <option value="M-Pesa">M-Pesa</option>
+            <option value="e-mola">e-mola</option>
+          </select>
           <button type="submit">Matricular-se</button>
         </form>
       </div>
 
-      <!-- Design Gráfico -->
-      <div class="curso-card">
+      <!-- Design Gráfico (preço atualizado + escolha photoshop/illustrator) -->
+      <div class="curso-card" data-course-id="design">
         <img src="curso5.jpg" alt="Design Gráfico">
         <h3>Design Gráfico</h3>
         <p>Domine Photoshop, Illustrator e criação de identidades visuais profissionais.</p>
-        <p><strong>Online:</strong> 450 MT/mês | <strong>Presencial:</strong> 2500 MT/mês</p>
-        <form class="form-whatsapp" data-phone="258867101103">
-          <input type="text" name="nome" placeholder="Seu nome" required>
-          <input type="email" name="email" placeholder="Seu e-mail" required>
+        <p class="preco"><strong>Preço:</strong> 1 mês = <strong>2500 MT</strong> | 3 meses = <strong>5500 MT</strong></p>
+        <p class="stat">Aderiram: <span class="counter" data-id="design">0</span></p>
+
+        <form class="form-whatsapp" data-phone="258867101103" data-course="Design Gráfico">
+          <input type="hidden" name="curso" value="Design Gráfico" />
+          <input type="text" name="nome" placeholder="Seu nome" required />
+          <input type="email" name="email" placeholder="Seu e-mail" required />
+          <label>Escolha a turma / software:</label>
+          <select name="software" required>
+            <option value="">Escolha</option>
+            <option>Photoshop</option>
+            <option>Illustrator</option>
+          </select>
           <select name="duracao" required>
             <option value="">Escolha a duração</option>
             <option>1 mês</option>
             <option>3 meses</option>
+          </select>
+          <label>Modo de aula:</label>
+          <select name="modo" required>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Zoom">Zoom</option>
+          </select>
+          <label>Pagamento:</label>
+          <select name="pagamento" required>
+            <option value="M-Pesa">M-Pesa</option>
+            <option value="e-mola">e-mola</option>
           </select>
           <button type="submit">Matricular-se</button>
         </form>
       </div>
 
       <!-- Inglês -->
-      <div class="curso-card especial">
+      <div class="curso-card especial" data-course-id="ingles">
         <img src="curso9.jpg" alt="Curso de Inglês">
         <h3>Curso de Inglês (Somente Online)</h3>
-        <p>Aprenda inglês com professores especializados e aulas interativas. Valor: <strong>3600 MT/mês</strong></p>
-        <form class="form-whatsapp" data-phone="258877537100">
-          <input type="text" name="nome" placeholder="Nome completo" required>
-          <input type="email" name="email" placeholder="Seu e-mail" required>
-          <input type="tel" name="whatsapp" placeholder="Número de WhatsApp" required>
+        <p>Aprenda inglês com professores especializados e aulas interativas. Aulas por WhatsApp ou Zoom.</p>
+        <p class="preco"><strong>Preço:</strong> 1 mês = <strong>1200 MT</strong> | 3 meses = <strong>3600 MT</strong></p>
+        <p class="stat">Aderiram: <span class="counter" data-id="ingles">0</span></p>
+
+        <form class="form-whatsapp" data-phone="258877537100" data-course="Curso de Inglês">
+          <input type="hidden" name="curso" value="Curso de Inglês" />
+          <input type="text" name="nome" placeholder="Nome completo" required />
+          <input type="email" name="email" placeholder="Seu e-mail" required />
+          <input type="tel" name="whatsapp" placeholder="Número de WhatsApp" required />
           <select name="nivel" required>
             <option value="">Selecione o nível</option>
             <option>Básico</option>
@@ -105,74 +155,242 @@
             <option>1 mês</option>
             <option>3 meses</option>
           </select>
+          <label>Modo de aula:</label>
+          <select name="modo" required>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Zoom">Zoom</option>
+          </select>
+          <label>Pagamento:</label>
+          <select name="pagamento" required>
+            <option value="M-Pesa">M-Pesa</option>
+            <option value="e-mola">e-mola</option>
+          </select>
           <button type="submit">Matricular-se</button>
         </form>
       </div>
 
-      <!-- Marketing -->
-      <div class="curso-card">
+      <!-- Marketing (mantido) -->
+      <div class="curso-card" data-course-id="marketing">
         <img src="curso8.jpg" alt="Marketing Digital">
         <h3>Marketing Digital e Vendas</h3>
         <p>Aprenda estratégias de marketing e vendas com ferramentas modernas e práticas.</p>
-        <p><strong>Online:</strong> 450 MT/mês | <strong>Presencial:</strong> 2500 MT/mês</p>
-        <form class="form-whatsapp" data-phone="258844180213">
-          <input type="text" name="nome" placeholder="Seu nome" required>
-          <input type="email" name="email" placeholder="Seu e-mail" required>
+        <p class="preco"><strong>Preço:</strong> 450 MT/mês</p>
+        <p class="stat">Aderiram: <span class="counter" data-id="marketing">0</span></p>
+
+        <form class="form-whatsapp" data-phone="258844180213" data-course="Marketing Digital e Vendas">
+          <input type="hidden" name="curso" value="Marketing Digital e Vendas" />
+          <input type="text" name="nome" placeholder="Seu nome" required />
+          <input type="email" name="email" placeholder="Seu e-mail" required />
           <select name="duracao" required>
             <option value="">Escolha a duração</option>
             <option>1 mês</option>
             <option>3 meses</option>
+          </select>
+          <label>Modo de aula:</label>
+          <select name="modo" required>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Zoom">Zoom</option>
+          </select>
+          <label>Pagamento:</label>
+          <select name="pagamento" required>
+            <option value="M-Pesa">M-Pesa</option>
+            <option value="e-mola">e-mola</option>
           </select>
           <button type="submit">Matricular-se</button>
         </form>
       </div>
 
       <!-- Eletricidade -->
-      <div class="curso-card">
+      <div class="curso-card" data-course-id="eletricidade">
         <img src="curso10.jpg" alt="Eletricidade">
-        <h3>Eletricidade</h3>
-        <p>Curso técnico voltado para práticas de instalação e manutenção elétrica.</p>
-        <p><strong>Online:</strong> 450 MT/mês | <strong>Presencial:</strong> 2500 MT/mês</p>
-        <form class="form-whatsapp" data-phone="258844180213">
-          <input type="text" name="nome" placeholder="Seu nome" required>
-          <input type="email" name="email" placeholder="Seu e-mail" required>
+        <h3>Eletricidade (Técnico)</h3>
+        <p>Curso técnico voltado para práticas de instalação e manutenção elétrica — agora também com aulas online teóricas e acompanhamento prático agendado.</p>
+        <p class="preco"><strong>Preço:</strong> 450 MT/mês</p>
+        <p class="stat">Aderiram: <span class="counter" data-id="eletricidade">0</span></p>
+
+        <form class="form-whatsapp" data-phone="258844180213" data-course="Eletricidade">
+          <input type="hidden" name="curso" value="Eletricidade" />
+          <input type="text" name="nome" placeholder="Seu nome" required />
+          <input type="email" name="email" placeholder="Seu e-mail" required />
           <select name="duracao" required>
             <option value="">Escolha a duração</option>
             <option>1 mês</option>
             <option>3 meses</option>
+          </select>
+          <label>Modo de aula:</label>
+          <select name="modo" required>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Zoom">Zoom</option>
+          </select>
+          <label>Pagamento:</label>
+          <select name="pagamento" required>
+            <option value="M-Pesa">M-Pesa</option>
+            <option value="e-mola">e-mola</option>
+          </select>
+          <button type="submit">Matricular-se</button>
+        </form>
+      </div>
+
+      <!-- Informatica (novo) -->
+      <div class="curso-card" data-course-id="informatica">
+        <img src="curso4.jpg" alt="Informática">
+        <h3>Informática (Excel & Word Avançado)</h3>
+        <p>Níveis: Básico, Médio, Avançado. Aulas focadas em Excel, Word avançado e ferramentas do escritório.</p>
+        <p class="preco"><strong>Preço:</strong> 1 mês = <strong>1300 MT</strong> | 3 meses = <strong>3500 MT</strong></p>
+        <p class="stat">Aderiram: <span class="counter" data-id="informatica">0</span></p>
+
+        <form class="form-whatsapp" data-phone="258844180213" data-course="Informática">
+          <input type="hidden" name="curso" value="Informática" />
+          <input type="text" name="nome" placeholder="Seu nome" required />
+          <input type="email" name="email" placeholder="Seu e-mail" required />
+          <select name="nivel" required>
+            <option value="">Selecione o nível</option>
+            <option>Básico</option>
+            <option>Médio</option>
+            <option>Avançado</option>
+          </select>
+          <select name="duracao" required>
+            <option value="">Escolha a duração</option>
+            <option>1 mês</option>
+            <option>3 meses</option>
+          </select>
+          <label>Modo de aula:</label>
+          <select name="modo" required>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Zoom">Zoom</option>
+          </select>
+          <label>Pagamento:</label>
+          <select name="pagamento" required>
+            <option value="M-Pesa">M-Pesa</option>
+            <option value="e-mola">e-mola</option>
+          </select>
+          <button type="submit">Matricular-se</button>
+        </form>
+      </div>
+
+      <!-- Música (novo) -->
+      <div class="curso-card" data-course-id="musica">
+        <img src="curso8.jpg" alt="Música">
+        <h3>Produção Musical — FL Studio & Samplitude</h3>
+        <p>Produção de instrumentais e masterização. Escolha FL Studio ou Samplitude.</p>
+        <p class="preco"><strong>Preço:</strong> 1 mês = <strong>2500 MT</strong> | 3 meses = <strong>5300 MT</strong></p>
+        <p class="stat">Aderiram: <span class="counter" data-id="musica">0</span></p>
+
+        <form class="form-whatsapp" data-phone="258844180213" data-course="Produção Musical">
+          <input type="hidden" name="curso" value="Produção Musical" />
+          <input type="text" name="nome" placeholder="Seu nome" required />
+          <input type="email" name="email" placeholder="Seu e-mail" required />
+          <label>Escolha DAW:</label>
+          <select name="daw" required>
+            <option value="">Escolha</option>
+            <option>FL Studio</option>
+            <option>Samplitude</option>
+          </select>
+          <select name="duracao" required>
+            <option value="">Escolha a duração</option>
+            <option>1 mês</option>
+            <option>3 meses</option>
+          </select>
+          <label>Modo de aula:</label>
+          <select name="modo" required>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Zoom">Zoom</option>
+          </select>
+          <label>Pagamento:</label>
+          <select name="pagamento" required>
+            <option value="M-Pesa">M-Pesa</option>
+            <option value="e-mola">e-mola</option>
+          </select>
+          <button type="submit">Matricular-se</button>
+        </form>
+      </div>
+
+      <!-- Confeitaria (novo) -->
+      <div class="curso-card" data-course-id="confeitaria">
+        <img src="revista1.jpg" alt="Confeitaria">
+        <h3>Confeitaria Profissional</h3>
+        <p>Curso prático de confeitaria. Inscrição: <strong>500 MT</strong> + investimento: <strong>3000 MT</strong>.</p>
+        <p class="preco"><strong>Condições:</strong> Inscrição 500 MT | Investimento 3000 MT</p>
+        <p class="stat">Aderiram: <span class="counter" data-id="confeitaria">0</span></p>
+
+        <form class="form-whatsapp" data-phone="258844180213" data-course="Confeitaria">
+          <input type="hidden" name="curso" value="Confeitaria" />
+          <input type="text" name="nome" placeholder="Seu nome" required />
+          <input type="email" name="email" placeholder="Seu e-mail" required />
+          <select name="opcao" required>
+            <option value="">Selecione</option>
+            <option>Inscrição + Investimento</option>
+            <option>Apenas informações</option>
+          </select>
+          <label>Modo de aula:</label>
+          <select name="modo" required>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Zoom">Zoom</option>
+          </select>
+          <label>Pagamento:</label>
+          <select name="pagamento" required>
+            <option value="M-Pesa">M-Pesa</option>
+            <option value="e-mola">e-mola</option>
           </select>
           <button type="submit">Matricular-se</button>
         </form>
       </div>
 
     </div>
+
+    <!-- Contatos rápidos abaixo dos cursos -->
+    <div class="contatos-rapidos">
+      <p>Contacte-nos via WhatsApp: <a class="whatsapp-btn" href="https://wa.me/258844180213" target="_blank">+258 84 418 0213 <i class="fab fa-whatsapp"></i></a> — Email: <a href="mailto:info@infolearn.com">info@infolearn.com</a></p>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos" class="servicos">
+    <h2>Nossos Serviços</h2>
+    <div class="servicos-grid">
+      <div class="servico-card"><h4>Design</h4><p>Identidades visuais, flyers, posts e mais.</p></div>
+      <div class="servico-card"><h4>Consultoria</h4><p>Consultoria em TI e implementação de projetos.</p></div>
+      <div class="servico-card"><h4>Produção de Conteúdo</h4><p>Cursos, revistas e materiais educativos.</p></div>
+    </div>
   </section>
 
   <!-- NOTÍCIAS / REVISTAS -->
   <section id="noticias" class="noticias">
-    <h2>Revistas & Notícias</h2>
+    <h2>Revistas & Publicidade</h2>
+    <p class="sub">Cenários e ideias editoriais — use estas sugestões para as suas publicações e anúncios.</p>
     <div class="revistas-grid">
       <div class="revista-item">
-        <img src="revista1.jpg" alt="Revista Infolearn">
-        <p>Revista Infolearn — Tendências e novidades do mundo digital.</p>
+        <img src="revista1.jpg" alt="Revista Infolearn"/>
+        <h4>Edição: Tendências Digitais</h4>
+        <p>Destaques: ferramentas criativas, carreiras tech, cases locais.</p>
       </div>
       <div class="revista-item">
-        <img src="revista2.jpg" alt="Inovação">
-        <p>Inovação e Tecnologia na educação profissional de Moçambique.</p>
+        <img src="revista2.jpg" alt="Inovação"/>
+        <h4>Edição: Educação & Inovação</h4>
+        <p>Destaques: ensino híbrido, PWA, micro-empreendedorismo.</p>
+      </div>
+      <div class="revista-item">
+        <img src="revista2.jpg" alt="Publicidade"/>
+        <h4>Publicidade Sugerida</h4>
+        <p>Banner para redes: "Matricule-se hoje — Vagas Limitadas — Certificado".</p>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>&copy; 2025 Infolearn — Todos os direitos reservados.</p>
-    <div class="redes">
-      <a href="https://facebook.com/profile.php?id=1000897879627" target="_blank"><i class="fab fa-facebook"></i></a>
-      <a href="https://wa.me/258844180213" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  <!-- FOOTER / CONTATO -->
+  <footer id="contato">
+    <div class="footer-inner">
+      <div>
+        <p>&copy; 2025 Infolearn — Todos os direitos reservados.</p>
+        <p>Contacto WhatsApp: <a class="whatsapp-btn" href="https://wa.me/258844180213" target="_blank">+258 84 418 0213 <i class="fab fa-whatsapp"></i></a></p>
+        <p>Email: <a href="mailto:info@infolearn.com">info@infolearn.com</a></p>
+      </div>
+      <div class="redes">
+        <a href="https://facebook.com/profile.php?id=1000897879627" target="_blank"><i class="fab fa-facebook"></i></a>
+      </div>
     </div>
   </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
-/html>
