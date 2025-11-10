@@ -1,28 +1,63 @@
-body { font-family: 'Poppins', sans-serif; margin:0; background:#f8f9fa; color:#333;}
-.header { display:flex; justify-content:space-between; align-items:center; background:#1e3a8a; color:white; padding:15px 30px;}
-.logo { font-size:1.8em; font-weight:bold; }
-.menu a { color:white; text-decoration:none; margin:0 15px;}
+/* Fonte base */
+body { font-family: 'Poppins', sans-serif; margin:0; background:#f8f9fa; color:#222;}
+.header { background:#1e3a8a; color:white; padding:12px 20px; position:sticky; top:0; z-index:1000; box-shadow:0 2px 6px rgba(0,0,0,0.08);}
+.header-inner { display:flex; align-items:center; justify-content:space-between; gap:20px; max-width:1200px; margin:0 auto;}
+.logo { font-size:1.5rem; font-weight:700; margin:0; }
+.menu { display:flex; gap:14px; align-items:center; }
+.menu a { color:white; text-decoration:none; font-weight:600; }
 .menu a:hover { text-decoration:underline; }
-.search { display:flex; align-items:center; }
-.search input { padding:6px; border:none; border-radius:4px 0 0 4px;}
-.search button { padding:6px 10px; background:#2563eb; border:none; color:white; border-radius:0 4px 4px 0;}
-section { padding:50px 20px; text-align:center;}
-h2 { font-size:2em; margin-bottom:20px; color:#1e3a8a;}
-.sobre p, .cursos p { max-width:700px; margin:auto; }
-.cursos-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px; margin-top:30px; }
-.curso-card { background:white; border-radius:10px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1); transition:0.3s;}
-.curso-card:hover { transform:scale(1.02);}
-.curso-card img { width:100%; height:180px; border-radius:10px; object-fit:cover; }
-form { margin-top:15px; display:flex; flex-direction:column; gap:10px; }
-input, select { padding:10px; border-radius:6px; border:1px solid #ccc;}
-button { padding:10px; background:#1e3a8a; color:white; border:none; border-radius:6px; cursor:pointer;}
+.search { display:flex; align-items:center; background:rgba(255,255,255,0.07); padding:6px; border-radius:6px; }
+.search input { padding:8px; border:none; border-radius:4px; min-width:220px; outline:none; background:transparent; color:white; }
+.search button { padding:8px 10px; background:#2563eb; border:none; color:white; border-radius:4px; cursor:pointer; margin-left:6px; }
+.search button i { font-size:16px; }
+
+/* Sections */
+section { padding:40px 20px; text-align:center; max-width:1200px; margin:0 auto;}
+h2 { font-size:1.8rem; margin-bottom:10px; color:#1e3a8a;}
+.sub { color:#555; margin-bottom:20px; }
+
+/* Grid courses */
+.cursos-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:22px; margin-top:20px; }
+.curso-card { background:white; border-radius:10px; padding:18px; box-shadow:0 6px 18px rgba(0,0,0,0.06); transition:transform .18s ease; text-align:left; }
+.curso-card:hover { transform:translateY(-6px); }
+.curso-card img { width:100%; height:170px; border-radius:8px; object-fit:cover; }
+.curso-card h3 { margin:12px 0 6px; color:#1e3a8a; font-size:1.1rem; }
+.curso-card p { color:#333; margin:6px 0; font-size:0.95rem; }
+.curso-card .preco { font-weight:700; color:#0b3b86; }
+
+/* Forms */
+form { margin-top:10px; display:flex; flex-direction:column; gap:8px; }
+input, select { padding:10px; border-radius:6px; border:1px solid #ddd; }
+button { padding:10px; background:#1e3a8a; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:600; }
 button:hover { background:#2563eb; }
-.especial { background:#f0f7ff; border:1px solid #2563eb;}
-.revistas-grid { display:flex; justify-content:center; flex-wrap:wrap; gap:20px;}
-.revista-item { width:260px; background:white; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); overflow:hidden;}
-.revista-item img { width:100%; height:180px; object-fit:cover;}
-footer { background:#111827; color:white; padding:20px; text-align:center;}
-footer .redes a { color:white; margin:0 10px; font-size:1.5em; transition:0.3s;}
-footer .redes a:hover { color:#2563eb; }
-.curso-card, .revista-item { animation:fadeInUp 1s ease-in-out;}
-@keyframes fadeInUp { 0% {opacity:0; transform:translateY(20px);} 100% {opacity:1; transform:translateY(0);} }
+
+/* Especial */
+.especial { background:#f0f7ff; border:1px solid #cfe1ff; }
+
+/* Estatísticas */
+.stat { font-size:0.95rem; color:#444; margin-top:6px; }
+
+/* Contatos rápidos */
+.contatos-rapidos { margin-top:18px; text-align:center; background:#fff; padding:12px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.04); }
+.contatos-rapidos .whatsapp-btn { background:#25D366; color:white; padding:6px 10px; border-radius:6px; text-decoration:none; display:inline-block; font-weight:700; }
+
+/* Serviços */
+.servicos-grid { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:12px; }
+.servico-card { background:white; padding:14px; border-radius:8px; width:220px; box-shadow:0 4px 12px rgba(0,0,0,0.04); text-align:left; }
+
+/* Revistas */
+.revistas-grid { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:14px; }
+.revista-item { width:260px; background:white; border-radius:10px; box-shadow:0 4px 14px rgba(0,0,0,0.06); padding:10px; text-align:left; }
+.revista-item img { width:100%; height:140px; object-fit:cover; border-radius:6px; }
+
+/* Footer */
+footer { background:#0f1724; color:white; padding:20px; text-align:center; margin-top:20px; }
+footer a { color:#fff; text-decoration:none; font-weight:600; }
+footer .redes a { color:white; margin:0 6px; font-size:1.3rem; }
+
+/* Responsivo */
+@media (max-width:800px) {
+  .header-inner { flex-direction:column; gap:10px; align-items:flex-start; padding:8px; }
+  .search input { min-width:150px; }
+  .cursos-grid { grid-template-columns:1fr; }
+}
