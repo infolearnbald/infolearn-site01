@@ -1,4 +1,4 @@
-// bot.js — Assistente Infolearn Responsivo
+// bot.js — Assistente Infolearn Avançado com animação
 
 (function() {
   // Criar container do bot
@@ -14,13 +14,19 @@
   `;
   document.body.appendChild(botContainer);
 
-  // Estilos do bot (responsivo)
+  // Estilos do bot com animação
   const style = document.createElement('style');
   style.innerHTML = `
-    #infolearn-bot { position: fixed; bottom: 20px; right: 20px; z-index: 9999; font-family: Arial, sans-serif; }
-    #bot-bubble { background: #0078d7; color: #fff; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); font-size: 24px; }
-    #bot-window { width: 90%; max-width: 350px; max-height: 400px; height: auto; background: #fff; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); display: flex; flex-direction: column; overflow: hidden; position: fixed; bottom: 90px; right: 20px; }
-    #bot-header { background: #0078d7; color: white; padding: 10px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; font-size: 16px; }
+    #infolearn-bot { position: fixed; top: 20px; right: 20px; z-index: 9999; font-family: Arial, sans-serif; }
+    #bot-bubble { background: #0078d7; color: #fff; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); font-size: 24px; animation: pulse 2s infinite; transition: transform 0.3s ease; }
+    #bot-bubble:hover { transform: scale(1.1); }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+    #bot-window { width: 90%; max-width: 400px; max-height: 500px; height: auto; background: #fff; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); display: flex; flex-direction: column; overflow: hidden; position: fixed; top: 20px; right: 20px; transition: all 0.3s ease; z-index: 9999; }
+    #bot-header { background: #0078d7; color: white; padding: 10px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; font-size: 16px; cursor: move; }
     #bot-messages { flex: 1; padding: 10px; overflow-y: auto; font-size: 14px; }
     #bot-input { border: none; border-top: 1px solid #ccc; padding: 10px; outline: none; font-size: 14px; }
     .hidden { display: none; }
@@ -31,9 +37,9 @@
     .course-btn:hover { background: #005fa3; }
     .counter-display { font-weight: bold; color: #0078d7; }
 
-    /* Ajustes para celulares */
+    /* Celular */
     @media (max-width: 480px) {
-      #bot-window { width: 90%; bottom: 80px; right: 5%; max-height: 350px; font-size: 14px; }
+      #bot-window { width: 90%; top: 15px; right: 5%; max-height: 400px; font-size: 14px; }
       #bot-header { font-size: 14px; }
       #bot-input { font-size: 13px; padding: 8px; }
       .course-btn { font-size: 13px; padding: 5px 8px; }
@@ -47,7 +53,7 @@
   const messages = document.getElementById('bot-messages');
   const input = document.getElementById('bot-input');
 
-  // Funções para mensagens
+  // Funções de mensagens
   function botSay(text) {
     const msg = document.createElement('div');
     msg.className = 'bot-msg';
@@ -55,7 +61,6 @@
     messages.appendChild(msg);
     messages.scrollTop = messages.scrollHeight;
   }
-
   function userSay(text) {
     const msg = document.createElement('div');
     msg.className = 'user-msg';
@@ -69,13 +74,11 @@
     const val = localStorage.getItem('counter_' + id);
     return val ? parseInt(val, 10) : 0;
   }
-
   function incrementCounter(id) {
     const curr = getCounter(id) + 1;
     localStorage.setItem('counter_' + id, curr);
     return curr;
   }
-
   function getCounterDisplay(id) {
     return `<span class="counter-display">${getCounter(id)}</span> pessoas inscritas`;
   }
@@ -100,28 +103,22 @@
         const id = btn.getAttribute('data-id');
         incrementCounter(id);
         btn.innerHTML = `${courses.find(c=>c.id===id).name} — ${courses.find(c=>c.id===id).price} — ${getCounterDisplay(id)}`;
-        botSay(`✅ Sua inscrição no curso "${courses.find(c=>c.id===id).name}" foi registrada. Entraremos em contato via WhatsApp para confirmação.`);
+        botSay(`✅ Sua inscrição no curso "${courses.find(c=>c.id===id).name}" foi registrada. Entraremos em contato via WhatsApp.`);
       };
     });
   }
 
-  // Processar entrada do usuário
+  // Processa entrada do usuário
   function processInput(text) {
     const lower = text.toLowerCase();
-    if (lower.includes('curso')) {
-      showCourses();
-    } else if (lower.includes('inscrição')) {
-      botSay('Para se inscrever, clique no curso desejado acima e siga o procedimento via WhatsApp.');
-    } else if (lower.includes('contato') || lower.includes('whatsapp') || lower.includes('email')) {
+    if (lower.includes('curso')) showCourses();
+    else if (lower.includes('inscrição')) botSay('Clique no curso desejado acima para se inscrever via WhatsApp.');
+    else if (lower.includes('contato') || lower.includes('whatsapp') || lower.includes('email'))
       botSay('Nosso WhatsApp: +258 84 418 0213 📞<br>Email: info@infolearn.com 📧');
-    } else if (lower.includes('olá') || lower.includes('oi')) {
-      botSay('Olá! Posso ajudar com cursos, inscrições ou contato.');
-    } else {
-      botSay('Posso te ajudar com: cursos, inscrição ou contato. Digite uma destas opções.');
-    }
+    else botSay('Posso te ajudar com: cursos, inscrição ou contato. Digite uma destas opções.');
   }
 
-  // Eventos de abertura e fechamento do bot
+  // Eventos da bolha
   bubble.onclick = () => {
     bubble.classList.add('hidden');
     windowEl.classList.remove('hidden');
@@ -141,5 +138,4 @@
       input.value = '';
     }
   });
-
 })();
