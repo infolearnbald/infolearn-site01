@@ -1,4 +1,4 @@
-// bot.js — Assistente Infolearn
+// bot.js — Assistente Infolearn Responsivo
 
 (function() {
   // Criar container do bot
@@ -14,22 +14,30 @@
   `;
   document.body.appendChild(botContainer);
 
-  // Estilos do bot
+  // Estilos do bot (responsivo)
   const style = document.createElement('style');
   style.innerHTML = `
     #infolearn-bot { position: fixed; bottom: 20px; right: 20px; z-index: 9999; font-family: Arial, sans-serif; }
     #bot-bubble { background: #0078d7; color: #fff; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); font-size: 24px; }
-    #bot-window { width: 320px; height: 400px; background: #fff; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); display: flex; flex-direction: column; overflow: hidden; }
-    #bot-header { background: #0078d7; color: white; padding: 10px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+    #bot-window { width: 90%; max-width: 350px; max-height: 400px; height: auto; background: #fff; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); display: flex; flex-direction: column; overflow: hidden; position: fixed; bottom: 90px; right: 20px; }
+    #bot-header { background: #0078d7; color: white; padding: 10px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; font-size: 16px; }
     #bot-messages { flex: 1; padding: 10px; overflow-y: auto; font-size: 14px; }
-    #bot-input { border: none; border-top: 1px solid #ccc; padding: 10px; outline: none; }
+    #bot-input { border: none; border-top: 1px solid #ccc; padding: 10px; outline: none; font-size: 14px; }
     .hidden { display: none; }
     .bot-msg, .user-msg { margin: 5px 0; padding: 8px 10px; border-radius: 8px; max-width: 80%; word-wrap: break-word; }
     .bot-msg { background: #e7f1ff; align-self: flex-start; }
     .user-msg { background: #d1ffd7; align-self: flex-end; }
-    .course-btn { display: block; margin: 5px 0; padding: 6px 10px; background: #0078d7; color: white; border: none; border-radius: 6px; cursor: pointer; text-align: left; }
+    .course-btn { display: block; margin: 5px 0; padding: 6px 10px; background: #0078d7; color: white; border: none; border-radius: 6px; cursor: pointer; text-align: left; font-size: 14px; }
     .course-btn:hover { background: #005fa3; }
     .counter-display { font-weight: bold; color: #0078d7; }
+
+    /* Ajustes para celulares */
+    @media (max-width: 480px) {
+      #bot-window { width: 90%; bottom: 80px; right: 5%; max-height: 350px; font-size: 14px; }
+      #bot-header { font-size: 14px; }
+      #bot-input { font-size: 13px; padding: 8px; }
+      .course-btn { font-size: 13px; padding: 5px 8px; }
+    }
   `;
   document.head.appendChild(style);
 
