@@ -61,3 +61,18 @@ footer .redes a { color:white; margin:0 6px; font-size:1.3rem; }
   .search input { min-width:150px; }
   .cursos-grid { grid-template-columns:1fr; }
 }
+
+.botao-parceria {
+  background: #ff6600; /* cor chamativa para destaque */
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  margin-left: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.botao-parceria:hover {
+  background: #e65c00;
+  transform: scale(1.05);
+}
