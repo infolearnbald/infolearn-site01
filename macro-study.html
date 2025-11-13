@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infolearn - Novos Cursos Macro Study</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1 class="logo">Infolearn</h1>
+    <nav class="menu">
+      <a href="index.html">Início</a>
+      <a href="#cursos">Novos Cursos</a>
+      <a href="#projetos">Demonstrações</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="search">
+      <input type="text" id="searchInput" placeholder="Pesquisar cursos...">
+      <button id="searchBtn"><i class="fas fa-search"></i></button>
+    </div>
+  </header>
+
+  <!-- CURSOS NOVOS -->
+  <section id="cursos" class="cursos">
+    <h2>Novos Cursos - Macro Study</h2>
+    <div class="cursos-grid">
+
+      <!-- Inteligência Artificial Generativa -->
+      <div class="curso-card" data-course-id="ia-generativa">
+        <img src="curso-ia.jpg" alt="Inteligência Artificial Generativa">
+        <h3>Inteligência Artificial Generativa</h3>
+        <p>Domínio de ferramentas digitais que estão transformando o mundo. Aprenda IA aplicada a conteúdo, arte e automação.</p>
+        <p><strong>Online:</strong> 2500 MT/mês | <strong>3 meses:</strong> 7000 MT</p>
+        <form class="form-whatsapp" data-phone="258844180213" data-course="Inteligência Artificial Generativa">
+          <input type="text" name="nome" placeholder="Seu nome" required>
+          <input type="email" name="email" placeholder="Seu e-mail" required>
+          <select name="duracao" required>
+            <option value="">Escolha a duração</option>
+            <option>1 mês</option>
+            <option>3 meses</option>
+          </select>
+          <button type="submit">Matricular-se</button>
+        </form>
+        <p>Participantes: <span class="counter" data-id="ia-generativa">0</span></p>
+      </div>
+
+      <!-- Inglês Corporativo -->
+      <div class="curso-card" data-course-id="ingles-corporativo">
+        <img src="curso-ingles-corp.jpg" alt="Inglês Corporativo">
+        <h3>Inglês Corporativo</h3>
+        <p>Profissionalização e expansão da comunicação no mundo dos negócios.</p>
+        <p><strong>Online:</strong> 3600 MT/mês | <strong>3 meses:</strong> 10000 MT</p>
+        <form class="form-whatsapp" data-phone="258877537100" data-course="Inglês Corporativo">
+          <input type="text" name="nome" placeholder="Nome completo" required>
+          <input type="email" name="email" placeholder="Seu e-mail" required>
+          <select name="nivel" required>
+            <option value="">Selecione o nível</option>
+            <option>Básico</option>
+            <option>Intermediário</option>
+            <option>Avançado</option>
+          </select>
+          <select name="duracao" required>
+            <option value="">Escolha a duração</option>
+            <option>1 mês</option>
+            <option>3 meses</option>
+          </select>
+          <button type="submit">Matricular-se</button>
+        </form>
+        <p>Participantes: <span class="counter" data-id="ingles-corporativo">0</span></p>
+      </div>
+
+      <!-- MBS - Master of Business in the Street -->
+      <div class="curso-card" data-course-id="mbs">
+        <img src="curso-mbs.jpg" alt="Master of Business in the Street">
+        <h3>MBS - Master of Business in the Street</h3>
+        <p>Aprenda empreendedorismo de rua, vendas locais e liderança prática.</p>
+        <p><strong>Online:</strong> 2000 MT/mês | <strong>3 meses:</strong> 5500 MT</p>
+        <form class="form-whatsapp" data-phone="258844180213" data-course="MBS">
+          <input type="text" name="nome" placeholder="Seu nome" required>
+          <input type="email" name="email" placeholder="Seu e-mail" required>
+          <select name="duracao" required>
+            <option value="">Escolha a duração</option>
+            <option>1 mês</option>
+            <option>3 meses</option>
+          </select>
+          <button type="submit">Matricular-se</button>
+        </form>
+        <p>Participantes: <span class="counter" data-id="mbs">0</span></p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DEMONSTRAÇÕES / PROJETOS -->
+  <section id="projetos" class="noticias">
+    <h2>Demonstrações e Inovações Macro Study</h2>
+    <div class="revistas-grid">
+      <div class="revista-item">
+        <img src="onverse-one.jpg" alt="ONVERSE ONE - VR Headset">
+        <p>ONVERSE ONE – VR Headset 100% moçambicano.</p>
+      </div>
+      <div class="revista-item">
+        <img src="oculos-vr.jpg" alt="Óculos VR Mozambicanos">
+        <p>Ocilos VR – Experiência completa de realidade virtual local.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato">
+    <div class="contatos-rapidos">
+      <p>Contacte-nos via WhatsApp: <a class="whatsapp-btn" href="https://wa.me/258844180213" target="_blank">+258 84 418 0213 <i class="fab fa-whatsapp"></i></a> — Email: <a href="mailto:info@infolearn.com">info@infolearn.com</a></p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Infolearn — Todos os direitos reservados.</p>
+    <div class="redes">
+      <a href="https://facebook.com/profile.php?id=1000897879627" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://wa.me/258844180213" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
