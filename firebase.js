@@ -5,16 +5,15 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/12.6.0/firebase
 import { getStorage } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-storage.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBweoXgSwi4wTch7gEJVhnjAnH2pgWSRP4",
-  authDomain: "infolearn-academy01.firebaseapp.com",
-  projectId: "infolearn-academy01",
-  storageBucket: "infolearn-academy01.firebasestorage.app",
-  messagingSenderId: "981629503212",
-  appId: "1:981629503212:web:6d0c61a7e50b750f4487c9",
-  measurementId: "G-6PF8NB4MGZ"
+  apiKey: "AIzaSyDWM3VAjFNtM4l_UaEg2r0e04sFVJMXudw",
+  authDomain: "infolearn-academy-89bee.firebaseapp.com",
+  projectId: "infolearn-academy-89bee",
+  storageBucket: "infolearn-academy-89bee.firebasestorage.app",
+  messagingSenderId: "65886712812",
+  appId: "1:65886712812:web:0fc810717e1f31b83b86c9"
 };
 
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
