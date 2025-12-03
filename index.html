@@ -1,92 +1,135 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>InfoLearn Academy</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
 
+  <link rel="stylesheet" href="style.css">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js");
+    }
+  </script>
+
+</head>
 <body>
 
-  <!-- Tela de animação -->
+  <!-- Loader -->
   <div id="splash">
-    <h1 class="splash-title">InfoLearn Academy</h1>
+    <div class="loader"></div>
   </div>
 
-  <!-- Conteúdo principal (inicialmente oculto) -->
-  <div id="mainContent" style="display:none;">
+  <!-- HEADER -->
+  <header>
+    <h1>InfoLearn Academy</h1>
+  </header>
 
-    <!-- Header -->
-    <header class="header">
-      <h1>InfoLearn Academy</h1>
-      <nav>
-        <button onclick="navigateTo('courses.html')">Cursos</button>
-        <button onclick="navigateTo('vagalume.html')">Vagalume IA</button>
-        <button onclick="navigateTo('macro-study.html')">Macro-Study</button>
-        <button onclick="navigateTo('login.html')">Login</button>
-      </nav>
-    </header>
+  <!-- MAIN CONTENT -->
+  <main id="mainContent" style="display:none;">
 
-    <!-- Secção principal -->
-    <section class="hero">
-      <h2>Aprenda. Evolua. Conquiste.</h2>
-      <p>A plataforma que transforma estudantes em profissionais preparados.</p>
+    <!-- SEÇÃO VAGALUME IA -->
+    <section class="ia-section">
+      <h2>Vagalume IA</h2>
+      <p>A tua assistente inteligente para estudos, revisões e dúvidas.</p>
+      <iframe src="vagalume.html" class="ia-frame"></iframe>
     </section>
 
-    <!-- Cursos destacados -->
-    <section class="courses-highlight">
-      <h2>Cursos Populares</h2>
+    <!-- SEÇÃO CURSOS GRATUITOS -->
+    <section>
+      <h2>Cursos Gratuitos</h2>
+      <div class="course-grid">
 
-      <div class="course-card">
-        <img src="ingles.jpg" alt="Curso de Inglês">
-        <h3>Inglês Completo</h3>
-        <p>Domine o idioma mais importante do mundo.</p>
-        <button onclick="navigateTo('courses.html')">Ver Curso</button>
+        <div class="course">
+          <img src="ingles.jpg">
+          <h3>Inglês Rápido</h3>
+          <p>Curso gratuito 100% online.</p>
+          <button onclick="openCourse('ingles')">Entrar</button>
+        </div>
+
+        <div class="course">
+          <img src="musica.jpg">
+          <h3>Música - Teoria & Prática</h3>
+          <p>Curso gratuito completo.</p>
+          <button onclick="openCourse('musica')">Entrar</button>
+        </div>
+
+        <div class="course">
+          <img src="programacao.jpg">
+          <h3>Python Iniciantes</h3>
+          <p>Introdução real à programação.</p>
+          <button onclick="openCourse('python')">Entrar</button>
+        </div>
+
       </div>
-
-      <div class="course-card">
-        <img src="musica.jpg" alt="Curso de Música">
-        <h3>Música & Produção</h3>
-        <p>Aprenda teoria musical e gravação profissional.</p>
-        <button onclick="navigateTo('courses.html')">Ver Curso</button>
-      </div>
-
     </section>
 
-    <!-- Contatos -->
-    <footer class="footer">
+    <!-- SEÇÃO CURSOS PREMIUM -->
+    <section>
+      <h2>Cursos Premium</h2>
+      <div class="course-grid">
+
+        <div class="course">
+          <img src="marketing.jpg">
+          <h3>Marketing Digital</h3>
+          <p>Preço: 350 MT</p>
+          <button onclick="buyCourse('marketing')">Comprar</button>
+        </div>
+
+        <div class="course">
+          <img src="design.jpg">
+          <h3>Design Gráfico</h3>
+          <p>Preço: 500 MT</p>
+          <button onclick="buyCourse('design')">Comprar</button>
+        </div>
+
+        <div class="course">
+          <img src="programador.jpg">
+          <h3>Programador Profissional</h3>
+          <p>Preço: 600 MT</p>
+          <button onclick="buyCourse('programador')">Comprar</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LOGIN -->
+    <section class="auth-section">
+      <h2>Entrar</h2>
+
+      <input id="loginEmail" type="email" placeholder="Email">
+      <input id="loginPass" type="password" placeholder="Senha">
+      <button onclick="login()">Entrar</button>
+    </section>
+
+    <!-- SIGN UP -->
+    <section class="auth-section">
+      <h2>Criar Conta</h2>
+
+      <input id="upEmail" type="email" placeholder="Email">
+      <input id="upPass" type="password" placeholder="Senha">
+      <button onclick="signUp()">Criar Conta</button>
+    </section>
+
+    <!-- CONTATOS -->
+    <footer>
       <h3>Contactos</h3>
-
-      <div class="social-icons">
-
-        <!-- Onde você vai adicionar os links reais -->
-        <a id="facebookLink" href="#" target="_blank">
-          <img src="facebook.png" class="icon">
-        </a>
-
-        <a id="instagramLink" href="#" target="_blank">
-          <img src="instagram.png" class="icon">
-        </a>
-
-        <a id="youtubeLink" href="#" target="_blank">
-          <img src="youtube.png" class="icon">
-        </a>
-
-        <a id="linkedinLink" href="#" target="_blank">
-          <img src="linkedin.png" class="icon">
-        </a>
-
+      <div class="contact-icons">
+        <a id="ytLink" href="#" target="_blank"><img src="youtube.png"></a>
+        <a id="fbLink" href="#" target="_blank"><img src="facebook.png"></a>
+        <a id="igLink" href="#" target="_blank"><img src="instagram.png"></a>
       </div>
-
-      <p>&copy; 2025 InfoLearn Academy</p>
-
     </footer>
 
-  </div>
+  </main>
 
   <script type="module" src="firebase.js"></script>
   <script src="main.js"></script>
+  <script src="auth.js" type="module"></script>
+  <script src="courses.js"></script>
 
 </body>
 </html>
