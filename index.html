@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>InfoLearn Academy — Formação & Vagalume IA</title>
+  <meta name="theme-color" content="#0ea5e9" />
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader" class="logo-anim" aria-hidden="true">
+    <div class="mark">InfoLearn</div>
+    <div class="spark" style="top:18px;left:34px"></div>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">
+      <img src="icon-192.png" alt="InfoLearn" width="48" height="48" style="border-radius:10px;background:#fff;padding:6px">
+      <div>
+        <div class="logo">InfoLearn Academy</div>
+        <div class="muted">Formação Profissional • Vagalume IA</div>
+      </div>
+    </div>
+
+    <nav class="primary">
+      <a href="index.html">Início</a>
+      <a href="cursos.html">Cursos</a>
+      <a href="vagalume.html">Vagalume IA</a>
+      <a href="perfil.html" id="navPerfil">Perfil</a>
+      <a href="#" id="macroBtn" class="botao-parceiro">Macro-Study</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section class="card hero">
+      <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <h1>Aprenda. Construa. Conquiste.</h1>
+          <p class="muted">Cursos online com certificado e uma IA (Vagalume) que organiza currículos para o mercado de trabalho.</p>
+          <div style="margin-top:14px">
+            <a class="btn" href="cursos.html">Ver Cursos</a>
+            <a class="btn secondary" href="vagalume.html">Abrir Vagalume IA</a>
+          </div>
+        </div>
+        <div style="width:320px;text-align:center">
+          <img src="hero-cv.jpg" alt="InfoLearn" style="width:100%;border-radius:12px;box-shadow:0 12px 30px rgba(3,7,18,0.08)">
+        </div>
+      </div>
+    </section>
+
+    <!-- Cursos em destaque -->
+    <section class="card">
+      <h2>Cursos em Destaque</h2>
+      <div id="featuredCourses" class="grid"></div>
+    </section>
+
+    <!-- Vagalume IA -->
+    <section class="card">
+      <h2>Vagalume IA — Assistente de CV</h2>
+      <p class="muted">Envie um CV, cole o texto ou carregue uma imagem representativa da IA para personalizar a experiência. A Vagalume analisa e organiza, e gera PDF.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <div style="flex:1">
+          <p><strong>Carregar imagem que representa a IA:</strong></p>
+          <input type="file" id="iaImage" accept="image/*">
+          <div id="iaPreview" style="margin-top:8px"></div>
+        </div>
+        <div style="flex:1">
+          <p><strong>Teste rápido — abrir Vagalume IA</strong></p>
+          <a class="btn" href="vagalume.html">Ir para Vagalume IA</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Painel do aluno -->
+    <section class="card" id="studentPanel">
+      <h2>Painel do Aluno</h2>
+      <p class="muted">Faça login para acessar seus cursos, certificados e progresso.</p>
+      <div id="loginForm">
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPass" placeholder="Senha">
+        <button id="loginBtn" class="btn">Entrar</button>
+        <button id="registerBtn" class="btn secondary">Registrar</button>
+      </div>
+      <div id="userInfo" style="display:none">
+        <p>Bem-vindo, <span id="userName"></span>!</p>
+        <button id="logoutBtn" class="btn secondary">Sair</button>
+      </div>
+    </section>
+
+    <!-- Contactos -->
+    <section class="card">
+      <h2>Contactos</h2>
+      <div class="socials">
+        <a href="#" id="https://www.facebook.com/profile.php?id=100089787879627" title="Facebook"><img src="facebook.png" alt="FB" width="28"></a>
+        <a href="#" id="https://www.instagram.com/infolearn15?igsh=MWFuMDlqcGh2NG5qdw==" title="Instagram"><img src="instagram.png" alt="IG" width="28"></a>
+        <a href="#" id="https://www.youtube.com/@infolearn84" title="YouTube"><img src="youtube.png" alt="YT" width="28"></a>
+        <a href="#" id="https://www.linkedin.com/in/info-learn-94563a398?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" title="LinkedIn"><img src="linkedin.png" alt="LI" width="28"></a>
+        <a href="https://wa.me/258844180213" id="waIcon" title="WhatsApp"><img src="whatsapp.png" alt="WA" width="28"></a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div>© <span id="year"></span> InfoLearn Academy — Todos os direitos reservados</div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { renderFeatured, cursos } from './courses.js';
+    import { loginUser, registerUser, logoutUser, authStateChanged } from './auth.js';
+
+    // Loader
+    window.addEventListener('load', ()=>{
+      setTimeout(()=>document.getElementById('loader').classList.add('hidden'),900);
+    });
+
+    // Ano no footer
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    // Renderizar cursos
+    renderFeatured();
+
+    // IA image preview
+    const iaImage = document.getElementById('iaImage');
+    iaImage.addEventListener('change', e=>{
+      const file = e.target.files[0];
+      const preview = document.getElementById('iaPreview'); preview.innerHTML='';
+      if(!file) return;
+      const img = document.createElement('img'); 
+      img.style.maxWidth='220px';
+      img.style.borderRadius='8px';
+      img.style.boxShadow='0 8px 18px rgba(3,7,18,0.08)';
+      img.src = URL.createObjectURL(file); 
+      preview.appendChild(img);
+    });
+
+    // Macro-study
+    document.getElementById('macroBtn').addEventListener('click', ()=>{ window.open('https://macro-study.example','_blank'); });
+
+    // Social links placeholders
+    document.getElementById('link-fb').href = '#';
+    document.getElementById('link-ig').href = '#';
+    document.getElementById('link-yt').href = '#';
+    document.getElementById('link-li').href = '#';
+
+    // Firebase Auth
+    authStateChanged();
+    document.getElementById('loginBtn').addEventListener('click', loginUser);
+    document.getElementById('registerBtn').addEventListener('click', registerUser);
+    document.getElementById('logoutBtn').addEventListener('click', logoutUser);
+  </script>
+
+  <!-- PWA Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(reg => console.log('Service Worker registrado:', reg))
+          .catch(err => console.log('Falha ao registrar Service Worker:', err));
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+// userpanel.js - Protege a página e renderiza perfil / progressos
+import { auth, db, storage } from './firebase.js';
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+export async function initProfile(){ // not used directly here, kept for compatibility
+  onAuthStateChanged(auth, async (user)=>{
+    if(!user){ alert('É necessário iniciar sessão'); window.location.href = 'login.html'; return; }
+    const uid = user.uid;
+    const udoc = await getDoc(doc(db, 'users', uid));
+    const data = udoc.exists() ? udoc.data() : {nome:user.email, email:user.email};
+    renderProfile(data, uid);
+  });
+}
+
+// auto-run on import
+onAuthStateChanged(auth, async (user)=>{
+  if(!user){ alert('É necessário iniciar sessão'); window.location.href = 'login.html'; return; }
+  const uid = user.uid;
+  const udoc = await getDoc(doc(db, 'users', uid));
+  const data = udoc.exists() ? udoc.data() : {nome:user.email, email:user.email};
+  renderProfile(data, uid);
+});
+
+function renderProfile(data, uid){
+  const main = document.getElementById('profileMain');
+  main.innerHTML = `
+    <h2>Perfil</h2>
+    <div><strong>${data.nome || '-'}</strong> <div class="muted">${data.email || '-'}</div></div>
+    <div style="margin-top:12px">Idade: ${data.idade || '-'} | Província: ${data.provincia || '-'} | Gênero: ${data.genero || '-'}</div>
+    <div style="margin-top:18px"><h3>Cursos inscritos</h3><div id="myEnrolments" class="grid"></div></div>
+  `;
+  loadEnrolments(uid);
+}
+
+async function loadEnrolments(uid){
+  const q = query(collection(db, 'enrolments'), where('uid','==',uid));
+  const snap = await getDocs(q);
+  const container = document.getElementById('myEnrolments');
+  container.innerHTML = '';
+  if(snap.empty){ container.innerHTML = '<div class="muted">Sem inscrições.</div>'; return; }
+  snap.forEach(docu=>{
+    const d = docu.data();
+    const div = document.createElement('div'); div.className='course';
+    div.innerHTML = `<h4>${d.courseTitle}</h4><p class="muted">Progresso: ${d.progress || 0}%</p><p class="muted">Inscrito em: ${new Date(d.createdAt.seconds * 1000).toLocaleString()}</p>`;
+    container.appendChild(div);
+  });
+}
+

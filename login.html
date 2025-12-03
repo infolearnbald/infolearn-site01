@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Entrar / Registar — InfoLearn</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar"><div class="brand"><div class="logo">InfoLearn Academy</div></div></header>
+  <main class="container card">
+    <h2>Entrar</h2>
+    <form id="loginForm">
+      <input id="loginEmail" type="email" placeholder="Email" required style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #d7eaf3">
+      <input id="loginPass" type="password" placeholder="Senha" required style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #d7eaf3">
+      <button class="btn" type="submit">Entrar</button>
+    </form>
+
+    <hr style="margin:18px 0">
+
+    <h2>Registar</h2>
+    <form id="registerForm">
+      <input id="rNome" placeholder="Nome completo" required style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #d7eaf3">
+      <input id="rEmail" type="email" placeholder="Email" required style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #d7eaf3">
+      <input id="rPass" type="password" placeholder="Senha (min 6)" required style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #d7eaf3">
+      <input id="rIdade" type="number" placeholder="Idade" style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #d7eaf3">
+      <input id="rProvincia" placeholder="Província" style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #d7eaf3">
+      <select id="rGenero" style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #d7eaf3">
+        <option value="">Gênero</option><option>Masculino</option><option>Feminino</option><option>Outro</option>
+      </select>
+      <div style="margin-top:8px"><button class="btn" type="submit">Criar Conta</button></div>
+    </form>
+
+    <div style="margin-top:12px"><button id="logoutBtn" class="btn secondary">Logout</button></div>
+    <p id="msg" class="muted"></p>
+  </main>
+
+  <script type="module" src="login.js"></script>
+</body>
+</html>

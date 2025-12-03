@@ -1,0 +1,86 @@
+/* style.css - InfoLearn Academy (azul vivo) */
+:root{--blue:#0369a1;--light:#e6f6fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,Arial,sans-serif;background:#f3f7fb;color:#073244;line-height:1.45}
+.topbar{background:linear-gradient(90deg,#0369a1,#06b6d4);color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{font-weight:800;font-size:18px}
+.primary a{color:#fff;margin-left:12px;text-decoration:none;font-weight:600}
+.container{max-width:1100px;margin:22px auto;padding:18px}
+.card{background:#fff;border-radius:10px;padding:18px;margin-bottom:18px;box-shadow:0 6px 18px rgba(3,7,18,0.06)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.btn{display:inline-block;padding:10px 14px;border-radius:8px;border:none;background:var(--blue);color:#fff;font-weight:700;cursor:pointer;text-decoration:none}
+.btn.secondary{background:var(--light);color:var(--blue)}
+.muted{color:#556b74;font-size:13px}
+.course{border:1px solid #e6eef6;border-radius:8px;padding:12px}
+.course img{width:100%;height:160px;object-fit:cover;border-radius:6px}
+.hero img{max-width:100%}
+footer{padding:18px;text-align:center;color:#244b57}
+.socials{display:flex;gap:12px;align-items:center}
+.logo-anim{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#e6f9ff,#e6f3fb);z-index:9999}
+.logo-anim .mark{width:140px;height:140px;border-radius:16px;background:linear-gradient(135deg,#06b6d4,#0369a1);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:22px;transform:scale(0.85);animation:pop 950ms cubic-bezier(.2,.9,.3,1) forwards}
+@keyframes pop{0%{opacity:0;transform:scale(0.6) rotate(-10deg)}60%{transform:scale(1.08) rotate(6deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
+.spark{position:absolute;width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.2);box-shadow:0 6px 20px rgba(6,182,212,0.12)}
+.hidden{display:none !important}
+@media (max-width:700px){.topbar{flex-direction:column;align-items:flex-start}.hero{padding:12px}}
+
+------
+/* Botões principais */
+.btn, button {
+  display: inline-block;
+  padding: 10px 22px;
+  margin-top: 6px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #0ea5e9;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.btn:hover, button:hover {
+  background-color: #0284c7;
+  transform: translateY(-2px);
+}
+
+/* Botões secundários (caso precise) */
+.btn.secondary {
+  background-color: #fff;
+  color: #0ea5e9;
+  border: 2px solid #0ea5e9;
+}
+
+.btn.secondary:hover {
+  background-color: #0ea5e9;
+  color: #fff;
+}
+
+/* Cards de cursos */
+.curso-card {
+  background: #fff;
+  padding: 14px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(3,7,18,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.curso-card img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(3,7,18,0.06);
+}
+
+/* Seção de contatos */
+.socials a {
+  display: inline-block;
+  margin-right: 12px;
+  transition: transform 0.25s ease;
+}
+
+.socials a:hover {
+  transform: scale(1.2);
+}
