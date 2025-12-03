@@ -1,76 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>InfoLearn Academy — Formação & Vagalume IA</title>
-  <meta name="theme-color" content="#0ea5e9" />
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InfoLearn Academy</title>
+<link rel="stylesheet" href="style.css">
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDWM3VAjFNtM4l_UaEg2r0e04sFVJMXudw",
+    authDomain: "infolearn-academy-89bee.firebaseapp.com",
+    projectId: "infolearn-academy-89bee",
+    storageBucket: "infolearn-academy-89bee.appspot.com",
+    messagingSenderId: "65886712812",
+    appId: "1:65886712812:web:0fc810717e1f31b83b86c9"
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  window.registerFreeCourse = function() {
+    const email = document.getElementById("emailFree").value;
+    const password = document.getElementById("passFree").value;
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        sendEmailVerification(userCredential.user);
+        alert("Verifique o seu e-mail para ativar a conta!");
+      })
+      .catch(error => alert(error.message));
+  }
+
+  window.sendWhatsApp = function(number, formId) {
+    const form = document.getElementById(formId);
+    const name = form.name.value;
+    const message = `Olá, meu nome é ${name}, quero me inscrever.`;
+    window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`, '_blank');
+  }
+</script>
 </head>
-
 <body>
-  <div id="splash">
-    <h1 class="brand-big">InfoLearn Academy</h1>
+<header>
+  <h1>InfoLearn Academy</h1>
+</header>
+
+<section id="freeCourses">
+  <h2>Cursos Gratuitos</h2>
+  <div class="course">
+    <h3>Marketing Digital</h3>
+    <form onsubmit="registerFreeCourse(); return false;">
+      <input type="email" id="emailFree" placeholder="Seu e-mail" required>
+      <input type="password" id="passFree" placeholder="Senha" required>
+      <button type="submit">Registrar</button>
+    </form>
   </div>
+  <div class="course">
+    <h3>Vagalume AI - CV Maker</h3>
+    <img src="vagalume.png" alt="Vagalume AI" style="width:100px;">
+    <form onsubmit="registerFreeCourse(); return false;">
+      <input type="email" id="emailFree2" placeholder="Seu e-mail" required>
+      <input type="password" id="passFree2" placeholder="Senha" required>
+      <button type="submit">Registrar</button>
+    </form>
+  </div>
+</section>
 
-  <header class="topbar">
-    <div class="brand">
-      <img src="icon-192.png" width="48">
-      <div>
-        <h2 class="logo">InfoLearn Academy</h2>
-        <small>Formação Profissional & IA</small>
-      </div>
-    </div>
+<section id="paidCourses">
+  <h2>Cursos Pagos</h2>
+  <div class="course">
+    <h3>Inglês</h3>
+    <form id="formEnglish" onsubmit="sendWhatsApp('874094875', 'formEnglish'); return false;">
+      <input type="text" name="name" placeholder="Seu nome" required>
+      <button type="submit">Inscrever via WhatsApp</button>
+    </form>
+    <p>1 mês: 1200 MT | 3 meses: 3600 MT</p>
+  </div>
+  <div class="course">
+    <h3>Música</h3>
+    <form id="formMusic" onsubmit="sendWhatsApp('857521281', 'formMusic'); return false;">
+      <input type="text" name="name" placeholder="Seu nome" required>
+      <button type="submit">Inscrever via WhatsApp</button>
+    </form>
+    <p>1 mês: 1600 MT</p>
+  </div>
+  <div class="course">
+    <h3>Design Gráfico (Photoshop/Illustrator)</h3>
+    <form id="formDesign" onsubmit="sendWhatsApp('867101103', 'formDesign'); return false;">
+      <input type="text" name="name" placeholder="Seu nome" required>
+      <button type="submit">Inscrever via WhatsApp</button>
+    </form>
+    <p>1 mês: 2500 MT | 3 meses: 7500 MT</p>
+  </div>
+  <div class="course">
+    <h3>CV Maker Personalizado</h3>
+    <form id="formCV" onsubmit="sendWhatsApp('844180213', 'formCV'); return false;">
+      <input type="text" name="name" placeholder="Seu nome" required>
+      <button type="submit">Inscrever via WhatsApp - 85 MT</button>
+    </form>
+  </div>
+</section>
 
-    <nav>
-      <a href="index.html">Início</a>
-      <a href="courses.html">Cursos</a>
-      <a href="vagalume.html">Vagalume IA</a>
-      <a href="userpanel.html" id="navPainel" style="display:none;">Painel</a>
-      <a href="login.html" id="navLogin">Entrar</a>
-      <a href="signup.html" id="navCriar">Criar Conta</a>
-    </nav>
-  </header>
-
-  <main id="mainContent" style="display:none;">
-    <section class="card hero">
-      <h1>Comece a aprender hoje</h1>
-      <p>Tenha acesso a cursos com certificado e ferramentas inteligentes como a Vagalume IA.</p>
-      <a class="btn" href="courses.html">Ver cursos</a>
-      <a class="btn secondary" href="vagalume.html">Abrir Vagalume IA</a>
-    </section>
-
-    <section class="card">
-      <h2>Cursos Gratuitos (Destaque)</h2>
-      <div id="freeCourses" class="grid"></div>
-    </section>
-
-    <section class="card">
-      <h2>Cursos Profissionais</h2>
-      <p>Após enviar a inscrição, será redirecionado ao WhatsApp correto.</p>
-      <div id="paidCourses" class="grid"></div>
-    </section>
-
-    <section class="card">
-      <h2>Contactos</h2>
-      <div class="socials">
-        <a href="#"><img src="facebook.png" width="28"></a>
-        <a href="#"><img src="instagram.png" width="28"></a>
-        <a href="#"><img src="youtube.png" width="28"></a>
-        <a href="#"><img src="linkedin.png" width="28"></a>
-        <a href="https://wa.me/258844180213"><img src="whatsapp.png" width="28"></a>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <p>© <span id="year"></span> InfoLearn Academy</p>
-  </footer>
-
-  <script type="module" src="firebase.js"></script>
-  <script type="module" src="courses.js"></script>
-  <script type="module" src="userpanel.js"></script>
-  <script src="main.js"></script>
+<footer>
+  <p>Contatos: 
+    <a href="https://facebook.com/InfoLearn" target="_blank">Facebook</a> |
+    <a href="https://linkedin.com/company/infolearn" target="_blank">LinkedIn</a>
+  </p>
+</footer>
 </body>
 </html>
