@@ -1,133 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InfoLearn Academy</title>
-
-  <link rel="stylesheet" href="style.css">
-
-  <!-- PWA -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>InfoLearn Academy — Formação & Vagalume IA</title>
+  <meta name="theme-color" content="#0ea5e9" />
   <link rel="manifest" href="manifest.json">
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js");
-    }
-  </script>
-
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- Loader -->
+  <!-- Loader / splash -->
   <div id="splash">
-    <div class="loader"></div>
+    <div class="mark">InfoLearn</div>
+    <div class="spark"></div>
   </div>
 
-  <!-- HEADER -->
-  <header>
-    <h1>InfoLearn Academy</h1>
+  <header class="topbar">
+    <div class="brand">
+      <img src="icon-192.png" alt="InfoLearn" width="48" height="48">
+      <div>
+        <div class="logo">InfoLearn Academy</div>
+        <div class="muted">Formação Profissional • Vagalume IA</div>
+      </div>
+    </div>
+    <nav class="primary">
+      <a href="index.html">Início</a>
+      <a href="cursos.html">Cursos</a>
+      <a href="vagalume.html">Vagalume IA</a>
+      <a href="perfil.html" id="navPerfil">Perfil</a>
+      <a href="macro-study.html" class="botao-parceiro">Macro-Study</a>
+      <a href="login.html" class="btn small">Entrar</a>
+      <a href="signup.html" class="btn small secondary">Criar Conta</a>
+    </nav>
   </header>
 
-  <!-- MAIN CONTENT -->
-  <main id="mainContent" style="display:none;">
+  <main class="container" id="mainContent" style="display:none;">
 
-    <!-- SEÇÃO VAGALUME IA -->
-    <section class="ia-section">
-      <h2>Vagalume IA</h2>
-      <p>A tua assistente inteligente para estudos, revisões e dúvidas.</p>
-      <iframe src="vagalume.html" class="ia-frame" loading="lazy"></iframe>
+    <!-- Hero -->
+    <section class="card hero">
+      <div class="hero-grid">
+        <div>
+          <h1>Aprenda. Construa. Conquiste.</h1>
+          <p class="muted">Cursos online com certificado e uma IA (Vagalume) que organiza currículos para o mercado de trabalho.</p>
+          <div class="actions">
+            <a class="btn" href="cursos.html">Ver Cursos</a>
+            <a class="btn secondary" href="vagalume.html">Abrir Vagalume IA</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="hero-cv.jpg" alt="InfoLearn">
+        </div>
+      </div>
     </section>
 
-    <!-- SEÇÃO CURSOS GRATUITOS -->
-    <section>
+    <!-- Vagalume IA direto no Index -->
+    <section class="card">
+      <h2>Vagalume IA — Assistente de CV</h2>
+      <p class="muted">Cole o texto do seu CV ou carregue um ficheiro. Vagalume analisa, organiza e gera PDF.</p>
+      <div class="vagalume-inline">
+        <textarea id="vagalumeText" placeholder="Cole aqui o seu currículo..."></textarea>
+        <div class="vagalume-controls">
+          <input type="file" id="vagalumeFile" accept=".txt,.doc,.docx,.pdf,.rtf">
+          <button id="vagalumeAnalyze" class="btn">Analisar & Organizar</button>
+          <button id="vagalumeGenerate" class="btn secondary">Gerar PDF</button>
+        </div>
+        <div id="vagalumeResult"></div>
+      </div>
+    </section>
+
+    <!-- Cursos gratuitos -->
+    <section class="card">
       <h2>Cursos Gratuitos</h2>
-      <div class="course-grid">
+      <p class="muted">Aulas em vídeo (YouTube), 3 PDFs por curso e 2 exercícios práticos.</p>
+      <div id="freeCourses" class="grid"></div>
+    </section>
 
-        <div class="course">
-          <img src="ingles.jpg">
-          <h3>Inglês Rápido</h3>
-          <p>Curso gratuito 100% online.</p>
-          <button onclick="openCourse('ingles')">Entrar</button>
-        </div>
+    <!-- Cursos pagos -->
+    <section class="card">
+      <h2>Cursos Pagos</h2>
+      <p class="muted">Após preencher o formulário, será redirecionado(a) ao WhatsApp para pagamento e confirmação.</p>
+      <div id="paidCourses" class="grid"></div>
+    </section>
 
-        <div class="course">
-          <img src="musica.jpg">
-          <h3>Música - Teoria & Prática</h3>
-          <p>Curso gratuito completo.</p>
-          <button onclick="openCourse('musica')">Entrar</button>
-        </div>
-
-        <div class="course">
-          <img src="programacao.jpg">
-          <h3>Python Iniciantes</h3>
-          <p>Introdução real à programação.</p>
-          <button onclick="openCourse('python')">Entrar</button>
-        </div>
-
+    <!-- Footer / contactos -->
+    <section class="card">
+      <h2>Contactos</h2>
+      <div class="socials">
+        <a id="link-fb" href="#" title="Facebook"><img src="facebook.png" alt="FB" width="28"></a>
+        <a id="link-ig" href="#" title="Instagram"><img src="instagram.png" alt="IG" width="28"></a>
+        <a id="link-yt" href="#" title="YouTube"><img src="youtube.png" alt="YT" width="28"></a>
+        <a id="link-li" href="#" title="LinkedIn"><img src="linkedin.png" alt="LI" width="28"></a>
+        <a href="https://wa.me/258844180213" title="WhatsApp"><img src="whatsapp.png" alt="WA" width="28"></a>
       </div>
     </section>
-
-    <!-- SEÇÃO CURSOS PREMIUM -->
-    <section>
-      <h2>Cursos Premium</h2>
-      <div class="course-grid">
-
-        <div class="course">
-          <img src="marketing.jpg">
-          <h3>Marketing Digital</h3>
-          <p>Preço: 350 MT</p>
-          <button onclick="buyCourse('marketing')">Comprar</button>
-        </div>
-
-        <div class="course">
-          <img src="design.jpg">
-          <h3>Design Gráfico</h3>
-          <p>Preço: 500 MT</p>
-          <button onclick="buyCourse('design')">Comprar</button>
-        </div>
-
-        <div class="course">
-          <img src="programador.jpg">
-          <h3>Programador Profissional</h3>
-          <p>Preço: 600 MT</p>
-          <button onclick="buyCourse('programador')">Comprar</button>
-        </div>
-
-      </div>
-    </section>
-
-    <!--LOGIN-->
-    <section class="auth-section">
-      <h2>Entrar</h2>
-      <input id="loginEmail" type="email" placeholder="Email">
-      <input id="loginPass" type="password" placeholder="Senha">
-      <button onclick="login()">Entrar</button>
-    </section>
-
-    <!-- SIGNUP -->
-    <section class="auth-section">
-      <h2>Criar Conta</h2>
-      <input id="upEmail" type="email" placeholder="Email">
-      <input id="upPass" type="password" placeholder="Senha">
-      <button onclick="signUp()">Criar Conta</button>
-    </section>
-
-    <!-- CONTATOS -->
-    <footer>
-      <h3>Contactos</h3>
-      <div class="contact-icons">
-        <a id="ytLink" href="#" target="_blank"><img src="youtube.png"></a>
-        <a id="fbLink" href="#" target="_blank"><img src="facebook.png"></a>
-        <a id="igLink" href="#" target="_blank"><img src="instagram.png"></a>
-      </div>
-    </footer>
 
   </main>
 
-  <!-- A ORDEM CORRETA DE SCRIPTS -->
+  <footer>
+    <div>© <span id="year"></span> InfoLearn Academy — Todos os direitos reservados</div>
+  </footer>
+
+  <!-- Scripts: ordem correta -->
   <script type="module" src="firebase.js"></script>
   <script type="module" src="auth.js"></script>
   <script type="module" src="courses.js"></script>
+  <script src="vagalume.js"></script>
   <script src="main.js"></script>
 
 </body>
