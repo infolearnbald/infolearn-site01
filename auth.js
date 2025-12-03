@@ -1,26 +1,40 @@
 // auth.js
-import { auth, db } from "./firebase.js";
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { auth, db } from './firebase.js';
+import { onAuthStateChanged, signOut, sendEmailVerification } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-onAuthStateChanged(auth, async (user)=>{
-  const navPerfil = document.getElementById('navPerfil');
-  if(user){
-    // tenta obter nome do Firestore
-    try {
-      const d = await getDoc(doc(db, 'users', user.uid));
-      const name = d.exists() ? (d.data().name || user.email) : user.email;
-      if(navPerfil) navPerfil.textContent = name;
-    } catch(e){
-      if(navPerfil) navPerfil.textContent = user.email;
+/**
+ * Use this on protected pages:
+ * await requireVerifiedUser();
+ * it redirects to login if not logged/verified.
+ */
+export function requireVerifiedUser(redirectTo = 'login.html'){
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      window.location.href = redirectTo;
+      return;
     }
-  } else {
-    if(navPerfil) navPerfil.textContent = 'Perfil';
-  }
-});
+    // If email not verified, redirect to a verify page (or login)
+    if (!user.emailVerified) {
+      alert('Por favor, verifique o seu e-mail antes de continuar. Um e-mail foi enviado ao seu endereço.');
+      window.location.href = 'verify.html';
+      return;
+    }
+  });
+}
 
-// função pública de logout
-window.logout = async function(){
-  try { await signOut(auth); location.href = 'index.html'; }
-  catch(e){ alert('Erro ao sair: '+e.message); }
-};
+/**
+ * Quick function to get current user's profile doc
+ */
+export async function getUserProfile(uid){
+  const docRef = doc(db, 'users', uid);
+  const docSnap = await getDoc(docRef);
+  return docSnap.exists() ? docSnap.data() : null;
+}
+
+/**
+ * Send verification email (wrap)
+ */
+export async function sendVerification(user){
+  await sendEmailVerification(user);
+}
