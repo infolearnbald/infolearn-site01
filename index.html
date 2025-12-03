@@ -5,116 +5,72 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>InfoLearn Academy — Formação & Vagalume IA</title>
   <meta name="theme-color" content="#0ea5e9" />
-  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 </head>
+
 <body>
-  <!-- Loader / splash -->
   <div id="splash">
-    <div class="mark">InfoLearn</div>
-    <div class="spark"></div>
+    <h1 class="brand-big">InfoLearn Academy</h1>
   </div>
 
   <header class="topbar">
     <div class="brand">
-      <img src="icon-192.png" alt="InfoLearn" width="48" height="48">
+      <img src="icon-192.png" width="48">
       <div>
-        <div class="logo">InfoLearn Academy</div>
-        <div class="muted">Formação Profissional • Vagalume IA</div>
+        <h2 class="logo">InfoLearn Academy</h2>
+        <small>Formação Profissional & IA</small>
       </div>
     </div>
-    <nav class="primary">
+
+    <nav>
       <a href="index.html">Início</a>
       <a href="courses.html">Cursos</a>
       <a href="vagalume.html">Vagalume IA</a>
-      <a href="profile.html" id="navPerfil">Perfil</a>
-      <a href="macro-study.html" class="botao-parceiro">Macro-Study</a>
-      <a href="login.html" class="btn small">Entrar</a>
-      <a href="signup.html" class="btn small secondary">Criar Conta</a>
+      <a href="userpanel.html" id="navPainel" style="display:none;">Painel</a>
+      <a href="login.html" id="navLogin">Entrar</a>
+      <a href="signup.html" id="navCriar">Criar Conta</a>
     </nav>
   </header>
 
-  <main class="container" id="mainContent" style="display:none;">
-
-    <!-- Hero (mais informativo) -->
+  <main id="mainContent" style="display:none;">
     <section class="card hero">
-      <div class="hero-grid">
-        <div>
-          <h1>Aprenda. Construa. Conquiste.</h1>
-          <p class="muted">Cursos profissionais com certificado, suporte de mentoria, e a ferramenta Vagalume IA para organizar CVs e preparar candidaturas.</p>
-
-          <ul class="muted" style="margin:14px 0 8px 0">
-            <li>👨‍🏫 Aulas práticas: vídeos, PDFs e exercícios</li>
-            <li>🧾 Certificado digital ao completar módulos</li>
-            <li>🤝 Apoio via WhatsApp para inscrições pagas</li>
-            <li>🤖 Vagalume IA — análise e geração de CVs</li>
-          </ul>
-
-          <div class="actions">
-            <a class="btn" href="courses.html">Ver Cursos</a>
-            <a class="btn secondary" href="vagalume.html">Abrir Vagalume IA</a>
-          </div>
-        </div>
-        <div class="hero-image">
-          <img src="hero-cv.jpg" alt="InfoLearn">
-        </div>
-      </div>
+      <h1>Comece a aprender hoje</h1>
+      <p>Tenha acesso a cursos com certificado e ferramentas inteligentes como a Vagalume IA.</p>
+      <a class="btn" href="courses.html">Ver cursos</a>
+      <a class="btn secondary" href="vagalume.html">Abrir Vagalume IA</a>
     </section>
 
-    <!-- Vagalume IA direto no Index -->
-    <section class="card">
-      <h2>Vagalume IA — Assistente de CV</h2>
-      <p class="muted">Cole seu CV, envie um ficheiro (.txt por agora) ou carregue uma imagem representativa. A IA analisa e gera PDF.</p>
-      <div class="vagalume-inline">
-        <textarea id="vagalumeText" placeholder="Cole aqui o seu currículo..."></textarea>
-        <div class="vagalume-controls">
-          <input type="file" id="vagalumeFile" accept=".txt">
-          <input type="file" id="vagalumeImage" accept="image/*" title="Imagem representativa da IA">
-          <button id="vagalumeAnalyze" class="btn">Analisar & Organizar</button>
-          <button id="vagalumeGenerate" class="btn secondary">Gerar PDF</button>
-        </div>
-        <div id="vagalumeResult"></div>
-      </div>
-    </section>
-
-    <!-- Cursos gratuitos (EM DESTAQUE) -->
     <section class="card">
       <h2>Cursos Gratuitos (Destaque)</h2>
-      <p class="muted">Acesso imediato: aulas em vídeo (YouTube), PDFs e exercícios práticos. Ideal para começar hoje.</p>
       <div id="freeCourses" class="grid"></div>
     </section>
 
-    <!-- Cursos pagos -->
     <section class="card">
-      <h2>Cursos Profissionais (Pagos)</h2>
-      <p class="muted">Para cursos pagos, após preencher o formulário será encaminhado(a) ao WhatsApp responsável para pagamento.</p>
+      <h2>Cursos Profissionais</h2>
+      <p>Após enviar a inscrição, será redirecionado ao WhatsApp correto.</p>
       <div id="paidCourses" class="grid"></div>
     </section>
 
-    <!-- Contactos -->
     <section class="card">
       <h2>Contactos</h2>
       <div class="socials">
-        <a id="link-fb" href="#" title="Facebook"><img src="facebook.png" alt="FB" width="28"></a>
-        <a id="link-ig" href="#" title="Instagram"><img src="instagram.png" alt="IG" width="28"></a>
-        <a id="link-yt" href="#" title="YouTube"><img src="youtube.png" alt="YT" width="28"></a>
-        <a id="link-li" href="#" title="LinkedIn"><img src="linkedin.png" alt="LI" width="28"></a>
-        <a href="https://wa.me/258844180213" title="WhatsApp"><img src="whatsapp.png" alt="WA" width="28"></a>
+        <a href="#"><img src="facebook.png" width="28"></a>
+        <a href="#"><img src="instagram.png" width="28"></a>
+        <a href="#"><img src="youtube.png" width="28"></a>
+        <a href="#"><img src="linkedin.png" width="28"></a>
+        <a href="https://wa.me/258844180213"><img src="whatsapp.png" width="28"></a>
       </div>
     </section>
 
   </main>
 
   <footer>
-    <div>© <span id="year"></span> InfoLearn Academy — Todos os direitos reservados</div>
+    <p>© <span id="year"></span> InfoLearn Academy</p>
   </footer>
 
-  <!-- scripts -->
   <script type="module" src="firebase.js"></script>
   <script type="module" src="courses.js"></script>
   <script type="module" src="userpanel.js"></script>
-  <script src="vagalume.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
