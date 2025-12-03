@@ -3,108 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InfoLearn Academy</title>
-<link rel="stylesheet" href="style.css">
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDWM3VAjFNtM4l_UaEg2r0e04sFVJMXudw",
-    authDomain: "infolearn-academy-89bee.firebaseapp.com",
-    projectId: "infolearn-academy-89bee",
-    storageBucket: "infolearn-academy-89bee.appspot.com",
-    messagingSenderId: "65886712812",
-    appId: "1:65886712812:web:0fc810717e1f31b83b86c9"
-  };
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  window.registerFreeCourse = function() {
-    const email = document.getElementById("emailFree").value;
-    const password = document.getElementById("passFree").value;
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
-        sendEmailVerification(userCredential.user);
-        alert("Verifique o seu e-mail para ativar a conta!");
-      })
-      .catch(error => alert(error.message));
-  }
-
-  window.sendWhatsApp = function(number, formId) {
-    const form = document.getElementById(formId);
-    const name = form.name.value;
-    const message = `Olá, meu nome é ${name}, quero me inscrever.`;
-    window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`, '_blank');
-  }
-</script>
+<title>InfoLearn - Plataforma de Cursos</title>
+<style>
+/* Reset básico */
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Arial',sans-serif; }
+body { background:#f5f5f5; color:#333; line-height:1.6; }
+header { background:#4a90e2; color:#fff; padding:20px 0; text-align:center; box-shadow:0 4px 6px rgba(0,0,0,0.1);}
+header h1 { font-size:2em; margin-bottom:5px; }
+section { padding:20px; margin:20px auto; max-width:900px; background:#fff; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.05);}
+section h2 { font-size:1.5em; margin-bottom:15px; color:#4a90e2;}
+ul { list-style:none;}
+ul li { background:#eaf2fd; padding:10px 15px; margin-bottom:10px; border-left:5px solid #4a90e2; border-radius:6px; font-weight:bold; }
+button { background:#4a90e2; color:#fff; border:none; padding:10px 18px; border-radius:6px; cursor:pointer; font-weight:bold; transition:background 0.3s;}
+button:hover { background:#357ABD;}
+/* Destaque cursos gratuitos */
+#cursos ul li:first-child, #cursos ul li:nth-child(2) { border-left-color:#f39c12; background:#fff4e5;}
+.contact-icons { display:flex; gap:15px; margin-top:15px; }
+.contact-icons a img { width:40px; height:40px; transition:transform 0.3s; }
+.contact-icons a img:hover { transform:scale(1.2);}
+footer { text-align:center; padding:15px 0; background:#222; color:#fff; margin-top:40px;}
+footer a { color:#4a90e2; text-decoration:none; margin:0 5px;}
+footer a:hover { text-decoration:underline;}
+#userInfo p { margin-bottom:10px;}
+@media(max-width:768px){ section{ margin:10px; padding:15px;} header h1{ font-size:1.6em; } }
+</style>
 </head>
 <body>
+
 <header>
   <h1>InfoLearn Academy</h1>
+  <p>Aprenda, Cresça e Evolua</p>
 </header>
 
-<section id="freeCourses">
-  <h2>Cursos Gratuitos</h2>
-  <div class="course">
-    <h3>Marketing Digital</h3>
-    <form onsubmit="registerFreeCourse(); return false;">
-      <input type="email" id="emailFree" placeholder="Seu e-mail" required>
-      <input type="password" id="passFree" placeholder="Senha" required>
-      <button type="submit">Registrar</button>
-    </form>
-  </div>
-  <div class="course">
-    <h3>Vagalume AI - CV Maker</h3>
-    <img src="vagalume.png" alt="Vagalume AI" style="width:100px;">
-    <form onsubmit="registerFreeCourse(); return false;">
-      <input type="email" id="emailFree2" placeholder="Seu e-mail" required>
-      <input type="password" id="passFree2" placeholder="Senha" required>
-      <button type="submit">Registrar</button>
-    </form>
-  </div>
+<section id="cursos">
+  <h2>Cursos Gratuitos em Destaque</h2>
+  <ul>
+    <li>Design Mobile (Pixellab) - Gratuito</li>
+    <li>Marketing Digital - Gratuito</li>
+  </ul>
+  <button onclick="window.location.href='userpanel.html'">Aceder Curso</button>
 </section>
 
-<section id="paidCourses">
+<section id="pagos">
   <h2>Cursos Pagos</h2>
-  <div class="course">
-    <h3>Inglês</h3>
-    <form id="formEnglish" onsubmit="sendWhatsApp('874094875', 'formEnglish'); return false;">
-      <input type="text" name="name" placeholder="Seu nome" required>
-      <button type="submit">Inscrever via WhatsApp</button>
-    </form>
-    <p>1 mês: 1200 MT | 3 meses: 3600 MT</p>
-  </div>
-  <div class="course">
-    <h3>Música</h3>
-    <form id="formMusic" onsubmit="sendWhatsApp('857521281', 'formMusic'); return false;">
-      <input type="text" name="name" placeholder="Seu nome" required>
-      <button type="submit">Inscrever via WhatsApp</button>
-    </form>
-    <p>1 mês: 1600 MT</p>
-  </div>
-  <div class="course">
-    <h3>Design Gráfico (Photoshop/Illustrator)</h3>
-    <form id="formDesign" onsubmit="sendWhatsApp('867101103', 'formDesign'); return false;">
-      <input type="text" name="name" placeholder="Seu nome" required>
-      <button type="submit">Inscrever via WhatsApp</button>
-    </form>
-    <p>1 mês: 2500 MT | 3 meses: 7500 MT</p>
-  </div>
-  <div class="course">
-    <h3>CV Maker Personalizado</h3>
-    <form id="formCV" onsubmit="sendWhatsApp('844180213', 'formCV'); return false;">
-      <input type="text" name="name" placeholder="Seu nome" required>
-      <button type="submit">Inscrever via WhatsApp - 85 MT</button>
-    </form>
+  <ul>
+    <li>Inglês: 1 mês 1200MT / 3 meses 3600MT <button onclick="window.open('https://wa.me/258874094875','_blank')">Inscrever</button></li>
+    <li>Design Gráfico (Photoshop/Illustrator): 1 mês 2500MT / 3 meses calculado <button onclick="window.open('https://wa.me/258867101103','_blank')">Inscrever</button></li>
+    <li>Música: 1 mês 1600MT <button onclick="window.open('https://wa.me/258857521281','_blank')">Inscrever</button></li>
+    <li>Programação / Outros cursos pagos <button onclick="window.open('https://wa.me/258844180213','_blank')">Inscrever</button></li>
+  </ul>
+</section>
+
+<section id="vagalume">
+  <h2>Vagalume AI - CV Maker</h2>
+  <p>Crie e analise seu CV gratuitamente. Para CV personalizado com revisão, pago 85MT.</p>
+  <button onclick="window.open('https://wa.me/258844180213','_blank')">Criar CV</button>
+</section>
+
+<section id="macro-study">
+  <h2>Macro-Study</h2>
+  <ul>
+    <li>Curso A - 500MT</li>
+    <li>Curso B - 1000MT</li>
+  </ul>
+  <button>Aceder Curso</button>
+</section>
+
+<section id="contato">
+  <h2>Contacte-nos</h2>
+  <div class="contact-icons">
+    <a href="https://www.facebook.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
+    <a href="https://www.linkedin.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"></a>
+    <a href="https://wa.me/258844180213" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Vagalume AI"></a>
   </div>
 </section>
 
 <footer>
-  <p>Contatos: 
-    <a href="https://facebook.com/InfoLearn" target="_blank">Facebook</a> |
-    <a href="https://linkedin.com/company/infolearn" target="_blank">LinkedIn</a>
-  </p>
+  <p>&copy; 2025 InfoLearn Academy | Todos os direitos reservados</p>
 </footer>
+
 </body>
 </html>
