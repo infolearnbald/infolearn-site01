@@ -1,10 +1,17 @@
-// Loader
-window.addEventListener("load", () => {
+// Remove splash e mostra conteúdo
+window.onload = () => {
   setTimeout(() => {
-    const l = document.getElementById("loader");
-    if (l) l.classList.add("hidden");
-  }, 700);
-});
+    document.getElementById("mainContent").style.display = "block";
+  }, 2000);
+};
 
-// Ano automático
-document.getElementById("year").innerText = new Date().getFullYear();
+// Navegação
+function navigateTo(page) {
+  window.location.href = page;
+}
+
+// Contatos (adicione seus links reais aqui)
+document.getElementById("facebookLink").href = "https://facebook.com/SEU_LINK";
+document.getElementById("instagramLink").href = "https://instagram.com/SEU_LINK";
+document.getElementById("youtubeLink").href = "https://youtube.com/SEU_LINK";
+document.getElementById("linkedinLink").href = "https://linkedin.com/in/SEU_LINK";
