@@ -1,29 +1,26 @@
-import { auth } from "./firebase.js";
-import { 
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword 
-} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+// auth.js
+import { auth, db } from "./firebase.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-window.login = async function () {
-  const email = document.getElementById("loginEmail").value;
-  const pass = document.getElementById("loginPass").value;
-
-  try {
-    await signInWithEmailAndPassword(auth, email, pass);
-    alert("Login feito!");
-  } catch (err) {
-    alert("Erro no Login: " + err.message);
+onAuthStateChanged(auth, async (user)=>{
+  const navPerfil = document.getElementById('navPerfil');
+  if(user){
+    // tenta obter nome do Firestore
+    try {
+      const d = await getDoc(doc(db, 'users', user.uid));
+      const name = d.exists() ? (d.data().name || user.email) : user.email;
+      if(navPerfil) navPerfil.textContent = name;
+    } catch(e){
+      if(navPerfil) navPerfil.textContent = user.email;
+    }
+  } else {
+    if(navPerfil) navPerfil.textContent = 'Perfil';
   }
-};
+});
 
-window.signUp = async function () {
-  const email = document.getElementById("upEmail").value;
-  const pass = document.getElementById("upPass").value;
-
-  try {
-    await createUserWithEmailAndPassword(auth, email, pass);
-    alert("Conta criada!");
-  } catch (err) {
-    alert("Erro no Sign Up: " + err.message);
-  }
+// função pública de logout
+window.logout = async function(){
+  try { await signOut(auth); location.href = 'index.html'; }
+  catch(e){ alert('Erro ao sair: '+e.message); }
 };
