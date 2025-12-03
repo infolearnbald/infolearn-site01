@@ -1,20 +1,15 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const splash = document.getElementById("splash");
-  const main = document.getElementById("mainContent");
-
-  setTimeout(() => {
-    splash.style.opacity = "0";
-    setTimeout(() => {
-      splash.remove();
-      main.style.display = "block";
-    }, 300);
-  }, 1000);
+// main.js
+document.addEventListener('DOMContentLoaded', ()=> {
+  const splash = document.getElementById('splash');
+  const main = document.getElementById('mainContent');
+  setTimeout(()=>{
+    if(splash){
+      splash.style.opacity='0';
+      setTimeout(()=>{ if(splash.parentNode) splash.parentNode.removeChild(splash); },300);
+    }
+    if(main) main.style.display='block';
+    // tenta chamar renderCourses (courses.js exporta e auto-run)
+    try { if(typeof renderCourses === 'function') renderCourses(); } catch(e){}
+    document.getElementById('year').innerText = new Date().getFullYear();
+  },900);
 });
-
-window.openCourse = function (id) {
-  window.location.href = "course_" + id + ".html";
-};
-
-window.buyCourse = function (id) {
-  alert("Pagamento será integrado. Curso: " + id);
-};
