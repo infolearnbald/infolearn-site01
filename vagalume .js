@@ -1,81 +1,113 @@
 // vagalume.js
-// simples organizador + gera PDF (texto formatado) — sem IA remota
-// se quiseres integrar IA real, dá-me a API (opcional).
+import { storage, db, auth } from './firebase.js';
+import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-storage.js";
+import { addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
-// função para organizar texto do CV em seções básicas
-function parseCV(text){
-  // heurística simples: procura por palavras-chave
-  const sections = {};
-  const lines = text.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
-  let current = 'Resumo';
-  sections[current]=[];
-  for(const line of lines){
-    const low = line.toLowerCase();
-    if(/experi|experience|experiência/.test(low)){ current='Experiência'; sections[current]=[]; continue; }
-    if(/formação|educa|education|curso|escolaridade/.test(low)){ current='Formação'; sections[current]=[]; continue; }
-    if(/habilid|skill|competênc|competencia/.test(low)){ current='Habilidades'; sections[current]=[]; continue; }
-    if(/contato|telefone|email/.test(low)){ current='Contato'; sections[current]=[]; continue; }
-    sections[current].push(line);
-  }
-  return sections;
-}
+document.addEventListener('DOMContentLoaded', ()=>{
+  const txtArea = document.getElementById('vagalumeText');
+  const fileIn = document.getElementById('vagalumeFile');
+  const imgIn = document.getElementById('vagalumeImage');
+  const analyzeBtn = document.getElementById('vagalumeAnalyze');
+  const genBtn = document.getElementById('vagalumeGenerate');
+  const result = document.getElementById('vagalumeResult');
 
-function renderSections(sections){
-  const root = document.getElementById('vagalumeResult');
-  root.innerHTML='';
-  for(const k of Object.keys(sections)){
-    const h = document.createElement('h4'); h.textContent = k;
-    const ul = document.createElement('ul');
-    sections[k].forEach(s => {
-      const li=document.createElement('li'); li.textContent=s; ul.appendChild(li);
+  let uploadedImageUrl = null;
+
+  imgIn?.addEventListener('change', async (e)=>{
+    const f = e.target.files[0];
+    if(!f) return;
+    const storageRef = ref(storage, `vagalume_images/${Date.now()}_${f.name}`);
+    await uploadBytes(storageRef, f);
+    uploadedImageUrl = await getDownloadURL(storageRef);
+    document.getElementById('vPreview') && (document.getElementById('vPreview').innerHTML = `<img src="${uploadedImageUrl}" style="max-width:120px;border-radius:8px">`);
+    alert('Imagem enviada e associada à análise.');
+  });
+
+  fileIn?.addEventListener('change', async (e)=>{
+    const f = e.target.files[0];
+    if(!f) return;
+    if(f.type === 'text/plain' || f.name.endsWith('.txt')){
+      const txt = await f.text();
+      txtArea.value = txt;
+    } else {
+      alert('Apenas ficheiros .txt suportados aqui. PDFs/DOCX requerem bibliotecas adicionais.');
+    }
+  });
+
+  function analyzeText(text){
+    const lines = text.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+    const info = { name:'', email:'', phone:'', about:[], experience:[], skills:[] };
+    lines.forEach(line=>{
+      if(!info.email && /\S+@\S+\.\S+/.test(line)) info.email = line.match(/\S+@\S+\.\S+/)[0];
+      else if(!info.phone && /(\+?\d{8,})/.test(line)) info.phone = line.match(/(\+?\d{8,})/)[0];
+      else if(line.toLowerCase().includes('experiência') || line.toLowerCase().includes('experience')) info.experience.push(line);
+      else if(line.toLowerCase().includes('habilidades') || line.toLowerCase().includes('skills')) info.skills.push(line);
+      else info.about.push(line);
     });
-    root.appendChild(h); root.appendChild(ul);
+    return info;
   }
-}
 
-document.getElementById('vagalumeAnalyze')?.addEventListener('click', async ()=>{
-  const txt = document.getElementById('vagalumeText').value.trim();
-  if(!txt){
-    alert('Cole o CV ou carregue um ficheiro.');
-    return;
-  }
-  const sec = parseCV(txt);
-  renderSections(sec);
+  analyzeBtn?.addEventListener('click', ()=>{
+    const text = txtArea.value.trim();
+    if(!text){ alert('Cole ou carregue o currículo em texto.'); return; }
+    const parsed = analyzeText(text);
+    result.innerHTML = `<pre style="white-space:pre-wrap">${JSON.stringify(parsed, null, 2)}</pre>`;
+    document.getElementById('analysis')?.style && (document.getElementById('analysis').style.display='block');
+    window.lastParsedCV = parsed;
+  });
+
+  genBtn?.addEventListener('click', async ()=>{
+    const parsed = window.lastParsedCV;
+    const text = txtArea.value.trim();
+    if(!text && !parsed){ alert('Sem conteúdo para gerar.'); return; }
+
+    try {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      const title = parsed?.name || 'CV InfoLearn';
+      doc.setFontSize(16);
+      doc.text(title, 14, 20);
+      doc.setFontSize(12);
+      let y = 30;
+      const lines = (text || JSON.stringify(parsed, null, 2)).split('\n');
+      lines.forEach((ln)=>{
+        if(y > 280){ doc.addPage(); y = 20; }
+        doc.text(ln.substring(0, 120), 14, y);
+        y += 8;
+      });
+      if(uploadedImageUrl){
+        try{
+          // include image (cross-origin might block remote URLs), best effort
+          const img = new Image();
+          img.crossOrigin = "anonymous";
+          img.onload = function(){
+            doc.addImage(img, 'JPEG', 140, 10, 50, 50);
+            doc.save('CV-InfoLearn.pdf');
+          };
+          img.src = uploadedImageUrl;
+        } catch(e){
+          doc.save('CV-InfoLearn.pdf');
+        }
+      } else {
+        doc.save('CV-InfoLearn.pdf');
+      }
+
+      // Save analysis record to Firestore (optional) with uid if logged
+      onAuthStateChanged(auth, async (user)=>{
+        try {
+          await addDoc(collection(db, 'cv_analyses'), {
+            uid: user ? user.uid : null,
+            parsed: parsed || null,
+            textSnippet: (text || '').slice(0,1000),
+            image: uploadedImageUrl || null,
+            createdAt: serverTimestamp()
+          });
+        } catch(e){}
+      });
+    } catch(e){
+      alert('Erro ao gerar PDF. Verifique se o jsPDF está carregado.');
+    }
+  });
+
 });
-
-document.getElementById('vagalumeFile')?.addEventListener('change', async (e)=>{
-  const f = e.target.files[0];
-  if(!f) return;
-  // tenta ler como texto (txt/docx/pdf não cobertos por simples FileReader para extrair texto; só txt suportado)
-  if(f.type === 'text/plain'){
-    const text = await f.text();
-    document.getElementById('vagalumeText').value = text;
-  } else {
-    alert('Envie ficheiro .txt para leitura automática. Para outros ficheiros cole o texto no campo.');
-  }
-});
-
-// gerar PDF simples
-document.getElementById('vagalumeGenerate')?.addEventListener('click', async ()=>{
-  const text = document.getElementById('vagalumeText').value.trim();
-  if(!text){ alert('Cole ou escreva o conteúdo do CV antes.'); return; }
-  // usa jsPDF CDN dinâmico
-  if(!window.jsPDF){
-    const s = document.createElement('script');
-    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-    document.body.appendChild(s);
-    s.onload = ()=> createPdf(text);
-  } else createPdf(text);
-});
-
-function createPdf(text){
-  const { jsPDF } = window.jspdf || window.jspdf || window.jspdf;
-  if(!jsPDF){
-    alert('Falha ao carregar jsPDF.');
-    return;
-  }
-  const doc = new jsPDF();
-  const lines = doc.splitTextToSize(text, 180);
-  doc.text(lines, 10, 10);
-  doc.save('CV-Vagalume.pdf');
-}
