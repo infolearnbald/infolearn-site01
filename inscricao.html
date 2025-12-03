@@ -25,9 +25,9 @@
     import { addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
     import { db } from "./firebase.js";
 
-    // read querystring
     const params = new URLSearchParams(window.location.search);
-    const curso = params.get('curso') || params.get('course') || 'Curso';
+    const curso = params.get('curso') || 'Curso';
+    const waParam = params.get('wa') || '';
     document.getElementById('cursoNome').value = curso;
 
     document.getElementById('enrollForm').addEventListener('submit', async (e)=>{
@@ -37,18 +37,20 @@
       const email = document.getElementById('email').value.trim();
       const phone = document.getElementById('phone').value.trim();
       const duration = document.getElementById('duration').value;
-
       if(!nome || !email || !phone){ alert('Preencha os campos.'); return; }
 
-      // save to Firestore
       try {
         await addDoc(collection(db, 'enrolments'), {
           nome, email, phone, courseTitle, duration, createdAt: serverTimestamp(), status: 'pending'
         });
-        // open whatsapp
-        const phoneTarget = '258844180213';
+
+        // select whatsapp number
+        let wa = waParam || '258844180213';
+        // if user passed a local number like '258874094875' it will be used; else default
+        if(!/^\d{9,}$/.test(wa)) wa = '258844180213';
+
         const msg = `Olá, quero me inscrever no curso ${courseTitle}.\nNome: ${nome}\nEmail: ${email}\nTelefone: ${phone}\nDuração: ${duration}`;
-        window.open(`https://wa.me/${phoneTarget}?text=${encodeURIComponent(msg)}`, '_blank');
+        window.open(`https://wa.me/${wa.replace(/[^0-9]/g,'')}?text=${encodeURIComponent(msg)}`, '_blank');
       } catch(err){
         alert('Erro ao salvar inscrição: ' + err.message);
       }
