@@ -1,40 +1,129 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Painel do Usuário — InfoLearn Academy</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InfoLearn - User Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
+    header { background: #0a74da; color: #fff; padding: 1rem; text-align: center; }
+    main { max-width: 600px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h1, h2 { text-align: center; }
+    form { display: flex; flex-direction: column; gap: 1rem; }
+    input, select { padding: 0.7rem; border: 1px solid #ccc; border-radius: 4px; width: 100%; }
+    button { padding: 0.8rem; border: none; border-radius: 4px; background: #0a74da; color: #fff; font-weight: bold; cursor: pointer; }
+    button:hover { background: #064a8d; }
+    .socials { text-align: center; margin-top: 1rem; }
+    .socials a { margin: 0 0.5rem; color: #0a74da; font-size: 1.5rem; text-decoration: none; }
+    .courses { display: flex; flex-direction: column; gap: 0.5rem; }
+    .courses div { display: flex; justify-content: space-between; align-items: center; }
+    .vagalume-img { width: 100px; margin: 0 auto; display: block; }
+</style>
 </head>
-
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <img src="icon-192.png" width="48">
-      <h2>InfoLearn Academy</h2>
+
+<header>
+    <h1>InfoLearn - Painel do Usuário</h1>
+</header>
+
+<main>
+    <h2>Formulário de Inscrição</h2>
+    <form id="registrationForm">
+        <input type="text" id="name" placeholder="Nome completo" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="tel" id="phone" placeholder="Telefone" required>
+        <select id="course" required>
+            <option value="">Selecione um curso</option>
+            <option value="ingles_1mes">Inglês - 1 mês (1200)</option>
+            <option value="ingles_3meses">Inglês - 3 meses (3600)</option>
+            <option value="design_1mes">Design Gráfico - 1 mês (2500)</option>
+            <option value="design_3meses">Design Gráfico - 3 meses (calcular)</option>
+            <option value="musica">Música - 1 mês (1600)</option>
+            <option value="marketing">Marketing Digital</option>
+            <option value="programacao">Programação</option>
+            <option value="macro-study">Macro-Study</option>
+            <option value="gratis">Cursos Gratuitos</option>
+        </select>
+        <input type="password" id="password" placeholder="Senha" required>
+        <button type="submit">Inscrever-se</button>
+    </form>
+
+    <img src="vagalume.png" alt="Vagalume IA" class="vagalume-img">
+
+    <div class="socials">
+        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
     </div>
-    <nav>
-      <a href="index.html">Início</a>
-      <a href="courses.html">Cursos</a>
-      <a href="#" id="logoutBtn" class="btn small">Sair</a>
-    </nav>
-  </header>
+</main>
 
-  <main class="container">
-    <section class="card">
-      <h2>Meu Perfil</h2>
-      <p><strong>Nome:</strong> <span id="userName"></span></p>
-      <p><strong>Email:</strong> <span id="userEmail"></span></p>
-      <p><strong>Verificação:</strong> <span id="userVerify"></span></p>
-    </section>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore.js";
 
-    <section class="card">
-      <h2>Meus Cursos</h2>
-      <div id="meusCursos" class="grid"></div>
-    </section>
-  </main>
+const firebaseConfig = {
+    apiKey: "AIzaSyDWM3VAjFNtM4l_UaEg2r0e04sFVJMXudw",
+    authDomain: "infolearn-academy-89bee.firebaseapp.com",
+    projectId: "infolearn-academy-89bee",
+    storageBucket: "infolearn-academy-89bee.appspot.com",
+    messagingSenderId: "65886712812",
+    appId: "1:65886712812:web:0fc810717e1f31b83b86c9"
+};
 
-  <script type="module" src="firebase.js"></script>
-  <script type="module" src="userpanel.js"></script>
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const form = document.getElementById('registrationForm');
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const course = document.getElementById('course').value;
+    const password = document.getElementById('password').value;
+
+    // Criar usuário no Firebase Auth
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Salvar dados no Firestore
+        await addDoc(collection(db, "inscricoes"), {
+            uid: user.uid,
+            name,
+            email,
+            phone,
+            course,
+            timestamp: new Date()
+        });
+
+        // Redirecionamento WhatsApp
+        let whatsappNumber = "";
+        if(course.startsWith("ingles")) whatsappNumber = "874094875";
+        else if(course === "musica") whatsappNumber = "857521281";
+        else if(course.startsWith("design")) whatsappNumber = "867101103";
+        else if(course === "macro-study") whatsappNumber = ""; // manter
+        else whatsappNumber = "844180213"; // outros cursos pagos
+
+        if(whatsappNumber) {
+            window.open(`https://wa.me/${whatsappNumber}?text=Olá, quero me inscrever no curso ${course}`, "_blank");
+        } else {
+            alert("Inscrição realizada com sucesso!");
+        }
+
+        form.reset();
+
+    } catch (error) {
+        alert("Erro: " + error.message);
+        console.error(error);
+    }
+});
+</script>
+
 </body>
 </html>
