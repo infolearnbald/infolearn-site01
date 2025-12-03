@@ -1,105 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>InfoLearn Academy — Formação & Vagalume IA</title>
-  <meta name="theme-color" content="#0ea5e9" />
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InfoLearn Academy</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-  <!-- Loader -->
-  <div id="loader" class="logo-anim" aria-hidden="true">
-    <div class="mark">InfoLearn</div>
-    <div class="spark" style="top:18px;left:34px"></div>
+  <!-- Tela de animação -->
+  <div id="splash">
+    <h1 class="splash-title">InfoLearn Academy</h1>
   </div>
 
-  <header class="topbar">
-    <div class="brand">
-      <img src="icon-192.png" alt="InfoLearn" width="48" height="48" style="border-radius:10px;background:#fff;padding:6px">
-      <div>
-        <div class="logo">InfoLearn Academy</div>
-        <div class="muted">Formação Profissional • Vagalume IA</div>
-      </div>
-    </div>
+  <!-- Conteúdo principal (inicialmente oculto) -->
+  <div id="mainContent" style="display:none;">
 
-    <nav class="primary">
-      <a href="index.html">Início</a>
-      <a href="cursos.html">Cursos</a>
-      <a href="vagalume.html">Vagalume IA</a>
-      <a href="perfil.html" id="navPerfil">Perfil</a>
-      <a href="#" id="macroBtn" class="botao-parceiro">Macro-Study</a>
-    </nav>
-  </header>
+    <!-- Header -->
+    <header class="header">
+      <h1>InfoLearn Academy</h1>
+      <nav>
+        <button onclick="navigateTo('courses.html')">Cursos</button>
+        <button onclick="navigateTo('vagalume.html')">Vagalume IA</button>
+        <button onclick="navigateTo('macro-study.html')">Macro-Study</button>
+        <button onclick="navigateTo('login.html')">Login</button>
+      </nav>
+    </header>
 
-  <main class="container">
-
-    <!-- Hero -->
-    <section class="card hero">
-      <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
-        <div style="flex:1;min-width:260px">
-          <h1>Aprenda. Construa. Conquiste.</h1>
-          <p class="muted">Cursos online com certificado e uma IA que cria currículos.</p>
-          <div style="margin-top:14px">
-            <a class="btn" href="cursos.html">Ver Cursos</a>
-            <a class="btn secondary" href="vagalume.html">Abrir Vagalume IA</a>
-          </div>
-        </div>
-        <div style="width:320px;text-align:center">
-          <img src="hero-cv.jpg" alt="InfoLearn" style="width:100%;border-radius:12px;box-shadow:0 12px 30px rgba(3,7,18,0.08)">
-        </div>
-      </div>
+    <!-- Secção principal -->
+    <section class="hero">
+      <h2>Aprenda. Evolua. Conquiste.</h2>
+      <p>A plataforma que transforma estudantes em profissionais preparados.</p>
     </section>
 
-    <!-- Cursos em destaque -->
-    <section class="card">
-      <h2>Cursos em Destaque</h2>
-      <div id="featuredCourses" class="grid"></div>
-    </section>
+    <!-- Cursos destacados -->
+    <section class="courses-highlight">
+      <h2>Cursos Populares</h2>
 
-    <!-- Painel do aluno -->
-    <section class="card" id="studentPanel">
-      <h2>Painel do Aluno</h2>
-      <p class="muted">Faça login para acessar seus conteúdos.</p>
-
-      <div id="loginForm">
-        <input type="email" id="loginEmail" placeholder="Email">
-        <input type="password" id="loginPass" placeholder="Senha">
-        <button id="loginBtn" class="btn">Entrar</button>
-        <button id="registerBtn" class="btn secondary">Registrar</button>
+      <div class="course-card">
+        <img src="ingles.jpg" alt="Curso de Inglês">
+        <h3>Inglês Completo</h3>
+        <p>Domine o idioma mais importante do mundo.</p>
+        <button onclick="navigateTo('courses.html')">Ver Curso</button>
       </div>
 
-      <div id="userInfo" style="display:none">
-        <p>Bem-vindo, <span id="userName"></span>!</p>
-        <button id="logoutBtn" class="btn secondary">Sair</button>
+      <div class="course-card">
+        <img src="musica.jpg" alt="Curso de Música">
+        <h3>Música & Produção</h3>
+        <p>Aprenda teoria musical e gravação profissional.</p>
+        <button onclick="navigateTo('courses.html')">Ver Curso</button>
       </div>
+
     </section>
 
-  </main>
+    <!-- Contatos -->
+    <footer class="footer">
+      <h3>Contactos</h3>
 
-  <footer>
-    <div>© <span id="year"></span> InfoLearn Academy — Todos os direitos reservados</div>
-  </footer>
+      <div class="social-icons">
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <!-- Onde você vai adicionar os links reais -->
+        <a id="facebookLink" href="#" target="_blank">
+          <img src="facebook.png" class="icon">
+        </a>
 
-  <!-- Script Firebase -->
-  <script src="auth.js"></script>
+        <a id="instagramLink" href="#" target="_blank">
+          <img src="instagram.png" class="icon">
+        </a>
 
-  <!-- Scripts principais -->
-  <script type="module" src="main.js"></script>
+        <a id="youtubeLink" href="#" target="_blank">
+          <img src="youtube.png" class="icon">
+        </a>
 
-  <!-- PWA Service Worker -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./service-worker.js');
-    }
-  </script>
+        <a id="linkedinLink" href="#" target="_blank">
+          <img src="linkedin.png" class="icon">
+        </a>
+
+      </div>
+
+      <p>&copy; 2025 InfoLearn Academy</p>
+
+    </footer>
+
+  </div>
+
+  <script type="module" src="firebase.js"></script>
+  <script src="main.js"></script>
 
 </body>
 </html>
