@@ -2,32 +2,44 @@
 <html lang="pt">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Login — InfoLearn</title>
+  <title>Entrar — InfoLearn Academy</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="topbar"><div class="brand"><img src="icon-192.png" width="40"><div style="margin-left:10px"><div class="logo">InfoLearn Academy</div></div></div></header>
+
   <main class="container">
-    <section class="card">
+    <section class="card auth-card">
       <h2>Entrar</h2>
-      <input id="emailLogin" type="email" placeholder="Email">
-      <input id="passLogin" type="password" placeholder="Senha">
-      <button id="btnLogin" class="btn">Entrar</button>
-      <p class="muted">Não tens conta? <a href="signup.html">Criar conta</a></p>
+      <div class="form-grid">
+        <input id="emailLogin" type="email" placeholder="Email">
+        <input id="passLogin" type="password" placeholder="Senha">
+        <button id="btnLogin" class="btn">Entrar</button>
+        <div class="muted">Ainda sem conta? <a href="signup.html">Criar conta</a></div>
+        <div class="muted">Esqueceu a senha? <a href="reset.html">Redefinir senha</a></div>
+      </div>
     </section>
   </main>
 
   <script type="module">
     import { auth } from "./firebase.js";
-    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+    import { signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
     document.getElementById('btnLogin').addEventListener('click', async ()=>{
       const email = document.getElementById('emailLogin').value.trim();
-      const pass = document.getElementById('passLogin').value.trim();
+      const pass = document.getElementById('passLogin').value;
       if(!email || !pass){ alert('Preencha email e senha'); return; }
       try {
-        await signInWithEmailAndPassword(auth, email, pass);
+        const userCred = await signInWithEmailAndPassword(auth, email, pass);
+        const user = userCred.user;
+        if(!user.emailVerified){
+          await signOut(auth);
+          alert('Você precisa verificar seu e-mail antes de entrar. Verifique sua caixa de entrada.');
+          window.location.href = 'verify.html';
+          return;
+        }
         alert('Login efetuado!');
-        location.href = 'index.html';
+        window.location.href = 'index.html';
       } catch(err){ alert('Erro: '+err.message); }
     });
   </script>
