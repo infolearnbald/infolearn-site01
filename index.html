@@ -7,6 +7,7 @@
   <meta name="theme-color" content="#0ea5e9" />
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 </head>
 <body>
   <!-- Loader / splash -->
@@ -25,9 +26,9 @@
     </div>
     <nav class="primary">
       <a href="index.html">Início</a>
-      <a href="cursos.html">Cursos</a>
+      <a href="courses.html">Cursos</a>
       <a href="vagalume.html">Vagalume IA</a>
-      <a href="perfil.html" id="navPerfil">Perfil</a>
+      <a href="profile.html" id="navPerfil">Perfil</a>
       <a href="macro-study.html" class="botao-parceiro">Macro-Study</a>
       <a href="login.html" class="btn small">Entrar</a>
       <a href="signup.html" class="btn small secondary">Criar Conta</a>
@@ -36,14 +37,22 @@
 
   <main class="container" id="mainContent" style="display:none;">
 
-    <!-- Hero -->
+    <!-- Hero (mais informativo) -->
     <section class="card hero">
       <div class="hero-grid">
         <div>
           <h1>Aprenda. Construa. Conquiste.</h1>
-          <p class="muted">Cursos online com certificado e uma IA (Vagalume) que organiza currículos para o mercado de trabalho.</p>
+          <p class="muted">Cursos profissionais com certificado, suporte de mentoria, e a ferramenta Vagalume IA para organizar CVs e preparar candidaturas.</p>
+
+          <ul class="muted" style="margin:14px 0 8px 0">
+            <li>👨‍🏫 Aulas práticas: vídeos, PDFs e exercícios</li>
+            <li>🧾 Certificado digital ao completar módulos</li>
+            <li>🤝 Apoio via WhatsApp para inscrições pagas</li>
+            <li>🤖 Vagalume IA — análise e geração de CVs</li>
+          </ul>
+
           <div class="actions">
-            <a class="btn" href="cursos.html">Ver Cursos</a>
+            <a class="btn" href="courses.html">Ver Cursos</a>
             <a class="btn secondary" href="vagalume.html">Abrir Vagalume IA</a>
           </div>
         </div>
@@ -56,11 +65,12 @@
     <!-- Vagalume IA direto no Index -->
     <section class="card">
       <h2>Vagalume IA — Assistente de CV</h2>
-      <p class="muted">Cole o texto do seu CV ou carregue um ficheiro. Vagalume analisa, organiza e gera PDF.</p>
+      <p class="muted">Cole seu CV, envie um ficheiro (.txt por agora) ou carregue uma imagem representativa. A IA analisa e gera PDF.</p>
       <div class="vagalume-inline">
         <textarea id="vagalumeText" placeholder="Cole aqui o seu currículo..."></textarea>
         <div class="vagalume-controls">
-          <input type="file" id="vagalumeFile" accept=".txt,.doc,.docx,.pdf,.rtf">
+          <input type="file" id="vagalumeFile" accept=".txt">
+          <input type="file" id="vagalumeImage" accept="image/*" title="Imagem representativa da IA">
           <button id="vagalumeAnalyze" class="btn">Analisar & Organizar</button>
           <button id="vagalumeGenerate" class="btn secondary">Gerar PDF</button>
         </div>
@@ -68,21 +78,21 @@
       </div>
     </section>
 
-    <!-- Cursos gratuitos -->
+    <!-- Cursos gratuitos (EM DESTAQUE) -->
     <section class="card">
-      <h2>Cursos Gratuitos</h2>
-      <p class="muted">Aulas em vídeo (YouTube), 3 PDFs por curso e 2 exercícios práticos.</p>
+      <h2>Cursos Gratuitos (Destaque)</h2>
+      <p class="muted">Acesso imediato: aulas em vídeo (YouTube), PDFs e exercícios práticos. Ideal para começar hoje.</p>
       <div id="freeCourses" class="grid"></div>
     </section>
 
     <!-- Cursos pagos -->
     <section class="card">
-      <h2>Cursos Pagos</h2>
-      <p class="muted">Após preencher o formulário, será redirecionado(a) ao WhatsApp para pagamento e confirmação.</p>
+      <h2>Cursos Profissionais (Pagos)</h2>
+      <p class="muted">Para cursos pagos, após preencher o formulário será encaminhado(a) ao WhatsApp responsável para pagamento.</p>
       <div id="paidCourses" class="grid"></div>
     </section>
 
-    <!-- Footer / contactos -->
+    <!-- Contactos -->
     <section class="card">
       <h2>Contactos</h2>
       <div class="socials">
@@ -100,12 +110,11 @@
     <div>© <span id="year"></span> InfoLearn Academy — Todos os direitos reservados</div>
   </footer>
 
-  <!-- Scripts: ordem correta -->
+  <!-- scripts -->
   <script type="module" src="firebase.js"></script>
-  <script type="module" src="auth.js"></script>
   <script type="module" src="courses.js"></script>
+  <script type="module" src="userpanel.js"></script>
   <script src="vagalume.js"></script>
   <script src="main.js"></script>
-
 </body>
 </html>
