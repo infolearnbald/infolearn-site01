@@ -20,9 +20,18 @@ body{font-family:Inter,system-ui,Arial,sans-serif;background:var(--light);color:
 .vagalume-inline textarea{width:100%;height:120px;padding:10px;border-radius:8px;border:1px solid #e6eef6;margin-bottom:8px}
 .vagalume-controls{display:flex;gap:8px;align-items:center;margin-bottom:8px}
 .socials{display:flex;gap:12px;align-items:center}
-.splash{display:none}
 #splash{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#e6f9ff,#e6f3fb);z-index:9999}
 #splash .mark{width:160px;height:160px;border-radius:16px;background:linear-gradient(135deg,#06b6d4,#0369a1);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:22px;transform:scale(0.9)}
 .spark{position:absolute;width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.2);box-shadow:0 6px 20px rgba(6,182,212,0.12)}
 footer{padding:18px;text-align:center;color:#244b57}
+.auth-card { max-width:720px;margin:28px auto;padding:20px;border-radius:12px; }
+.form-grid{display:grid;gap:12px}
+input, select, textarea { padding:10px;border-radius:8px;border:1px solid #e6eef6;font-size:15px }
+.pw-req { font-size:13px;color:#556b74 }
 @media(max-width:840px){.hero-grid{grid-template-columns:1fr}.topbar{flex-direction:column;align-items:flex-start}}
+@media (max-width:600px){
+  .hero-grid{grid-template-columns:1fr}
+  .curso-card img{height:160px}
+  .topbar { padding:10px; flex-direction:column; align-items:flex-start }
+  .form-grid{gap:10px}
+}
