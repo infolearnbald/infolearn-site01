@@ -1,139 +1,135 @@
-// courses.js
-import { db } from "./firebase.js";
-import { collection, addDoc, serverTimestamp, increment, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos – InfoLearn Academy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-const freeCourses = [
-  {
-    id: 'pixel-mob',
-    title: 'Design Mobile — PixelLab',
-    desc: 'Design mobile com PixelLab. Vídeos + 3 PDFs + testes.',
-    youtube: 'https://www.youtube.com/watch?v=VIDEO_ID_PIXEL', // substitua VIDEO_ID_PIXEL
-    pdfs: ['pixel-aula1.pdf','pixel-aula2.pdf','pixel-aula3.pdf']
-  },
-  {
-    id: 'marketing-digital',
-    title: 'Marketing Digital',
-    desc: 'Introdução ao marketing digital. Vídeos + PDFs + exercícios.',
-    youtube: 'https://www.youtube.com/watch?v=VIDEO_ID_MARKETING', // substituir
-    pdfs: ['marketing-a1.pdf','marketing-a2.pdf','marketing-a3.pdf']
-  }
-];
+<header class="main-header">
+    <h1>InfoLearn Academy – Cursos</h1>
+</header>
 
-const paidCourses = [
-  {
-    id:'design-pro',
-    title:'Design Gráfico Profissional',
-    options:['Photoshop','Illustrator']
-  },
-  {
-    id:'criacao-musica',
-    title:'Criação Musical',
-    options:['FL Studio','Samplitude']
-  },
-  {
-    id:'ingles',
-    title:'Inglês (Básico / Médio / Avançado)',
-    options:['Básico','Médio','Avançado']
-  }
-];
+<main class="courses-page">
 
-function createCard(course, isFree=true){
-  const div = document.createElement('div');
-  div.className = 'curso-card';
-  div.innerHTML = `
-    <img src="${course.id}.jpg" alt="${course.title}" onerror="this.src='curso-default.jpg'">
-    <h3>${course.title}</h3>
-    <p>${course.desc || ''}</p>
-  `;
-  if(isFree){
-    const btnView = document.createElement('a');
-    btnView.className='btn';
-    btnView.href = course.youtube;
-    btnView.target = '_blank';
-    btnView.textContent = 'Ver Aulas (YouTube)';
-    div.appendChild(btnView);
+    <!-- ============================
+         CURSOS GRATUITOS
+    ============================= -->
+    <section class="course-section">
+        <h2>Cursos Gratuitos</h2>
 
-    const enrollBtn = document.createElement('button');
-    enrollBtn.className='btn secondary';
-    enrollBtn.textContent = 'Inscrever-se (Gratuito)';
-    enrollBtn.onclick = ()=> enrollFree(course);
-    div.appendChild(enrollBtn);
-  } else {
-    // paid: add options select and whatsapp form
-    const select = document.createElement('select');
-    select.className='select-option';
-    select.innerHTML = `<option value="">Escolha uma opção</option>` + course.options.map(o=>`<option>${o}</option>`).join('');
-    div.appendChild(select);
+        <div class="course-grid">
 
-    const durSelect = document.createElement('select');
-    durSelect.className='select-duration';
-    durSelect.innerHTML = `<option value="">Duração</option><option>1 mês</option><option>3 meses</option>`;
-    div.appendChild(durSelect);
+            <!-- DESIGN MOBILE COM PIXELLAB -->
+            <div class="course-card">
+                <img src="pixellab.jpg" alt="PixelLab">
+                <h3>Design Mobile com PixelLab</h3>
+                <p>Curso 100% gratuito com aulas práticas, exercícios e tutoriais em vídeo.</p>
+                <button onclick="openFreeCourse('pixellab')">Acessar Curso</button>
+            </div>
 
-    const formName = document.createElement('input'); formName.placeholder='Seu nome';
-    const formEmail = document.createElement('input'); formEmail.placeholder='Seu email';
-    const formPhone = document.createElement('input'); formPhone.placeholder='WhatsApp (ex: 2588...)';
-    formName.className=formEmail.className=formPhone.className='form-field';
-    div.appendChild(formName); div.appendChild(formEmail); div.appendChild(formPhone);
+            <!-- MARKETING DIGITAL -->
+            <div class="course-card">
+                <img src="marketingfree.jpg" alt="Marketing Digital">
+                <h3>Marketing Digital Básico</h3>
+                <p>Curso gratuito baseado em vídeos educativos, testes e materiais PDF.</p>
+                <button onclick="openFreeCourse('marketing')">Acessar Curso</button>
+            </div>
 
-    const payBtn = document.createElement('button');
-    payBtn.className='btn';
-    payBtn.textContent='Inscrever (Pago)';
-    payBtn.onclick = ()=>{
-      if(!formName.value || !formEmail.value || !formPhone.value || !select.value || !durSelect.value){
-        alert('Preencha todos os campos e escolha opção/duração.');
-        return;
-      }
-      // montar mensagem e abrir WhatsApp
-      const msg = `Olá, quero inscrever-me no curso ${course.title} - Opção: ${select.value} - Duração: ${durSelect.value}.\nNome: ${formName.value}\nEmail: ${formEmail.value}\nWhatsApp: ${formPhone.value}`;
-      const phone = '258844180213';
-      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-    };
-    div.appendChild(payBtn);
-  }
-  return div;
-}
+        </div>
+    </section>
 
-async function enrollFree(course){
-  // salva na colecção 'inscricoes' e incrementa contador em 'cursos_stats'
-  try {
-    await addDoc(collection(db,'inscricoes'), {
-      courseId: course.id,
-      courseTitle: course.title,
-      createdAt: serverTimestamp()
-    });
-    // increment contador (cria doc se necessário)
-    const statRef = doc(db,'cursos_stats',course.id);
-    try {
-      await updateDoc(statRef, { inscritos: increment(1) });
-    } catch(e){
-      // se não existe, cria
-      await addDoc(collection(db,'cursos_stats'), { _id: course.id, inscritos: 1 });
+    <!-- ============================
+         CURSOS PREMIUM
+    ============================= -->
+    <section class="course-section">
+        <h2>Cursos Premium</h2>
+
+        <div class="course-grid">
+
+            <!-- DESIGN GRÁFICO PROFISSIONAL -->
+            <div class="course-card">
+                <img src="designpro.jpg" alt="Design Profissional">
+                <h3>Design Gráfico Profissional</h3>
+                <p>Escolha: Photoshop ou Illustrator<br>Preço: 500 MT</p>
+                <button onclick="openPremium('designpro')">Escolher</button>
+            </div>
+
+            <!-- PRODUÇÃO MUSICAL -->
+            <div class="course-card">
+                <img src="musica.jpg" alt="Produção Musical">
+                <h3>Produção Musical Completa</h3>
+                <p>Escolha: FL Studio ou Samplitude<br>Preço: 600 MT</p>
+                <button onclick="openPremium('musica')">Escolher</button>
+            </div>
+
+            <!-- INGLÊS PROFISSIONAL -->
+            <div class="course-card">
+                <img src="ingles.jpg" alt="Inglês">
+                <h3>Inglês – Básico / Médio / Avançado</h3>
+                <p>Duração: 1 a 3 meses<br>Preço: 350 MT</p>
+                <button onclick="openPremium('ingles')">Escolher</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================
+         MACRO-STUDY
+    ============================= -->
+    <section class="course-section">
+        <h2>Macro-Study (Cursos Rápidos)</h2>
+
+        <div class="course-grid">
+
+            <div class="course-card">
+                <img src="macro1.jpg" alt="Macro">
+                <h3>Guia Rápido de Emprego</h3>
+                <button onclick="goMacro('emprego')">Acessar</button>
+            </div>
+
+            <div class="course-card">
+                <img src="macro2.jpg" alt="Macro">
+                <h3>Como Criar Negócios Rápidos</h3>
+                <button onclick="goMacro('negocios')">Acessar</button>
+            </div>
+
+            <div class="course-card">
+                <img src="macro3.jpg" alt="Macro">
+                <h3>Ferramentas para Universitários</h3>
+                <button onclick="goMacro('universitarios')">Acessar</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================
+         VOLTAR
+    ============================= -->
+    <div class="back-btn-area">
+        <button class="back-btn" onclick="window.location.href='index.html'">Voltar ao Início</button>
+    </div>
+
+</main>
+
+<script>
+    // Cursos gratuitos — abrem pela pasta videos ou links YouTube
+    function openFreeCourse(course) {
+        window.location.href = `free/${course}.html`;
     }
-    alert('Inscrição gratuita registada. Pode ver as aulas no YouTube.');
-  } catch(err){
-    alert('Erro ao inscrever: '+err.message);
-  }
-}
 
-export function renderCourses(){
-  const freeRoot = document.getElementById('freeCourses');
-  const paidRoot = document.getElementById('paidCourses');
-  if(freeRoot){
-    freeRoot.innerHTML='';
-    freeCourses.forEach(c=>{
-      const card = createCard(c,true);
-      freeRoot.appendChild(card);
-    });
-  }
-  if(paidRoot){
-    paidRoot.innerHTML='';
-    paidCourses.forEach(c=>{
-      const card = createCard(c,false);
-      paidRoot.appendChild(card);
-    });
-  }
-}
+    // Cursos premium — abre a página com as opções
+    function openPremium(course) {
+        window.location.href = `premium/${course}.html`;
+    }
 
-// auto-run if included as module
-renderCourses();
+    // Macro-study
+    function goMacro(area) {
+        window.location.href = `macro/${area}.html`;
+    }
+</script>
+
+</body>
+</html>
