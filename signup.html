@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Registar — InfoLearn</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <h2>Criar Conta</h2>
+      <input id="nameUp" type="text" placeholder="Nome completo">
+      <input id="emailUp" type="email" placeholder="Email">
+      <input id="passUp" type="password" placeholder="Senha">
+      <button id="btnSignUp" class="btn">Criar Conta</button>
+    </section>
+  </main>
+
+  <script type="module">
+    import { auth, db } from "./firebase.js";
+    import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+    import { doc, setDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+    document.getElementById('btnSignUp').addEventListener('click', async ()=>{
+      const name = document.getElementById('nameUp').value.trim();
+      const email = document.getElementById('emailUp').value.trim();
+      const pass = document.getElementById('passUp').value.trim();
+      if(!name || !email || !pass){ alert('Preencha todos os campos'); return; }
+      try {
+        const uc = await createUserWithEmailAndPassword(auth, email, pass);
+        const uid = uc.user.uid;
+        await setDoc(doc(db, 'users', uid), { name, email, createdAt: new Date() });
+        alert('Conta criada com sucesso!');
+        location.href = 'index.html';
+      } catch(err){ alert('Erro: '+err.message); }
+    });
+  </script>
+</body>
+</html>
