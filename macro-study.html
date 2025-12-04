@@ -3,174 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InfoLearn Academy — Macro Study</title>
-  <link rel="manifest" href="manifest.json">
+  <title>Macro Study — InfoLearn Academy</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <!-- Loader -->
-  <div id="loader" class="logo-anim" aria-hidden="true">
-    <div class="mark">InfoLearn</div>
-    <div class="spark" style="top:18px;left:34px"></div>
-  </div>
-
-  <!-- HEADER -->
   <header class="topbar">
     <div class="brand">
-      <img src="icon-192.png" alt="InfoLearn" width="48" height="48" style="border-radius:10px;background:#fff;padding:6px">
+      <img src="icon.png" alt="InfoLearn" width="48">
       <div>
         <div class="logo">InfoLearn Academy</div>
-        <div class="muted">Formação Profissional • Macro Study</div>
+        <div class="muted">Macro Study</div>
       </div>
     </div>
-
     <nav class="primary">
-      <a href="index.html">Início</a>
-      <a href="#cursos">Novos Cursos</a>
-      <a href="#videos">Vídeos</a>
-      <a href="#contato">Contato</a>
+      <a href="index.html">🏠 Home</a>
+      <a href="cursos.html">🎓 Cursos</a>
+      <a href="vagalume.html">🤖 Vagalume IA</a>
+      <a href="userpanel.html">🧑‍🎓 Área do Estudante</a>
+      <a href="manifest.json" download>📲 PWA Download</a>
+      <a href="#contato">☎️ Contactos</a>
     </nav>
   </header>
 
   <main class="container">
-
-    <!-- CURSOS -->
-    <section id="cursos" class="card">
-      <h2>Novos Cursos Macro Study</h2>
+    <section class="card">
+      <h2>Cursos Macro Study</h2>
       <div class="grid">
-
-        <!-- Curso Inteligência Artificial Generativa -->
-        <div class="curso-card" data-course-id="ia-generativa">
-          <img src="curso-ia.jpg" alt="Inteligência Artificial Generativa">
+        <div class="curso-card">
+          <img src="curso-ia.jpg" alt="Inteligência Artificial">
           <h3>Inteligência Artificial Generativa</h3>
-          <p>Domínio de ferramentas digitais que estão transformando o mundo.</p>
-          <p><strong>Online:</strong> 800 MT/mês | <strong>3 meses:</strong> 2400 MT</p>
-
-          <form class="form-whatsapp" data-phone="258874457331" data-course="Inteligência Artificial Generativa">
-            <input type="text" name="nome" placeholder="Seu nome" required>
-            <input type="email" name="email" placeholder="Seu e-mail" required>
+          <p>Domínio de ferramentas digitais que transformam o mundo.</p>
+          <p><strong>1 mês:</strong> 800 MT | <strong>3 meses:</strong> 2400 MT</p>
+          <form class="form-whatsapp" data-phone="258874457331">
+            <input type="text" name="nome" placeholder="Nome completo" required>
+            <input type="email" name="email" placeholder="E-mail" required>
             <select name="duracao" required>
-              <option value="">Escolha a duração</option>
+              <option value="">Escolha duração</option>
               <option>1 mês</option>
               <option>3 meses</option>
             </select>
-            <button class="btn" type="submit">Matricular-se</button>
+            <button type="submit">Matricular-se</button>
           </form>
-
-          <p>Participantes: <span class="counter" data-id="ia-generativa">0</span></p>
         </div>
 
-        <!-- Curso Inglês Corporativo -->
-        <div class="curso-card" data-course-id="ingles-corporativo">
+        <div class="curso-card">
           <img src="curso-ingles.jpg" alt="Inglês Corporativo">
           <h3>Inglês Corporativo</h3>
-          <p>Profissionalização e expansão da comunicação no mundo dos negócios.</p>
-          <p><strong>Online:</strong> 700 MT/mês | <strong>3 meses:</strong> 2100 MT</p>
-
-          <form class="form-whatsapp" data-phone="258874457331" data-course="Inglês Corporativo">
+          <p>Profissionalização e expansão da comunicação.</p>
+          <p><strong>1 mês:</strong> 1200 MT | <strong>3 meses:</strong> 3600 MT</p>
+          <form class="form-whatsapp" data-phone="258874094875">
             <input type="text" name="nome" placeholder="Nome completo" required>
-            <input type="email" name="email" placeholder="Seu e-mail" required>
+            <input type="email" name="email" placeholder="E-mail" required>
             <select name="nivel" required>
-              <option value="">Selecione o nível</option>
+              <option value="">Selecione nível</option>
               <option>Básico</option>
               <option>Intermediário</option>
               <option>Avançado</option>
             </select>
             <select name="duracao" required>
-              <option value="">Escolha a duração</option>
+              <option value="">Escolha duração</option>
               <option>1 mês</option>
               <option>3 meses</option>
             </select>
-            <button class="btn" type="submit">Matricular-se</button>
+            <button type="submit">Matricular-se</button>
           </form>
-
-          <p>Participantes: <span class="counter" data-id="ingles-corporativo">0</span></p>
         </div>
-
-        <!-- Curso MBS -->
-        <div class="curso-card" data-course-id="mbs">
-          <img src="curso-mbs.jpg" alt="Master of Business in the Street">
-          <h3>MBS - Master of Business in the Street</h3>
-          <p>Empreendedorismo de rua, vendas locais e liderança prática.</p>
-          <p><strong>Online:</strong> 900 MT/mês | <strong>3 meses:</strong> 2700 MT</p>
-
-          <form class="form-whatsapp" data-phone="258874457331" data-course="MBS">
-            <input type="text" name="nome" placeholder="Seu nome" required>
-            <input type="email" name="email" placeholder="Seu e-mail" required>
-            <select name="duracao" required>
-              <option value="">Escolha a duração</option>
-              <option>1 mês</option>
-              <option>3 meses</option>
-            </select>
-            <button class="btn" type="submit">Matricular-se</button>
-          </form>
-
-          <p>Participantes: <span class="counter" data-id="mbs">0</span></p>
-        </div>
-
-        <!-- Curso Realidade Virtual -->
-        <div class="curso-card" data-course-id="realidade-virtual">
-          <img src="curso-realidade.jpg" alt="Realidade Virtual">
-          <h3>Realidade Virtual</h3>
-          <p>Criação de experiências imersivas usando tecnologia VR moderna.</p>
-          <p><strong>Online:</strong> 800 MT/mês | <strong>3 meses:</strong> 24 000 MT</p>
-
-          <form class="form-whatsapp" data-phone="258874457331" data-course="Realidade Virtual">
-            <input type="text" name="nome" placeholder="Seu nome" required>
-            <input type="email" name="email" placeholder="Seu e-mail" required>
-            <select name="duracao" required>
-              <option value="">Escolha a duração</option>
-              <option>1 mês</option>
-              <option>3 meses</option>
-            </select>
-            <button class="btn" type="submit">Matricular-se</button>
-          </form>
-
-          <p>Participantes: <span class="counter" data-id="realidade-virtual">0</span></p>
-        </div>
-
       </div>
     </section>
 
-    <!-- VÍDEOS -->
-    <section id="videos" class="card">
-      <h2>Vídeos Institucionais</h2>
+    <section class="card" id="videos">
+      <h2>Vídeos Macro Study</h2>
       <div class="grid">
-        <!-- Vídeos podem ser adicionados aqui -->
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
       </div>
     </section>
-
-    <!-- CONTATOS -->
-    <section id="contato" class="card">
-      <h2>Contactos</h2>
-      <div class="socials">
-        <a href="#" id="www.facebook.com/profile.php?id=100089787879627" title="Facebook"><img src="facebook.png" alt="FB" width="28"></a>
-        <a href="#" id="www.instagram.com/infolearn15?igsh=MWFuMDlqcGh2NG5qdw==" title="Instagram"><img src="instagram.png" alt="IG" width="28"></a>
-        <a href="#" id="www.youtube.com/@infolearn84" title="YouTube" title="YouTube"><img src="youtube.png" alt="YT" width="28"></a>
-        <a href="#" id="www.linkedin.com/in/info-learn-94563a398?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" title="LinkedIn"><img src="linkedin.png" alt="LI" width="28"></a>
-        <a href="https://wa.me/258844180213" id="waIcon" title="WhatsApp"><img src="whatsapp.png" alt="WA" width="28"></a>
-      </div>
-    </section>
-
   </main>
 
   <footer>
     <div>© <span id="year"></span> InfoLearn Academy — Todos os direitos reservados</div>
   </footer>
 
-  <script type="module">
-    window.addEventListener('load', ()=>{
-      setTimeout(()=>document.getElementById('loader').classList.add('hidden'),900);
-    });
+  <script src="whatsapp.js"></script>
+  <script>
     document.getElementById('year').innerText = new Date().getFullYear();
-
-    // placeholders para links sociais
-    document.getElementById('link-fb').href = '#';
-    document.getElementById('link-ig').href = '#';
-    document.getElementById('link-yt').href = '#';
-    document.getElementById('link-li').href = '#';
   </script>
-
 </body>
 </html>
