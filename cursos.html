@@ -3,63 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cursos InfoLearn</title>
+  <title>InfoLearn Academy — Cursos</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="topbar">
     <div class="brand">
-      <img src="icone.png" alt="InfoLearn" width="48">
+      <img src="icon.png" alt="InfoLearn" width="48">
       <div>
         <div class="logo">InfoLearn Academy</div>
+        <div class="muted">Transformamos conhecimento em ideias que mudam o mundo</div>
       </div>
     </div>
     <nav class="primary">
-      <a href="index.html"><img src="icons/home.png" alt="Home" width="24"></a>
-      <a href="cursos.html"><img src="icons/cursos.png" alt="Cursos" width="24"></a>
-      <a href="vagalume.html"><img src="icons/vagalume.png" alt="Vagalume IA" width="24"></a>
-      <a href="userpanel.html"><img src="icons/userpanel.png" alt="Userpanel" width="24"></a>
-      <a href="manifest.json" download><img src="icons/pwa.png" alt="PWA" width="24"></a>
-      <a href="#contato"><img src="icons/contato.png" alt="Contatos" width="24"></a>
+      <a href="index.html">🏠 Home</a>
+      <a href="cursos.html">🎓 Cursos</a>
+      <a href="vagalume.html">🤖 Vagalume IA</a>
+      <a href="userpanel.html">🧑‍🎓 Área do Estudante</a>
+      <a href="manifest.json" download>📲 PWA Download</a>
+      <a href="#contato">☎️ Contactos</a>
     </nav>
   </header>
 
   <main class="container">
-    <h2>Cursos Pagos e Gratuitos</h2>
-    <div class="grid">
-      <!-- Replique aqui os cursos da InfoLearn e Macro-Study -->
-      <!-- Exemplo curso pago: Inglês -->
-      <div class="curso-card">
-        <img src="curso-ingles.jpg" alt="Curso Inglês">
-        <h3>Inglês Corporativo</h3>
-        <p>Profissionalização em comunicação.</p>
-        <p><strong>1 mês:</strong> 1200 MT | <strong>3 meses:</strong> 3600 MT</p>
-        <form class="form-whatsapp" data-phone="258874094875" data-course="Inglês Corporativo">
-          <input type="text" name="nome" placeholder="Nome completo" required>
-          <input type="email" name="email" placeholder="Email" required>
-          <input type="number" name="idade" placeholder="Idade" required>
-          <input type="text" name="genero" placeholder="Gênero" required>
-          <input type="text" name="provincia" placeholder="Província" required>
-          <select name="duracao" required>
-            <option value="">Escolha a duração</option>
-            <option>1 mês</option>
-            <option>3 meses</option>
-          </select>
-          <button type="submit" class="btn">Matricular-se</button>
-        </form>
-      </div>
-      <!-- Replique todos os outros cursos pagos e gratuitos aqui -->
-    </div>
-  </main>
-
-  <footer>
-    <p>© <span id="year"></span> InfoLearn Academy — Todos os direitos reservados</p>
-  </footer>
-
-  <script>
-    document.getElementById('year').innerText = new Date().getFullYear();
-  </script>
-  <script type="module" src="firebase.js"></script>
-  <script src="main.js"></script>
-</body>
-</html>
+    <section class="card">
+      <h2>Cursos Gratuitos</h2>
+      <div class="grid">
+        <div class="curso-card">
+          <img src="curso-design.jpg" alt="Design Mobile">
+          <h3>Design Mobile</h3>
+          <
