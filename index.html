@@ -1,76 +1,126 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<title>InfoLearn Academy</title>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>InfoLearn Academy — Transformamos conhecimento em ideias que mudam o mundo</title>
+<link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="style.css">
+<meta name="theme-color" content="#0369a1">
 </head>
-
 <body>
-
-<header>
-    <h1>InfoLearn Academy</h1>
-    <p>A plataforma moderna de cursos em Moçambique.</p>
-    <a href="auth.html" class="btn">Acessar Cursos Gratuitos</a>
-</header>
-
-<section class="highlight">
-    <h2>Cursos Gratuitos</h2>
-
-    <div class="course-card">
-        <h3>Design Mobile com PixelLab</h3>
-        <p>Curso completo grátis.</p>
-        <a href="auth.html" class="btn">Entrar agora</a>
+  <header class="topbar">
+    <div class="brand">
+      <img src="icon-192.png" alt="InfoLearn" width="48" height="48">
+      <div>
+        <div class="logo">InfoLearn Academy</div>
+        <div class="muted">Transformamos conhecimento em ideias que mudam o mundo</div>
+      </div>
     </div>
+    <nav class="primary">
+      <a href="index.html">Início</a>
+      <a href="courses.html">Cursos</a>
+      <a href="macro-study.html">Macro-Study</a>
+      <a href="vagalume.html">Vagalume IA</a>
+      <a href="auth.html">Entrar / Registar</a>
+    </nav>
+  </header>
 
-    <div class="course-card">
-        <h3>Marketing Digital</h3>
-        <p>Curso gratuito e certificado.</p>
-        <a href="auth.html" class="btn">Entrar agora</a>
-    </div>
-</section>
+  <main class="container">
+    <section class="card hero">
+      <div class="hero-grid">
+        <div>
+          <h1>Aprenda. Construa. Conquiste.</h1>
+          <p class="muted">Cursos profissionais, conteúdos gratuitos, criação de projetos tecnológicos e o Vagalume IA para CVs.</p>
+          <div class="header-cta">
+            <a class="btn" href="courses.html">Ver Cursos</a>
+            <a class="btn secondary" href="vagalume.html">Abrir Vagalume IA</a>
+            <a class="btn" href="auth.html">Área do Aluno</a>
+          </div>
+          <div style="margin-top:14px" class="kv">
+            <div class="badge">Cursos Gratuitos em destaque</div>
+            <div class="badge">Serviços: Criação de Projetos Tecnológicos</div>
+            <a class="btn" style="background:#2dd4bf" href="mailto:infolearn8441@gmail.com">Contactar por Email</a>
+          </div>
+        </div>
+        <div class="hero-image"><img src="hero-cv.jpg" alt="Hero"></div>
+      </div>
+    </section>
 
-<section>
-    <h2>Cursos Pagos</h2>
+    <section class="card">
+      <h2>Cursos Gratuitos — Em destaque</h2>
+      <p class="muted">Registe-se gratuitamente para aceder aos vídeos, PDFs e testes com possibilidade de certificado.</p>
+      <div class="grid" id="freeCourses"></div>
+    </section>
 
-    <div class="course-card">
-        <h3>Inglês</h3>
-        <p>1200 MT (1 mês) • 3600 MT (3 meses)</p>
-        <a class="btn" href="https://wa.me/258874094875">Inscrever</a>
-    </div>
+    <section class="card">
+      <h2>Cursos Pagos</h2>
+      <p class="muted">Formulário simples — será redirecionado ao WhatsApp do curso.</p>
+      <div class="grid" id="paidCourses"></div>
+    </section>
 
-    <div class="course-card">
-        <h3>Design Gráfico (Photoshop/Illustrator)</h3>
-        <p>2500 MT / mês • 7500 MT por 3 meses</p>
-        <a class="btn" href="https://wa.me/258867101103">Inscrever</a>
-    </div>
+    <section class="card">
+      <h2>Vagalume IA — CV Maker</h2>
+      <p class="muted">Cole o texto do seu CV ou carregue ficheiro .txt — a IA organiza e gera PDF automaticamente. Para CV personalizado (75MT) clique em "Personalizado" e será levado ao WhatsApp.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn" href="vagalume.html">Abrir Vagalume (Gratuito)</a>
+        <a class="btn secondary" href="mailto:infolearn8441@gmail.com?subject=CV%20Personalizado">CV Personalizado (75 MT)</a>
+      </div>
+    </section>
 
-    <div class="course-card">
-        <h3>Música</h3>
-        <p>1600 MT (mensal)</p>
-        <a class="btn" href="https://wa.me/258857521281">Inscrever</a>
-    </div>
+    <section class="card">
+      <h2>Contactos</h2>
+      <div class="socials contact-icons">
+        <a href="https://www.facebook.com/profile.php?id=100089787879627" title="Facebook"><img src="facebook.png" alt="FB"></a>
+        <a href="https://www.instagram.com/infolearn15?igsh=MWFuMDlqcGh2NG5qdw==" title="Instagram"><img src="instagram.png" alt="IG"></a>
+        <a href="https://www.youtube.com/@infolearn84" title="YouTube"><img src="youtube.png" alt="YT"></a>
+        <a href="https://www.linkedin.com/in/info-learn-94563a398?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" title="LinkedIn"><img src="linkedin.png" alt="LI"></a>
+        <a href="https://wa.me/258844180213" title="WhatsApp"><img src="whatsapp.png" alt="WA"></a>
+      </div>
+    </section>
+  </main>
 
-    <div class="course-card">
-        <h3>Marketing Digital / Programação / Outros</h3>
-        <p>Valores variados.</p>
-        <a class="btn" href="https://wa.me/258844180213">Inscrever</a>
-    </div>
-</section>
+  <footer><div>© <span id="year"></span> InfoLearn Academy — Todos os direitos reservados</div></footer>
 
-<section class="highlight">
-    <h2>Vagalume IA — CV Maker</h2>
+<script type="module">
+import { db } from './firebase.js';
+import { collection, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-    <div class="course-card">
-        <h3>Gerador de CV Gratuito</h3>
-        <a href="#" class="btn">Criar CV</a>
-    </div>
+// seed courses if none (runs once)
+async function seedIfEmpty(){
+  const snap = await getDocs(collection(db,'courses'));
+  if(!snap.empty) return;
+  const data = [
+    { title:'Design Mobile (Pixellab)', type:'free', thumbnail:'curso-design.jpg', description:'Design Mobile com Pixellab — gratuito', youtube:'https://www.youtube.com/embed/dQw4w9WgXcQ'},
+    { title:'Marketing Digital', type:'free', thumbnail:'curso-marketing.jpg', description:'Marketing Digital — gratuito', youtube:'https://www.youtube.com/embed/dQw4w9WgXcQ'},
+    { title:'Inglês Corporativo', type:'paid', priceMonth:1200, price3m:3600, thumbnail:'curso-ingles.jpg'},
+    { title:'Design Gráfico (Photoshop/Illustrator)', type:'paid', priceMonth:2500, price3m:7500, thumbnail:'curso-design-graphic.jpg'},
+    { title:'Música', type:'paid', priceMonth:1600, thumbnail:'curso-musica.jpg'}
+  ];
+  for(const c of data) await addDoc(collection(db,'courses'), {...c, createdAt: serverTimestamp()});
+}
 
-    <div class="course-card">
-        <h3>CV Personalizado — 85 MT</h3>
-        <a href="https://wa.me/258844180213" class="btn">Solicitar Personalizado</a>
-    </div>
-</section>
+async function render(){
+  await seedIfEmpty();
+  const snap = await getDocs(collection(db,'courses'));
+  const free = document.getElementById('freeCourses');
+  const paid = document.getElementById('paidCourses');
+  free.innerHTML=''; paid.innerHTML='';
+  snap.forEach(docu=>{
+    const d = docu.data();
+    const el = document.createElement('div');
+    el.className='curso-card';
+    el.innerHTML=`${d.thumbnail?`<img src="${d.thumbnail}" alt="">`:''}<div class="body"><h3>${d.title}</h3><p class="muted">${d.description||''}</p>
+      ${d.type==='paid'?`<p><strong>${d.priceMonth?d.priceMonth+' MT/mês':''}</strong> ${d.price3m?'/ '+d.price3m+' MT (3 meses)':''}</p>`:''}
+      <div style="margin-top:8px">${d.type==='free'?`<a class="btn" href="course-free.html?id=${docu.id}">Acessar</a>`:`<a class="btn" href="inscricao.html?curso=${encodeURIComponent(d.title)}">Inscrever</a>`}</div></div>`;
+    if(d.type==='free') free.appendChild(el); else paid.appendChild(el);
+  });
+}
 
+window.addEventListener('load', async ()=>{
+  document.getElementById('year').innerText = new Date().getFullYear();
+  await render();
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js').catch(()=>{});
+});
+</script>
 </body>
 </html>
