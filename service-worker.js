@@ -1,5 +1,35 @@
-const CACHE='infolearn-v1';
-const FILES=['/','/index.html','/style.css','/manifest.json','/icon-192.png','/icon-512.png'];
-self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES))));
-self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
-self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));
+const CACHE_NAME = "infolearn-cache-v1";
+const urlsToCache = [
+  "/index.html",
+  "/cursos.html",
+  "/vagalume.html",
+  "/userpanel.html",
+  "/style.css",
+  "/main.js",
+  "/vagalume.js",
+  "/userpanel.js",
+  "/manifest.json"
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
+  );
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
+  );
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keys => 
+      Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))
+    )
+  );
+});
