@@ -1,84 +1,85 @@
 <!DOCTYPE html>
 <html lang="pt">
-<head>
-<meta charset="UTF-8">
-<title>InfoLearn — Login</title>
-<link rel="stylesheet" href="style.css">
-<script type="module" src="firebase.js"></script>
-</head>
-
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Entrar / Registar — InfoLearn</title><link rel="stylesheet" href="style.css"></head>
 <body>
-<div class="auth-box">
-
-    <h2>Entrar na InfoLearn</h2>
-
-    <input id="email" type="email" placeholder="Seu e-mail">
-    <input id="password" type="password" placeholder="Sua senha">
-
-    <button id="loginBtn">Entrar</button>
-
-    <p class="swap" id="goSignup">Criar nova conta</p>
-    <p class="swap" id="goReset">Esqueci minha senha</p>
-
-    <p id="msg"></p>
-</div>
-
+<header class="topbar"><div class="brand"><img src="icon-192.png" width="48"><div><div class="logo">InfoLearn Academy</div></div></div></header>
+<main class="container">
+  <section class="card auth-card">
+    <h2 id="formTitle">Entrar</h2>
+    <div class="form-grid">
+      <input id="identifier" placeholder="Email ou Nome de usuário">
+      <input id="password" type="password" placeholder="Senha">
+      <button id="btnPrimary" class="btn">Entrar</button>
+      <div style="display:flex;gap:8px;margin-top:6px">
+        <button id="toRegister" class="btn secondary">Criar Conta</button>
+        <button id="toReset" class="btn secondary">Recuperar Senha</button>
+      </div>
+      <div style="margin-top:10px" class="muted">Pode criar nome de usuário no registo; login aceita email ou username.</div>
+    </div>
+  </section>
+</main>
 <script type="module">
-import { loginUser, registerUser, resetUserPassword } from "./firebase.js";
+import { auth, db } from './firebase.js';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import { doc, setDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-const msg = document.getElementById("msg");
+const formTitle=document.getElementById('formTitle'), idf=document.getElementById('identifier'), pass=document.getElementById('password'), btn=document.getElementById('btnPrimary');
+document.getElementById('toRegister').onclick = ()=> showRegister();
+document.getElementById('toReset').onclick = ()=> showReset();
 
-document.getElementById("loginBtn").onclick = async () => {
-    const email = email.value.trim();
-    const pass = password.value.trim();
+function showRegister(){
+  formTitle.innerText='Criar Conta (gratuitos)';
+  idf.placeholder='Email';
+  pass.placeholder='Senha (mín 8)';
+  btn.innerText='Criar Conta';
+  btn.onclick = async ()=>{
+    const email = idf.value.trim();
+    const password = pass.value;
+    if(!email || password.length<8) return alert('Email e senha (min 8) obrigatórios');
+    try{
+      const uc = await createUserWithEmailAndPassword(auth,email,password);
+      await setDoc(doc(db,'users',uc.user.uid), { email, createdAt:new Date() });
+      await sendEmailVerification(uc.user);
+      alert('Conta criada. Verifique seu email.');
+      location.href='auth.html';
+    }catch(e){ alert(e.message); }
+  };
+}
 
-    try {
-        await loginUser(email, pass);
-        msg.innerText = "✔ Login feito!";
-        setTimeout(() => (window.location = "userpanel.html"), 700);
-    } catch (e) {
-        msg.innerText = "Erro: " + e.message;
+function showReset(){
+  formTitle.innerText='Recuperar Senha';
+  idf.placeholder='Email';
+  pass.style.display='none';
+  btn.innerText='Enviar link';
+  btn.onclick = async ()=>{
+    const email = idf.value.trim();
+    if(!email) return alert('Coloque o email');
+    try{ await sendPasswordResetEmail(auth,email); alert('Email enviado'); }catch(e){ alert(e.message); }
+  };
+}
+
+async function resolveUsernameToEmail(username){
+  const q = query(collection(db,'users'), where('username','==',username));
+  const snap = await getDocs(q);
+  if(snap.empty) throw new Error('Usuário não encontrado');
+  return snap.docs[0].data().email;
+}
+
+btn.onclick = async ()=>{
+  // default login
+  const identifier = idf.value.trim();
+  const password = pass.value;
+  if(!identifier || !password) return alert('Preencha os campos');
+  try{
+    let email = identifier;
+    if(!identifier.includes('@')) {
+      email = await resolveUsernameToEmail(identifier);
     }
+    await signInWithEmailAndPassword(auth, email, password);
+    alert('Login efetuado');
+    location.href='userpanel.html';
+  }catch(e){ alert(e.message); }
 };
-
-document.getElementById("goSignup").onclick = () => signupMode();
-document.getElementById("goReset").onclick = () => resetMode();
-
-function signupMode() {
-    document.querySelector("h2").innerText = "Criar Conta";
-    document.getElementById("loginBtn").innerText = "Criar";
-    msg.innerText = "";
-
-    document.getElementById("loginBtn").onclick = async () => {
-        const email = document.getElementById("email").value.trim();
-        const pass = document.getElementById("password").value.trim();
-
-        try {
-            await registerUser(email, pass);
-            msg.innerText = "✔ Conta criada! Faça login.";
-        } catch (e) {
-            msg.innerText = e.message;
-        }
-    };
-}
-
-function resetMode() {
-    document.querySelector("h2").innerText = "Recuperar Conta";
-    document.getElementById("password").style.display = "none";
-    document.getElementById("loginBtn").innerText = "Enviar link";
-
-    document.getElementById("loginBtn").onclick = async () => {
-        const email = document.getElementById("email").value.trim();
-
-        try {
-            await resetUserPassword(email);
-            msg.innerText = "📨 E-mail enviado!";
-        } catch (e) {
-            msg.innerText = e.message;
-        }
-    };
-}
 </script>
-
 </body>
 </html>
