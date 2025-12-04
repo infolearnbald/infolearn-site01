@@ -1,15 +1,17 @@
-// main.js
-document.addEventListener('DOMContentLoaded', ()=> {
-  const splash = document.getElementById('splash');
-  const main = document.getElementById('mainContent');
-  setTimeout(()=>{
-    if(splash){
-      splash.style.opacity='0';
-      setTimeout(()=>{ if(splash.parentNode) splash.parentNode.removeChild(splash); },300);
-    }
-    if(main) main.style.display='block';
-    // tenta chamar renderCourses (courses.js exporta e auto-run)
-    try { if(typeof renderCourses === 'function') renderCourses(); } catch(e){}
-    document.getElementById('year').innerText = new Date().getFullYear();
-  },900);
+// Lógica de formulários WhatsApp
+document.querySelectorAll('.form-whatsapp').forEach(form => {
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    const phone = form.dataset.phone;
+    const course = form.dataset.course;
+    const name = form.nome.value;
+    const email = form.email.value;
+    const idade = form.idade.value;
+    const genero = form.genero.value;
+    const provincia = form.provincia.value;
+    const duracao = form.duracao ? form.duracao.value : '';
+
+    const url = `https://wa.me/${phone}?text=Olá,%20quero%20me%20inscrever%20no%20curso%20${course}%20Nome:%20${name}%20Email:%20${email}%20Idade:%20${idade}%20Gênero:%20${genero}%20Província:%20${provincia}%20Duração:%20${duracao}`;
+    window.open(url,'_blank');
+  });
 });
