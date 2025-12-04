@@ -1,33 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt">
-<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Vagalume IA — CV Maker</title><link rel="stylesheet" href="style.css"></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vagalume IA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
-<header class="topbar"><div class="brand"><img src="icon-192.png" width="48"><div><div class="logo">InfoLearn Academy</div></div></div></header>
-<main class="container card">
-  <h2>Vagalume — Assistente de CV</h2>
-  <p class="muted">Cole o texto do seu CV, carregue .txt ou faça upload. A IA organiza e gera PDF automaticamente. Para CV personalizado (75 MT) clique em "Personalizado".</p>
+<header class="topbar">
+  <div class="brand">
+    <img src="icone.png" alt="InfoLearn" width="48">
+  </div>
+  <nav class="primary">
+    <a href="index.html"><img src="icons/home.png" alt="Home" width="24"></a>
+    <a href="cursos.html"><img src="icons/cursos.png" alt="Cursos" width="24"></a>
+    <a href="vagalume.html"><img src="icons/vagalume.png" alt="Vagalume IA" width="24"></a>
+    <a href="userpanel.html"><img src="icons/userpanel.png" alt="Userpanel" width="24"></a>
+    <a href="manifest.json" download><img src="icons/pwa.png" alt="PWA" width="24"></a>
+    <a href="#contato"><img src="icons/contato.png" alt="Contatos" width="24"></a>
+  </nav>
+</header>
 
-  <div class="vagalume-inline">
-    <label>Imagem representativa da IA (PNG):</label>
-    <input type="file" id="vImg" accept="image/png, image/*">
-    <div id="vPreview"></div>
-
-    <label style="display:block;margin-top:12px">Carregar CV (.txt):</label>
-    <input type="file" id="cvFile" accept=".txt">
-    <textarea id="cvText" placeholder="Ou cole o CV aqui..." ></textarea>
-
-    <div style="margin-top:10px" class="kv">
-      <button id="analyze" class="btn">Analisar</button>
-      <button id="download" class="btn secondary">Baixar PDF</button>
-      <button id="personal" class="btn" style="background:#f39c12">CV Personalizado (75 MT)</button>
-    </div>
-
-    <div id="analysis" style="margin-top:12px;display:none" class="card">
-      <h3>Resultado</h3>
-      <div id="analysisContent"></div>
-    </div>
+<main class="container">
+  <h2>Vagalume IA — Criador Automático de CVs</h2>
+  <p>Gere seu CV em PDF automaticamente. Para versão personalizada com pagamento: 75 MT via WhatsApp.</p>
+  <a class="btn" href="https://wa.me/258844180213">Solicitar CV Personalizado</a>
+  <div id="vagalume-container">
+    <!-- Bot automatizado gera CVs PDF para download -->
   </div>
 </main>
-<script type="module" src="vagalume.js"></script>
+
+<footer>
+  <p>© <span id="year"></span> InfoLearn Academy — Todos os direitos reservados</p>
+</footer>
+
+<script>
+  document.getElementById('year').innerText = new Date().getFullYear();
+</script>
+<script type="module" src="firebase.js"></script>
+<script src="vagalume.js"></script>
 </body>
 </html>
