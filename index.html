@@ -1,126 +1,169 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>InfoLearn Academy — Transformamos conhecimento em ideias que mudam o mundo</title>
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css">
-<meta name="theme-color" content="#0369a1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InfoLearn Academy</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <!-- Loader -->
+  <div id="loader" class="logo-anim">
+    <div class="mark">InfoLearn</div>
+  </div>
+
+  <!-- HEADER -->
   <header class="topbar">
     <div class="brand">
-      <img src="icon-192.png" alt="InfoLearn" width="48" height="48">
+      <img src="icone.png" alt="InfoLearn" width="48" height="48">
       <div>
         <div class="logo">InfoLearn Academy</div>
         <div class="muted">Transformamos conhecimento em ideias que mudam o mundo</div>
       </div>
     </div>
     <nav class="primary">
-      <a href="index.html">Início</a>
-      <a href="courses.html">Cursos</a>
-      <a href="macro-study.html">Macro-Study</a>
-      <a href="vagalume.html">Vagalume IA</a>
-      <a href="auth.html">Entrar / Registar</a>
+      <a href="index.html">🏠 Home</a>
+      <a href="cursos.html">🎓 Cursos</a>
+      <a href="vagalume.html">🤖 Vagalume IA</a>
+      <a href="userpanel.html">🧑‍🎓 Área do Estudante</a>
+      <a href="manifest.json" download>📲 PWA Download</a>
+      <a href="#contato">☎️ Contactos</a>
     </nav>
   </header>
 
+  <!-- Main Content -->
   <main class="container">
-    <section class="card hero">
-      <div class="hero-grid">
-        <div>
-          <h1>Aprenda. Construa. Conquiste.</h1>
-          <p class="muted">Cursos profissionais, conteúdos gratuitos, criação de projetos tecnológicos e o Vagalume IA para CVs.</p>
-          <div class="header-cta">
-            <a class="btn" href="courses.html">Ver Cursos</a>
-            <a class="btn secondary" href="vagalume.html">Abrir Vagalume IA</a>
-            <a class="btn" href="auth.html">Área do Aluno</a>
-          </div>
-          <div style="margin-top:14px" class="kv">
-            <div class="badge">Cursos Gratuitos em destaque</div>
-            <div class="badge">Serviços: Criação de Projetos Tecnológicos</div>
-            <a class="btn" style="background:#2dd4bf" href="mailto:infolearn8441@gmail.com">Contactar por Email</a>
-          </div>
+    <!-- Descrição InfoLearn -->
+    <section class="card" id="descricao">
+      <h2>Sobre a InfoLearn</h2>
+      <p>InfoLearn é uma setup educativa que oferece cursos pagos e gratuitos, criando soluções tecnológicas para a sociedade e promovendo o conhecimento digital.</p>
+      <div class="miniatura-fundo">
+        <!-- Aqui você coloca a imagem de fundo da descrição -->
+      </div>
+    </section>
+
+    <!-- Destaques Serviços -->
+    <section class="card" id="servicos">
+      <h2>Nossos Serviços</h2>
+      <ul>
+        <li>Criação de projetos tecnológicos</li>
+        <li>Formação profissional</li>
+        <li>Suporte a estudantes e empresas</li>
+      </ul>
+      <a class="btn" href="mailto:infolearn@gmail.com">Contactar via Email</a>
+    </section>
+
+    <!-- Cursos Macro-Study & InfoLearn -->
+    <section class="card" id="cursos-destaque">
+      <h2>Cursos em Destaque</h2>
+      <div class="grid">
+        <!-- Cada curso deve ter uma imagem JPG representando -->
+        <div class="curso-card">
+          <img src="curso-ingles.jpg" alt="Curso Inglês">
+          <h3>Inglês Corporativo</h3>
+          <p>Profissionalização em comunicação.</p>
+          <p><strong>1 mês:</strong> 1200 MT | <strong>3 meses:</strong> 3600 MT</p>
+          <form class="form-whatsapp" data-phone="258874094875" data-course="Inglês Corporativo">
+            <input type="text" name="nome" placeholder="Nome completo" required>
+            <input type="email" name="email" placeholder="Seu email" required>
+            <input type="number" name="idade" placeholder="Idade" required>
+            <input type="text" name="genero" placeholder="Gênero" required>
+            <input type="text" name="provincia" placeholder="Província" required>
+            <select name="duracao" required>
+              <option value="">Escolha a duração</option>
+              <option>1 mês</option>
+              <option>3 meses</option>
+            </select>
+            <button class="btn" type="submit">Matricular-se</button>
+          </form>
         </div>
-        <div class="hero-image"><img src="hero-cv.jpg" alt="Hero"></div>
+
+        <div class="curso-card">
+          <img src="curso-musica.jpg" alt="Curso Música">
+          <h3>Música</h3>
+          <p>Desenvolvimento musical e produção.</p>
+          <p><strong>1 mês:</strong> 1600 MT</p>
+          <form class="form-whatsapp" data-phone="258857521281" data-course="Música">
+            <input type="text" name="nome" placeholder="Nome completo" required>
+            <input type="email" name="email" placeholder="Seu email" required>
+            <input type="number" name="idade" placeholder="Idade" required>
+            <input type="text" name="genero" placeholder="Gênero" required>
+            <input type="text" name="provincia" placeholder="Província" required>
+            <button class="btn" type="submit">Matricular-se</button>
+          </form>
+        </div>
+
+        <div class="curso-card">
+          <img src="curso-design.jpg" alt="Curso Design Gráfico">
+          <h3>Design Gráfico (Photoshop/Illustrator)</h3>
+          <p>Aprenda design digital profissional.</p>
+          <p><strong>1 mês:</strong> 2500 MT | <strong>3 meses:</strong> 7500 MT</p>
+          <form class="form-whatsapp" data-phone="258867101103" data-course="Design Gráfico">
+            <input type="text" name="nome" placeholder="Nome completo" required>
+            <input type="email" name="email" placeholder="Seu email" required>
+            <input type="number" name="idade" placeholder="Idade" required>
+            <input type="text" name="genero" placeholder="Gênero" required>
+            <input type="text" name="provincia" placeholder="Província" required>
+            <select name="duracao" required>
+              <option value="">Escolha a duração</option>
+              <option>1 mês</option>
+              <option>3 meses</option>
+            </select>
+            <button class="btn" type="submit">Matricular-se</button>
+          </form>
+        </div>
+
+        <!-- Cursos gratuitos -->
+        <div class="curso-card gratuito">
+          <img src="curso-marketing.jpg" alt="Curso Marketing Digital">
+          <h3>Marketing Digital</h3>
+          <p>Curso gratuito com acesso a vídeos e PDFs.</p>
+          <form class="form-login-gratis">
+            <input type="text" name="nome" placeholder="Nome" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="senha" placeholder="Senha" required>
+            <button class="btn" type="submit">Acessar Curso</button>
+          </form>
+        </div>
       </div>
     </section>
 
-    <section class="card">
-      <h2>Cursos Gratuitos — Em destaque</h2>
-      <p class="muted">Registe-se gratuitamente para aceder aos vídeos, PDFs e testes com possibilidade de certificado.</p>
-      <div class="grid" id="freeCourses"></div>
-    </section>
-
-    <section class="card">
-      <h2>Cursos Pagos</h2>
-      <p class="muted">Formulário simples — será redirecionado ao WhatsApp do curso.</p>
-      <div class="grid" id="paidCourses"></div>
-    </section>
-
-    <section class="card">
-      <h2>Vagalume IA — CV Maker</h2>
-      <p class="muted">Cole o texto do seu CV ou carregue ficheiro .txt — a IA organiza e gera PDF automaticamente. Para CV personalizado (75MT) clique em "Personalizado" e será levado ao WhatsApp.</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a class="btn" href="vagalume.html">Abrir Vagalume (Gratuito)</a>
-        <a class="btn secondary" href="mailto:infolearn8441@gmail.com?subject=CV%20Personalizado">CV Personalizado (75 MT)</a>
+    <!-- Vagalume IA -->
+    <section class="card" id="vagalume">
+      <h2>Vagalume IA - Criador de CVs</h2>
+      <p>Crie seu CV gratuitamente em PDF. Para CV personalizado, pagamento de 75 MT via WhatsApp.</p>
+      <a class="btn" href="mailto:infolearn@gmail.com?subject=CV Personalizado">Solicitar CV Personalizado</a>
+      <div id="vagalume-container">
+        <!-- Aqui o bot automatizado gera o CV em PDF e disponibiliza download -->
       </div>
     </section>
 
-    <section class="card">
+    <!-- Contatos -->
+    <section id="contato" class="card">
       <h2>Contactos</h2>
-      <div class="socials contact-icons">
-        <a href="https://www.facebook.com/profile.php?id=100089787879627" title="Facebook"><img src="facebook.png" alt="FB"></a>
-        <a href="https://www.instagram.com/infolearn15?igsh=MWFuMDlqcGh2NG5qdw==" title="Instagram"><img src="instagram.png" alt="IG"></a>
-        <a href="https://www.youtube.com/@infolearn84" title="YouTube"><img src="youtube.png" alt="YT"></a>
-        <a href="https://www.linkedin.com/in/info-learn-94563a398?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" title="LinkedIn"><img src="linkedin.png" alt="LI"></a>
-        <a href="https://wa.me/258844180213" title="WhatsApp"><img src="whatsapp.png" alt="WA"></a>
+      <div class="socials">
+        <a href="https://www.facebook.com/profile.php?id=100089787879627" title="Facebook"><img src="facebook.png" alt="FB" width="28"></a>
+        <a href="https://www.instagram.com/infolearn15" title="Instagram"><img src="instagram.png" alt="IG" width="28"></a>
+        <a href="https://www.youtube.com/@infolearn84" title="YouTube"><img src="youtube.png" alt="YT" width="28"></a>
+        <a href="https://www.linkedin.com/in/info-learn-94563a398" title="LinkedIn"><img src="linkedin.png" alt="LI" width="28"></a>
+        <a href="https://wa.me/258844180213" title="WhatsApp"><img src="whatsapp.png" alt="WA" width="28"></a>
       </div>
     </section>
+
   </main>
 
-  <footer><div>© <span id="year"></span> InfoLearn Academy — Todos os direitos reservados</div></footer>
+  <footer>
+    <div>© <span id="year"></span> InfoLearn Academy — Todos os direitos reservados</div>
+  </footer>
 
-<script type="module">
-import { db } from './firebase.js';
-import { collection, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-
-// seed courses if none (runs once)
-async function seedIfEmpty(){
-  const snap = await getDocs(collection(db,'courses'));
-  if(!snap.empty) return;
-  const data = [
-    { title:'Design Mobile (Pixellab)', type:'free', thumbnail:'curso-design.jpg', description:'Design Mobile com Pixellab — gratuito', youtube:'https://www.youtube.com/embed/dQw4w9WgXcQ'},
-    { title:'Marketing Digital', type:'free', thumbnail:'curso-marketing.jpg', description:'Marketing Digital — gratuito', youtube:'https://www.youtube.com/embed/dQw4w9WgXcQ'},
-    { title:'Inglês Corporativo', type:'paid', priceMonth:1200, price3m:3600, thumbnail:'curso-ingles.jpg'},
-    { title:'Design Gráfico (Photoshop/Illustrator)', type:'paid', priceMonth:2500, price3m:7500, thumbnail:'curso-design-graphic.jpg'},
-    { title:'Música', type:'paid', priceMonth:1600, thumbnail:'curso-musica.jpg'}
-  ];
-  for(const c of data) await addDoc(collection(db,'courses'), {...c, createdAt: serverTimestamp()});
-}
-
-async function render(){
-  await seedIfEmpty();
-  const snap = await getDocs(collection(db,'courses'));
-  const free = document.getElementById('freeCourses');
-  const paid = document.getElementById('paidCourses');
-  free.innerHTML=''; paid.innerHTML='';
-  snap.forEach(docu=>{
-    const d = docu.data();
-    const el = document.createElement('div');
-    el.className='curso-card';
-    el.innerHTML=`${d.thumbnail?`<img src="${d.thumbnail}" alt="">`:''}<div class="body"><h3>${d.title}</h3><p class="muted">${d.description||''}</p>
-      ${d.type==='paid'?`<p><strong>${d.priceMonth?d.priceMonth+' MT/mês':''}</strong> ${d.price3m?'/ '+d.price3m+' MT (3 meses)':''}</p>`:''}
-      <div style="margin-top:8px">${d.type==='free'?`<a class="btn" href="course-free.html?id=${docu.id}">Acessar</a>`:`<a class="btn" href="inscricao.html?curso=${encodeURIComponent(d.title)}">Inscrever</a>`}</div></div>`;
-    if(d.type==='free') free.appendChild(el); else paid.appendChild(el);
-  });
-}
-
-window.addEventListener('load', async ()=>{
-  document.getElementById('year').innerText = new Date().getFullYear();
-  await render();
-  if('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js').catch(()=>{});
-});
-</script>
+  <script type="module" src="firebase.js"></script>
+  <script src="main.js"></script>
+  <script>
+    window.addEventListener('load', ()=>{
+      setTimeout(()=>document.getElementById('loader').classList.add('hidden'),900);
+    });
+    document.getElementById('year').innerText = new Date().getFullYear();
+  </script>
 </body>
 </html>
