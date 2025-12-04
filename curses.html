@@ -1,135 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos – InfoLearn Academy</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Cursos — InfoLearn</title><link rel="stylesheet" href="style.css"></head>
 <body>
-
-<header class="main-header">
-    <h1>InfoLearn Academy – Cursos</h1>
-</header>
-
-<main class="courses-page">
-
-    <!-- ============================
-         CURSOS GRATUITOS
-    ============================= -->
-    <section class="course-section">
-        <h2>Cursos Gratuitos</h2>
-
-        <div class="course-grid">
-
-            <!-- DESIGN MOBILE COM PIXELLAB -->
-            <div class="course-card">
-                <img src="pixellab.jpg" alt="PixelLab">
-                <h3>Design Mobile com PixelLab</h3>
-                <p>Curso 100% gratuito com aulas práticas, exercícios e tutoriais em vídeo.</p>
-                <button onclick="openFreeCourse('pixellab')">Acessar Curso</button>
-            </div>
-
-            <!-- MARKETING DIGITAL -->
-            <div class="course-card">
-                <img src="marketingfree.jpg" alt="Marketing Digital">
-                <h3>Marketing Digital Básico</h3>
-                <p>Curso gratuito baseado em vídeos educativos, testes e materiais PDF.</p>
-                <button onclick="openFreeCourse('marketing')">Acessar Curso</button>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ============================
-         CURSOS PREMIUM
-    ============================= -->
-    <section class="course-section">
-        <h2>Cursos Premium</h2>
-
-        <div class="course-grid">
-
-            <!-- DESIGN GRÁFICO PROFISSIONAL -->
-            <div class="course-card">
-                <img src="designpro.jpg" alt="Design Profissional">
-                <h3>Design Gráfico Profissional</h3>
-                <p>Escolha: Photoshop ou Illustrator<br>Preço: 500 MT</p>
-                <button onclick="openPremium('designpro')">Escolher</button>
-            </div>
-
-            <!-- PRODUÇÃO MUSICAL -->
-            <div class="course-card">
-                <img src="musica.jpg" alt="Produção Musical">
-                <h3>Produção Musical Completa</h3>
-                <p>Escolha: FL Studio ou Samplitude<br>Preço: 600 MT</p>
-                <button onclick="openPremium('musica')">Escolher</button>
-            </div>
-
-            <!-- INGLÊS PROFISSIONAL -->
-            <div class="course-card">
-                <img src="ingles.jpg" alt="Inglês">
-                <h3>Inglês – Básico / Médio / Avançado</h3>
-                <p>Duração: 1 a 3 meses<br>Preço: 350 MT</p>
-                <button onclick="openPremium('ingles')">Escolher</button>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ============================
-         MACRO-STUDY
-    ============================= -->
-    <section class="course-section">
-        <h2>Macro-Study (Cursos Rápidos)</h2>
-
-        <div class="course-grid">
-
-            <div class="course-card">
-                <img src="macro1.jpg" alt="Macro">
-                <h3>Guia Rápido de Emprego</h3>
-                <button onclick="goMacro('emprego')">Acessar</button>
-            </div>
-
-            <div class="course-card">
-                <img src="macro2.jpg" alt="Macro">
-                <h3>Como Criar Negócios Rápidos</h3>
-                <button onclick="goMacro('negocios')">Acessar</button>
-            </div>
-
-            <div class="course-card">
-                <img src="macro3.jpg" alt="Macro">
-                <h3>Ferramentas para Universitários</h3>
-                <button onclick="goMacro('universitarios')">Acessar</button>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ============================
-         VOLTAR
-    ============================= -->
-    <div class="back-btn-area">
-        <button class="back-btn" onclick="window.location.href='index.html'">Voltar ao Início</button>
-    </div>
-
-</main>
-
-<script>
-    // Cursos gratuitos — abrem pela pasta videos ou links YouTube
-    function openFreeCourse(course) {
-        window.location.href = `free/${course}.html`;
-    }
-
-    // Cursos premium — abre a página com as opções
-    function openPremium(course) {
-        window.location.href = `premium/${course}.html`;
-    }
-
-    // Macro-study
-    function goMacro(area) {
-        window.location.href = `macro/${area}.html`;
-    }
+<header class="topbar"><div class="brand"><img src="icon-192.png" width="48"><div><div class="logo">InfoLearn Academy</div></div></div><nav class="primary"><a href="index.html">Início</a><a href="auth.html">Entrar</a></nav></header>
+<main class="container"><section class="card"><h2>Todos os Cursos</h2><div id="allCourses" class="grid"></div></section></main>
+<script type="module">
+import { db } from './firebase.js';
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+async function renderAll(){ const snap = await getDocs(collection(db,'courses')); const c=document.getElementById('allCourses'); c.innerHTML=''; snap.forEach(d=>{ const v=d.data(); const id=d.id; const node=document.createElement('div'); node.className='curso-card'; node.innerHTML=`${v.thumbnail?`<img src="${v.thumbnail}">`:''}<div class="body"><h3>${v.title}</h3><p class="muted">${v.description||''}</p>${v.type==='paid'?`<p><strong>${v.priceMonth?v.priceMonth+' MT/mês':''}</strong> ${v.price3m?'/ '+v.price3m+' MT (3 meses)':''}</p>`:''}<div style="margin-top:8px">${v.type==='free'?`<a class="btn" href="course-free.html?id=${id}">Acessar</a>`:`<a class="btn" href="inscricao.html?curso=${encodeURIComponent(v.title)}">Inscrever</a>`}</div></div>`; c.appendChild(node); }); }
+renderAll();
 </script>
-
 </body>
 </html>
