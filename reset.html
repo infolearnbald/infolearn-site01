@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Recuperar Senha — InfoLearn</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="topbar"><div class="brand"><img src="icon-192.png" width="48"><div><div class="logo">InfoLearn Academy</div></div></div></header>
+<main class="container"><section class="card"><h2>Recuperar Conta</h2><input id="em" placeholder="Seu email"><button id="send" class="btn">Enviar link de redefinição</button><div id="msg" class="muted"></div></section></main>
+<script type="module">
+import { auth } from './firebase.js';
+import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+document.getElementById('send').addEventListener('click', async ()=>{
+  const email=document.getElementById('em').value.trim();
+  if(!email) return alert('Email vazio');
+  try{ await sendPasswordResetEmail(auth,email); document.getElementById('msg').innerText='E-mail de redefinição enviado.'; }catch(e){ alert(e.message); }
+});
+</script>
+</body>
+</html>
