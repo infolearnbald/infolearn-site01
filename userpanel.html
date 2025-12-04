@@ -2,77 +2,26 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Painel do Usuário - InfoLearn</title>
+<title>InfoLearn — Área do Aluno</title>
 <link rel="stylesheet" href="style.css">
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDWM3VAjFNtM4l_UaEg2r0e04sFVJMXudw",
-    authDomain: "infolearn-academy-89bee.firebaseapp.com",
-    projectId: "infolearn-academy-89bee",
-    storageBucket: "infolearn-academy-89bee.appspot.com",
-    messagingSenderId: "65886712812",
-    appId: "1:65886712812:web:0fc810717e1f31b83b86c9"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  const userNameElem = document.getElementById("userName");
-  const userEmailElem = document.getElementById("userEmail");
-
-  // Verifica se o usuário está logado
-  onAuthStateChanged(auth, user => {
-    if(user) {
-      userNameElem.textContent = user.displayName || "Usuário";
-      userEmailElem.textContent = user.email;
-    } else {
-      // Se não estiver logado, redireciona para index
-      window.location.href = "index.html";
-    }
-  });
-
-  // Logout
-  window.logout = function() {
-    signOut(auth).then(() => {
-      window.location.href = "index.html";
-    });
-  }
-</script>
 </head>
+
 <body>
-<header>
-  <h1>Bem-vindo ao Painel InfoLearn</h1>
-</header>
 
-<section id="userInfo">
-  <h2>Seus Dados</h2>
-  <p>Nome: <span id="userName">Carregando...</span></p>
-  <p>E-mail: <span id="userEmail">Carregando...</span></p>
-  <button onclick="logout()">Sair</button>
-</section>
+<h1 class="title">Bem-vindo à InfoLearn</h1>
+<p class="subtitle">Aqui estão os cursos gratuitos liberados para você.</p>
 
-<section id="myCourses">
-  <h2>Seus Cursos Gratuitos</h2>
-  <ul>
-    <li>Marketing Digital</li>
-    <li>Vagalume AI - CV Maker</li>
-  </ul>
-</section>
+<div class="course-card">
+    <h2>Curso Gratuito: Design Mobile com PixelLab</h2>
+    <p>Aprenda design mobile completo.</p>
+    <a href="#" class="btn">Acessar curso</a>
+</div>
 
-<section id="resources">
-  <h2>Recursos Adicionais</h2>
-  <p>Links úteis, materiais e novidades.</p>
-</section>
+<div class="course-card">
+    <h2>Curso Gratuito: Marketing Digital</h2>
+    <p>Marketing moderno para negócios.</p>
+    <a href="#" class="btn">Acessar curso</a>
+</div>
 
-<footer>
-  <p>Contatos: 
-    <a href="https://facebook.com/InfoLearn" target="_blank">Facebook</a> |
-    <a href="https://linkedin.com/company/infolearn" target="_blank">LinkedIn</a>
-  </p>
-</footer>
 </body>
 </html>
