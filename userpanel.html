@@ -1,31 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt">
-<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Painel — InfoLearn</title><link rel="stylesheet" href="style.css"></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área do Estudante</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
-<header class="topbar"><div class="brand"><img src="icon-192.png" width="48"><div><div class="logo">InfoLearn Academy</div></div></div></header>
+<header class="topbar">
+  <div class="brand">
+    <img src="icone.png" alt="InfoLearn" width="48">
+  </div>
+  <nav class="primary">
+    <a href="index.html"><img src="icons/home.png" alt="Home" width="24"></a>
+    <a href="cursos.html"><img src="icons/cursos.png" alt="Cursos" width="24"></a>
+    <a href="vagalume.html"><img src="icons/vagalume.png" alt="Vagalume IA" width="24"></a>
+    <a href="userpanel.html"><img src="icons/userpanel.png" alt="Userpanel" width="24"></a>
+    <a href="manifest.json" download><img src="icons/pwa.png" alt="PWA" width="24"></a>
+    <a href="#contato"><img src="icons/contato.png" alt="Contatos" width="24"></a>
+  </nav>
+</header>
+
 <main class="container">
-  <section class="card" id="panel" style="display:none"><h2>Bem-vindo</h2><div id="uinfo"></div><div style="margin-top:12px"><a class="btn" id="logout">Sair</a></div></section>
-  <section class="card" id="public" style="display:none"><h2>Seus Cursos Gratuitos</h2><div id="myCourses" class="grid"></div></section>
+  <h2>Área do Estudante</h2>
+  <p>Bem-vindo, <span id="user-name"></span>!</p>
+  <a class="btn" id="btn-logout">Sair</a>
+
+  <section id="cursos-usuario">
+    <h3>Seus Cursos</h3>
+    <ul id="lista-cursos">
+      <!-- Cursos que o usuário acessou -->
+    </ul>
+  </section>
 </main>
-<script type="module">
-import { auth, db } from './firebase.js';
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-onAuthStateChanged(auth, async user=>{
-  if(!user){ location.href='auth.html'; return; }
-  const docu = await getDoc(doc(db,'users',user.uid));
-  document.getElementById('panel').style.display='block';
-  document.getElementById('uinfo').innerHTML=`<p><strong>${docu.data()?.name || user.email}</strong></p><p class="muted">${user.email}</p>`;
-  // show free courses (static)
-  document.getElementById('public').style.display='block';
-  const q = query(collection(db,'courses'), where('type','==','free'));
-  const snap = await getDocs(q);
-  const c=document.getElementById('myCourses'); c.innerHTML='';
-  snap.forEach(d=>{ const v=d.data(); const el=document.createElement('div'); el.className='curso-card'; el.innerHTML=`${v.thumbnail?`<img src="${v.thumbnail}">`:''}<div class="body"><h3>${v.title}</h3><p class="muted">${v.description||''}</p><a class="btn" href="course-free.html?id=${d.id}">Acessar</a></div>`; c.appendChild(el); });
-});
+<footer>
+  <p>© <span id="year"></span> InfoLearn Academy — Todos os direitos reservados</p>
+</footer>
 
-document.getElementById('logout').addEventListener('click', async ()=>{ await signOut(auth); location.href='index.html'; });
+<script type="module" src="firebase.js"></script>
+<script src="userpanel.js"></script>
+<script>
+  document.getElementById('year').innerText = new Date().getFullYear();
 </script>
 </body>
 </html>
