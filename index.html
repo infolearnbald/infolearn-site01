@@ -1,0 +1,147 @@
+
+    <!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InfoLearn Academy</title>
+<link rel="stylesheet" href="css/style.css">
+<script type="module" src="js/main.js" defer></script>
+</head>
+<body>
+
+<header>
+    <div class="logo">InfoLearn</div>
+    <nav>
+        <a onclick="abrirAba('home')">Início</a>
+        <a onclick="abrirAba('cursos')">Cursos</a>
+        <a onclick="abrirAba('centro')">Criar Centro</a>
+        <a onclick="abrirAba('cvs')">Gerador CV</a>
+        <a onclick="abrirAba('contato')">Contato</a>
+    </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero aba active" id="home">
+    <h1>Estude com tecnologias do futuro</h1>
+    <p>InfoLearn Academy conecta você a cursos, centros de formação e ferramentas avançadas, incluindo nossa IA exclusiva para gerar CVs.</p>
+</section>
+
+<!-- Cards principais -->
+<div class="cards">
+    <div class="card" onclick="abrirAba('cursos')">
+        <img src="img/cursos-bg.jpg" alt="Cursos">
+        <h3>Cursos</h3>
+    </div>
+    <div class="card" onclick="abrirAba('centro')">
+        <img src="img/centro-bg.jpg" alt="Criar Centro">
+        <h3>Criar Centro de Formação</h3>
+    </div>
+    <div class="card" onclick="abrirAba('cvs')">
+        <img src="img/cv-bg.jpg" alt="Gerador CV">
+        <h3>Gerador de CV</h3>
+    </div>
+</div>
+
+<!-- Cursos -->
+<section id="cursos" class="aba">
+    <h2>Cursos Disponíveis</h2>
+    <div class="grid-cursos">
+        <!-- InfoLearn -->
+        <div class="curso-card">
+            <img src="img/curso-design.png" alt="Design Gráfico">
+            <h3>Design Gráfico</h3>
+            <form class="form-curso" onsubmit="inscreverWhatsApp(event, '25886711103', 2500)">
+                <select required><option value="">Programa</option><option>Design Completo</option></select>
+                <select required><option value="">Nível</option><option>Básico</option><option>Avançado</option></select>
+                <select required><option value="">Meses</option><option>1</option></select>
+                <button type="submit" class="btn-inscricao">Inscrever-se (2500 MZN)</button>
+            </form>
+        </div>
+        <div class="curso-card">
+            <img src="img/curso-musica.png" alt="Música">
+            <h3>Música</h3>
+            <form class="form-curso" onsubmit="inscreverWhatsApp(event, '258857521281', 2500)">
+                <select required><option value="">Programa</option><option>Instrumental</option><option>Vocal</option></select>
+                <select required><option value="">Nível</option><option>Básico</option><option>Avançado</option></select>
+                <select required><option value="">Meses</option><option>1</option></select>
+                <button type="submit" class="btn-inscricao">Inscrever-se</button>
+            </form>
+        </div>
+        <div class="curso-card">
+            <img src="img/curso-ingles.png" alt="Inglês">
+            <h3>Inglês Corporativo</h3>
+            <form class="form-curso" onsubmit="inscreverWhatsApp(event, '258877537100', 1200)">
+                <select required><option value="">Programa</option><option>1 Mês</option><option>3 Meses</option></select>
+                <select required><option value="">Nível</option><option>Básico</option><option>Avançado</option></select>
+                <button type="submit" class="btn-inscricao">Inscrever-se</button>
+            </form>
+        </div>
+
+        <!-- Macro-Study -->
+        <div class="curso-card">
+            <img src="img/curso-ai.png" alt="IA Generativa">
+            <h3>IA Generativa</h3>
+            <form class="form-curso" onsubmit="inscreverWhatsApp(event, '258874457331', 900)">
+                <select required><option value="">Programa</option><option>1 Mês</option><option>3 Meses</option></select>
+                <select required><option value="">Nível</option><option>Básico</option><option>Avançado</option></select>
+                <button type="submit" class="btn-inscricao">Inscrever-se</button>
+            </form>
+        </div>
+        <div class="curso-card">
+            <img src="img/curso-vr.png" alt="Realidade Virtual">
+            <h3>Realidade Virtual</h3>
+            <form class="form-curso" onsubmit="inscreverWhatsApp(event, '258874457331', 900)">
+                <select required><option value="">Programa</option><option>1 Mês</option><option>3 Meses</option></select>
+                <select required><option value="">Nível</option><option>Básico</option><option>Avançado</option></select>
+                <button type="submit" class="btn-inscricao">Inscrever-se</button>
+            </form>
+        </div>
+        <!-- Adicione os outros cursos Macro-Study da mesma forma -->
+    </div>
+</section>
+
+<!-- Criar Centro -->
+<section id="centro" class="aba">
+    <h2>Criar Centro de Formação</h2>
+    <p>Faça login antes de criar seu centro:</p>
+    <input type="email" id="emailCentro" placeholder="Email">
+    <input type="password" id="senhaCentro" placeholder="Senha">
+    <button onclick="loginCentro()">Entrar</button>
+    <button onclick="registrarCentro()">Registrar</button>
+
+    <div id="criarCentroForm" style="display:none; margin-top:15px;">
+        <input type="text" id="nomeCentro" placeholder="Nome do Centro">
+        <button onclick="criarCentro()">Criar Centro (25 MZN/aluno)</button>
+    </div>
+</section>
+
+<!-- Gerador CV -->
+<section id="cvs" class="aba">
+    <h2>Gerador de CV</h2>
+    <input type="text" id="nomeCV" placeholder="Nome completo">
+    <input type="text" id="objetivoCV" placeholder="Objetivo profissional">
+    <button onclick="gerarCV()">Gerar CV</button>
+    <pre id="resultadoCV"></pre>
+</section>
+
+<!-- Contato -->
+<section id="contato" class="aba">
+    <h2>Contato & Redes Sociais</h2>
+    <p>Entre em contato conosco para dúvidas ou mais informações.</p>
+    <div class="contatos" style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="tel:+258844180213"><img src="img/phone.png" alt="Telefone"></a>
+        <a href="mailto:infolearn8441@gmail.com"><img src="img/email.png" alt="Email"></a>
+        <a href="https://www.instagram.com/infolearn15" target="_blank"><img src="img/instagram.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com/profile.php?id=100089787879627" target="_blank"><img src="img/facebook.png" alt="Facebook"></a>
+        <a href="https://www.linkedin.com/in/info-learn-94563a398" target="_blank"><img src="img/linkedin.png" alt="LinkedIn"></a>
+        <a href="https://www.youtube.com/channel/UCzugS8HjTCXGFiyPLGP5yWQ" target="_blank"><img src="img/youtube.png" alt="YouTube"></a>
+    </div>
+</section>
+
+<footer>
+    <span>© 2025 InfoLearn Academy</span>
+</footer>
+
+</body>
+</html>
