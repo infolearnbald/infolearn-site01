@@ -1,19 +1,37 @@
-// Import the functions you need
+// Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-// Config
+// Configuração
 const firebaseConfig = {
-  apiKey: "SUA_API_KEY",
+  apiKey: "AIzaSyDWM3VAjFNtM4l_UaEg2r0e04sFVJMXudw",
   authDomain: "infolearn-academy-89bee.firebaseapp.com",
   projectId: "infolearn-academy-89bee",
   storageBucket: "infolearn-academy-89bee.appspot.com",
   messagingSenderId: "65886712812",
-  appId: "1:65886712812:web:0fc810717e1f31b83b86c9"
+  appId: "1:65886712812:web:0fc810717e1f31b83b86c"
 };
 
-// Initialize
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth();
-export const db = getFirestore();
+const auth = getAuth();
+const db = getFirestore(app);
+
+// Formulário cursos gratuitos
+document.querySelectorAll('.form-firebase').forEach(form=>{
+  form.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const nome = form.nome.value;
+    const email = form.email.value;
+    const telefone = form.telefone.value;
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, "InfoLearn123!");
+      await addDoc(collection(db,"usuarios"),{nome,email,telefone});
+      alert("Cadastro concluído! Agora pode acessar os cursos gratuitos.");
+      form.reset();
+    } catch(err) {
+      alert(err.message);
+    }
+  });
+});
