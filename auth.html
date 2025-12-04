@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>InfoLearn — Login</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="firebase.js"></script>
+</head>
+
+<body>
+<div class="auth-box">
+
+    <h2>Entrar na InfoLearn</h2>
+
+    <input id="email" type="email" placeholder="Seu e-mail">
+    <input id="password" type="password" placeholder="Sua senha">
+
+    <button id="loginBtn">Entrar</button>
+
+    <p class="swap" id="goSignup">Criar nova conta</p>
+    <p class="swap" id="goReset">Esqueci minha senha</p>
+
+    <p id="msg"></p>
+</div>
+
+<script type="module">
+import { loginUser, registerUser, resetUserPassword } from "./firebase.js";
+
+const msg = document.getElementById("msg");
+
+document.getElementById("loginBtn").onclick = async () => {
+    const email = email.value.trim();
+    const pass = password.value.trim();
+
+    try {
+        await loginUser(email, pass);
+        msg.innerText = "✔ Login feito!";
+        setTimeout(() => (window.location = "userpanel.html"), 700);
+    } catch (e) {
+        msg.innerText = "Erro: " + e.message;
+    }
+};
+
+document.getElementById("goSignup").onclick = () => signupMode();
+document.getElementById("goReset").onclick = () => resetMode();
+
+function signupMode() {
+    document.querySelector("h2").innerText = "Criar Conta";
+    document.getElementById("loginBtn").innerText = "Criar";
+    msg.innerText = "";
+
+    document.getElementById("loginBtn").onclick = async () => {
+        const email = document.getElementById("email").value.trim();
+        const pass = document.getElementById("password").value.trim();
+
+        try {
+            await registerUser(email, pass);
+            msg.innerText = "✔ Conta criada! Faça login.";
+        } catch (e) {
+            msg.innerText = e.message;
+        }
+    };
+}
+
+function resetMode() {
+    document.querySelector("h2").innerText = "Recuperar Conta";
+    document.getElementById("password").style.display = "none";
+    document.getElementById("loginBtn").innerText = "Enviar link";
+
+    document.getElementById("loginBtn").onclick = async () => {
+        const email = document.getElementById("email").value.trim();
+
+        try {
+            await resetUserPassword(email);
+            msg.innerText = "📨 E-mail enviado!";
+        } catch (e) {
+            msg.innerText = e.message;
+        }
+    };
+}
+</script>
+
+</body>
+</html>
