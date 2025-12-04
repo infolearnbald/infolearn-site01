@@ -11,135 +11,101 @@
   <!-- Loader -->
   <div id="loader" class="logo-anim">
     <div class="mark">InfoLearn</div>
+    <div class="spark"></div>
   </div>
 
   <!-- HEADER -->
   <header class="topbar">
     <div class="brand">
-      <img src="icone-192.png" alt="InfoLearn" width="48" height="48">
+      <img src="icon.png" alt="InfoLearn" width="48" height="48">
       <div>
         <div class="logo">InfoLearn Academy</div>
         <div class="muted">Transformamos conhecimento em ideias que mudam o mundo</div>
       </div>
     </div>
     <nav class="primary">
-      <a href="index.html"><img src="home.png" alt="InfoLearn" width="30" height="30"></a>
+      <a href="index.html">🏠 Home</a>
       <a href="cursos.html">🎓 Cursos</a>
-      <a href="vagalume.html"><img src="vagalume.png" alt="InfoLearn" width="30" height="30"> Home</a></a>
-      <a href="userpanel.html"><img src="icon-profile.png" alt="InfoLearn" width="30" height="30"> Home</a></a>
-     <!-- <a href="manifest.json" download>📲 PWA Download</a>-->
+      <a href="vagalume.html">🤖 Vagalume IA</a>
+      <a href="userpanel.html">🧑‍🎓 Área do Estudante</a>
+      <a href="manifest.json" download>📲 PWA Download</a>
       <a href="#contato">☎️ Contactos</a>
     </nav>
   </header>
 
-  <!-- Main Content -->
+  <!-- MAIN -->
   <main class="container">
-    <!-- Descrição InfoLearn -->
-    <section class="card" id="descricao">
+    <!-- DESCRIÇÃO INFOLEARN -->
+    <section class="card">
       <h2>Sobre a InfoLearn</h2>
-      <p>InfoLearn é uma setup educativa que oferece cursos pagos e gratuitos, criando soluções tecnológicas para a sociedade e promovendo o conhecimento digital.</p>
-      <div class="miniatura-fundo">
-        <!-- Aqui você coloca a imagem de fundo da descrição -->
-      </div>
+      <p>A InfoLearn é uma setup dedicada a transformar conhecimento em projetos tecnológicos e educação acessível para todos. Contribuímos para a sociedade através de cursos online e gratuitos, formação profissional e soluções de IA para CVs.</p>
+      <div class="miniatura-bg"></div>
     </section>
 
-    <!-- Destaques Serviços -->
-    <section class="card" id="servicos">
-      <h2>Nossos Serviços</h2>
-      <ul>
-        <li>Criação de projetos tecnológicos</li>
-        <li>Formação profissional</li>
-        <li>Suporte a estudantes e empresas</li>
-      </ul>
-      <a class="btn" href="mailto:infolearn@gmail.com">Contactar via Email</a>
-    </section>
-
-    <!-- Cursos Macro-Study & InfoLearn -->
-    <section class="card" id="cursos-destaque">
-      <h2>Cursos em Destaque</h2>
+    <!-- CURSOS GRATUITOS -->
+    <section class="card" id="cursos-gratuitos">
+      <h2>Cursos Gratuitos</h2>
       <div class="grid">
-        <!-- Cada curso deve ter uma imagem JPG representando -->
+        <!-- Exemplo Curso Gratuito -->
         <div class="curso-card">
-          <img src="curso-ingles.jpg" alt="Curso Inglês">
-          <h3>Inglês Corporativo</h3>
-          <p>Profissionalização em comunicação.</p>
-          <p><strong>1 mês:</strong> 1200 MT | <strong>3 meses:</strong> 3600 MT</p>
-          <form class="form-whatsapp" data-phone="258874094875" data-course="Inglês Corporativo">
+          <img src="curso-design.jpg" alt="Design Mobile">
+          <h3>Design Mobile</h3>
+          <p>Aprenda design mobile usando Pixellab.</p>
+          <form id="free-course-form" class="form-firebase">
             <input type="text" name="nome" placeholder="Nome completo" required>
-            <input type="email" name="email" placeholder="Seu email" required>
-            <input type="number" name="idade" placeholder="Idade" required>
-            <input type="text" name="genero" placeholder="Gênero" required>
-            <input type="text" name="provincia" placeholder="Província" required>
-            <select name="duracao" required>
-              <option value="">Escolha a duração</option>
-              <option>1 mês</option>
-              <option>3 meses</option>
-            </select>
-            <button class="btn" type="submit">Matricular-se</button>
+            <input type="email" name="email" placeholder="E-mail" required>
+            <input type="tel" name="telefone" placeholder="Telefone (opcional)">
+            <button type="submit">Acessar Curso</button>
           </form>
         </div>
+      </div>
+    </section>
 
+    <!-- CURSOS PAGOS -->
+    <section class="card" id="cursos-pagos">
+      <h2>Cursos Pagos</h2>
+      <div class="grid">
+        <!-- Design Gráfico -->
         <div class="curso-card">
-          <img src="curso-musica.jpg" alt="Curso Música">
-          <h3>Música</h3>
-          <p>Desenvolvimento musical e produção.</p>
-          <p><strong>1 mês:</strong> 1600 MT</p>
-          <form class="form-whatsapp" data-phone="258857521281" data-course="Música">
-            <input type="text" name="nome" placeholder="Nome completo" required>
-            <input type="email" name="email" placeholder="Seu email" required>
-            <input type="number" name="idade" placeholder="Idade" required>
-            <input type="text" name="genero" placeholder="Gênero" required>
-            <input type="text" name="provincia" placeholder="Província" required>
-            <button class="btn" type="submit">Matricular-se</button>
-          </form>
-        </div>
-
-        <div class="curso-card">
-          <img src="curso-design.jpg" alt="Curso Design Gráfico">
-          <h3>Design Gráfico (Photoshop/Illustrator)</h3>
-          <p>Aprenda design digital profissional.</p>
+          <img src="curso-photoshop.jpg" alt="Design Gráfico">
+          <h3>Design Gráfico</h3>
+          <p>Photoshop e Illustrator</p>
           <p><strong>1 mês:</strong> 2500 MT | <strong>3 meses:</strong> 7500 MT</p>
-          <form class="form-whatsapp" data-phone="258867101103" data-course="Design Gráfico">
+          <form class="form-whatsapp" data-phone="258867101103">
             <input type="text" name="nome" placeholder="Nome completo" required>
-            <input type="email" name="email" placeholder="Seu email" required>
-            <input type="number" name="idade" placeholder="Idade" required>
-            <input type="text" name="genero" placeholder="Gênero" required>
-            <input type="text" name="provincia" placeholder="Província" required>
-            <select name="duracao" required>
-              <option value="">Escolha a duração</option>
-              <option>1 mês</option>
-              <option>3 meses</option>
-            </select>
-            <button class="btn" type="submit">Matricular-se</button>
+            <input type="tel" name="telefone" placeholder="Telefone">
+            <button type="submit">Matricular-se</button>
           </form>
         </div>
 
-        <!-- Cursos gratuitos -->
-        <div class="curso-card gratuito">
-          <img src="curso-marketing.jpg" alt="Curso Marketing Digital">
+        <!-- Música -->
+        <div class="curso-card">
+          <img src="curso-musica.jpg" alt="Música">
+          <h3>Música</h3>
+          <p>Aulas de música.</p>
+          <p><strong>1 mês:</strong> 1600 MT</p>
+          <form class="form-whatsapp" data-phone="258857521281">
+            <input type="text" name="nome" placeholder="Nome completo" required>
+            <input type="tel" name="telefone" placeholder="Telefone">
+            <button type="submit">Matricular-se</button>
+          </form>
+        </div>
+
+        <!-- Marketing, Programação, Informática -->
+        <div class="curso-card">
+          <img src="curso-marketing.jpg" alt="Marketing Digital">
           <h3>Marketing Digital</h3>
-          <p>Curso gratuito com acesso a vídeos e PDFs.</p>
-          <form class="form-login-gratis">
-            <input type="text" name="nome" placeholder="Nome" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="senha" placeholder="Senha" required>
-            <button class="btn" type="submit">Acessar Curso</button>
+          <p>Aprenda estratégias digitais avançadas.</p>
+          <form class="form-whatsapp" data-phone="258844180213">
+            <input type="text" name="nome" placeholder="Nome completo" required>
+            <input type="tel" name="telefone" placeholder="Telefone">
+            <button type="submit">Matricular-se</button>
           </form>
         </div>
       </div>
     </section>
 
-    <!-- Vagalume IA -->
-    <section class="card" id="vagalume">
-      <h2>Vagalume IA - Criador de CVs</h2>
-      <p>Crie seu CV gratuitamente em PDF. Para CV personalizado, pagamento de 75 MT via WhatsApp.</p>
-      <a class="btn" href="mailto:infolearn8441@gmail.com?subject=CV Personalizado">Solicitar CV Personalizado</a>
-      <div id="vagalume-container">
-        <!-- Aqui o bot automatizado gera o CV em PDF e disponibiliza download -->
-      </div>
-    </section>
-
-    <!-- Contatos -->
+    <!-- CONTATOS -->
     <section id="contato" class="card">
       <h2>Contactos</h2>
       <div class="socials">
@@ -150,19 +116,15 @@
         <a href="https://wa.me/258844180213" title="WhatsApp"><img src="whatsapp.png" alt="WA" width="28"></a>
       </div>
     </section>
-
   </main>
 
   <footer>
     <div>© <span id="year"></span> InfoLearn Academy — Todos os direitos reservados</div>
   </footer>
 
-  <script type="module" src="firebase.js"></script>
-  <script src="main.js"></script>
+  <script src="firebase.js"></script>
+  <script src="index.js"></script>
   <script>
-    window.addEventListener('load', ()=>{
-      setTimeout(()=>document.getElementById('loader').classList.add('hidden'),900);
-    });
     document.getElementById('year').innerText = new Date().getFullYear();
   </script>
 </body>
