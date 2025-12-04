@@ -1,46 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Vagalume IA — CV Maker</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Vagalume IA — CV Maker</title><link rel="stylesheet" href="style.css"></head>
 <body>
-  <header class="topbar"><div class="brand"><div class="logo">InfoLearn Academy</div></div></header>
+<header class="topbar"><div class="brand"><img src="icon-192.png" width="48"><div><div class="logo">InfoLearn Academy</div></div></div></header>
+<main class="container card">
+  <h2>Vagalume — Assistente de CV</h2>
+  <p class="muted">Cole o texto do seu CV, carregue .txt ou faça upload. A IA organiza e gera PDF automaticamente. Para CV personalizado (75 MT) clique em "Personalizado".</p>
 
-  <main class="container card">
-    <h2>Vagalume — Assistente de CV</h2>
-    <p class="muted">Envie um CV (.pdf/.docx/.txt) ou cole o texto. A IA analisa e poderá reorganizar se autorizar. Também podes carregar uma imagem que represente a IA.</p>
+  <div class="vagalume-inline">
+    <label>Imagem representativa da IA (PNG):</label>
+    <input type="file" id="vImg" accept="image/png, image/*">
+    <div id="vPreview"></div>
 
-    <label>Imagem representativa da IA (opcional):</label>
-    <input type="file" id="vIma" accept="image/*">
-    <div id="vPreview" style="margin-top:8px"></div>
+    <label style="display:block;margin-top:12px">Carregar CV (.txt):</label>
+    <input type="file" id="cvFile" accept=".txt">
+    <textarea id="cvText" placeholder="Ou cole o CV aqui..." ></textarea>
 
-    <label style="display:block;margin-top:12px">Carregar CV (.pdf/.docx/.txt):</label>
-    <input type="file" id="cvFile" accept=".pdf,.doc,.docx,.txt">
-    <textarea id="cvText" placeholder="Ou cole o CV aqui..." style="width:100%;min-height:140px;margin-top:8px;padding:10px;border-radius:8px;border:1px solid #d7eaf3"></textarea>
-
-    <div style="margin-top:8px">
-      <button id="analyzeBtn" class="btn">Analisar CV</button>
-      <button id="clearBtn" class="btn secondary">Limpar</button>
+    <div style="margin-top:10px" class="kv">
+      <button id="analyze" class="btn">Analisar</button>
+      <button id="download" class="btn secondary">Baixar PDF</button>
+      <button id="personal" class="btn" style="background:#f39c12">CV Personalizado (75 MT)</button>
     </div>
 
     <div id="analysis" style="margin-top:12px;display:none" class="card">
       <h3>Resultado</h3>
       <div id="analysisContent"></div>
-      <div style="margin-top:8px">
-        <button id="organize" class="btn">Organizar CV</button>
-        <button id="download" class="btn secondary">Gerar PDF</button>
-      </div>
     </div>
-
-    <div id="cvPreviewArea" style="margin-top:12px;display:none" class="card">
-      <h3>Preview do CV Organizado</h3>
-      <div id="cvPreview" style="padding:12px;background:#f8feff;border-radius:6px"></div>
-    </div>
-  </main>
-
-  <script type="module" src="vagalume.js"></script>
+  </div>
+</main>
+<script type="module" src="vagalume.js"></script>
 </body>
 </html>
