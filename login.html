@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Login — InfoLearn</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="navbar">
+  <div class="logo">InfoLearn</div>
+  <nav>
+    <a href="index.html">Início</a>
+  </nav>
+  <div class="hamburger" onclick="toggleNav()">☰</div>
+</header>
+
+<section class="form-box">
+  <h2>Entrar</h2>
+  <form id="loginForm">
+    <input type="email" id="loginEmail" placeholder="Email" required>
+    <input type="password" id="loginPassword" placeholder="Senha" required>
+    <button class="btn" type="submit">Entrar</button>
+    <p style="margin-top:12px;">Esqueceu a senha? <a href="recovery.html">Recuperar</a></p>
+    <p style="margin-top:8px;">Ainda não tem conta? <a href="signup.html">Criar conta</a></p>
+  </form>
+  <p id="loginMsg" style="color:red;margin-top:10px;"></p>
+</section>
+
+<script type="module">
+import { loginWithEmail } from './auth.js';
+
+const form = document.getElementById('loginForm');
+const msg = document.getElementById('loginMsg');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  msg.textContent = '';
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  try {
+    await loginWithEmail(email, password);
+    // redirect to index or user dashboard
+    window.location.href = 'index.html';
+  } catch (err) {
+    msg.textContent = err.message;
+  }
+});
+</script>
+</body>
+</html>
