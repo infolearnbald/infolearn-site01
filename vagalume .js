@@ -1,21 +1,16 @@
-document.addEventListener('DOMContentLoaded', ()=>{
-  const form = document.getElementById('vagalume-form');
-  const downloadBtn = document.getElementById('cv-download');
+async function enviarIA() {
+    const prompt = document.getElementById("prompt").value;
+    const saida = document.getElementById("respostaIA");
 
-  form.addEventListener('submit', e=>{
-    e.preventDefault();
-    const nome = form.nome.value;
-    const profissao = form.profissao.value;
-    const email = form.email.value;
+    saida.innerText = "Pensando...";
 
-    // Cria CV simples PDF
-    const pdfContent = `
-      Nome: ${nome}\nProfissão: ${profissao}\nEmail: ${email}
-    `;
-    const blob = new Blob([pdfContent], {type:"application/pdf"});
-    const url = URL.createObjectURL(blob);
-    downloadBtn.href = url;
-    downloadBtn.style.display = "inline-block";
-    alert("CV gerado! Clique no botão para download.");
-  });
-});
+    const req = await fetch("https://SEU-LINK-VERCEL.vercel.app/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt })
+    });
+
+    const res = await req.json();
+    saida.innerText = res.resposta;
+}
+
