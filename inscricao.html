@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Inscrição — InfoLearn</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="navbar">
+  <div class="logo">InfoLearn</div>
+  <nav><a href="index.html">Início</a></nav>
+  <div class="hamburger" onclick="toggleNav()">☰</div>
+</header>
+
+<section class="form-box">
+  <h2 id="formTitle">Inscrição</h2>
+  <form id="universalForm">
+    <input name="curso" id="curso" readonly hidden>
+    <label>Curso</label>
+    <input id="cursoDisplay" readonly />
+
+    <label>Nome completo *</label>
+    <input name="nome" required />
+
+    <label>Data de nascimento</label>
+    <input name="nascimento" type="date" />
+
+    <label>E-mail *</label>
+    <input name="email" type="email" required />
+
+    <label>Número de WhatsApp</label>
+    <input name="whatsapp" placeholder="ex: 841234567" />
+
+    <label>Selecione o nível</label>
+    <select name="nivel" required>
+      <option value="">--Escolha--</option>
+      <option value="Básico">Básico</option>
+      <option value="Intermediário">Intermediário</option>
+    </select>
+
+    <label>Objetivo com o curso</label>
+    <select name="objetivo" required>
+      <option value="">--Escolha--</option>
+      <option value="Estudos">Estudos</option>
+      <option value="Trabalho">Trabalho</option>
+      <option value="Viagens">Viagens</option>
+      <option value="Certificação">Certificação</option>
+      <option value="Outro">Outro</option>
+    </select>
+
+    <label>Escolha a duração</label>
+    <select name="duracao" required>
+      <option value="1 mês">1 mês</option>
+      <option value="3 meses">3 meses</option>
+    </select>
+
+    <label>Modo de aula preferido</label>
+    <select name="modo" required>
+      <option value="WhatsApp">WhatsApp</option>
+      <option value="Google Meet">Google Meet</option>
+    </select>
+
+    <label>Forma de pagamento</label>
+    <select name="pagamento" required>
+      <option value="M-Pesa">M-Pesa</option>
+      <option value="e-Mola">e-Mola</option>
+    </select>
+
+    <label>Como conheceu o curso?</label>
+    <select name="referencia" required>
+      <option value="">--Escolha--</option>
+      <option value="Indicação">Indicação</option>
+      <option value="Redes sociais">Redes sociais</option>
+      <option value="Anúncio">Anúncio</option>
+      <option value="Outro">Outro</option>
+    </select>
+
+    <div style="margin-top:12px;">
+      <button class="btn" type="submit">Matricular-se</button>
+      <a class="btn" href="index.html">Cancelar</a>
+    </div>
+  </form>
+  <p id="inscMsg" style="margin-top:10px;color:green"></p>
+</section>
+
+<script type="module">
+import { saveEnrollmentToFirestore } from './auth.js';
+
+// preenche quando a query string tiver curso
+function fillFromQuery() {
+  const params = new URLSearchParams(location.search);
+  const curso = params.get('curso') || '';
+  const wa = params.get('wa') || '';
+  const preco = params.get('preco') || '';
+  if (curso) {
+    document.getElementById('curso').value = curso;
+    document.getElementById('cursoDisplay').value = curso + (preco ? ' — ' + preco : '');
+    document.getElementById('formTitle').innerText = 'Inscrição: ' + curso;
+    // store wa as dataset
+    document.getElementById('universalForm').dataset.wa = wa;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  fillFromQuery();
+  const form = document.getElementById('universalForm');
+  const msg = document.getElementById('inscMsg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.textContent = '';
+    const data = Object.fromEntries(new FormData(form).entries());
+    const wa = form.dataset.wa || '';
+    const cursoName = data.curso || data.cursoDisplay || 'Curso';
+    // montar mensagem whatsapp
+    const mensagem =
+`Olá! Quero me inscrever no *${cursoName}*.
+Nome: ${data.nome}
+Data de Nasc.: ${data.nascimento || 'Não informado'}
+Email: ${data.email}
+WhatsApp: ${data.whatsapp || 'Não fornecido'}
+Nível: ${data.nivel}
+Objetivo: ${data.objetivo}
+Duração: ${data.duracao}
+Modo: ${data.modo}
+Pagamento: ${data.pagamento}
+Como conheceu: ${data.referencia}`;
+
+    // salvar no Firestore
+    try {
+      await saveEnrollmentToFirestore({
+        curso: cursoName,
+        ...data,
+        createdAt: new Date().toISOString()
+      });
+    } catch (err) {
+      console.warn('Erro ao salvar inscrição:', err);
+    }
+
+    // abrir WhatsApp
+    let phone = wa;
+    if (!phone.startsWith('258') && phone !== '') phone = '258' + wa.replace(/[^0-9]/g, '');
+    const url = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(mensagem)}` : `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
+    window.open(url,'_blank');
+    msg.textContent = 'Inscrição iniciada — você será redirecionado para o WhatsApp.';
+  });
+});
+</script>
+</body>
+</html>

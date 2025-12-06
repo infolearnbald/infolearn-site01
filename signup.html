@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cadastro — InfoLearn</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="navbar">
+  <div class="logo">InfoLearn</div>
+  <nav><a href="index.html">Início</a></nav>
+  <div class="hamburger" onclick="toggleNav()">☰</div>
+</header>
+
+<section class="form-box">
+  <h2>Criar Conta</h2>
+  <form id="signupForm">
+    <input type="text" id="fullName" placeholder="Nome completo" required>
+    <input type="email" id="signupEmail" placeholder="Email" required>
+    <input type="password" id="signupPassword" placeholder="Senha (mínimo 6)" required>
+    <button class="btn" type="submit">Criar Conta</button>
+    <p style="margin-top:8px;">Já tem conta? <a href="login.html">Entrar</a></p>
+  </form>
+  <p id="signupMsg" style="color:red;margin-top:10px;"></p>
+</section>
+
+<script type="module">
+import { registerWithEmail } from './auth.js';
+const form = document.getElementById('signupForm');
+const msg = document.getElementById('signupMsg');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  msg.textContent = '';
+  try {
+    await registerWithEmail(document.getElementById('fullName').value, document.getElementById('signupEmail').value, document.getElementById('signupPassword').value);
+    window.location.href = 'dashboard.html';
+  } catch (err) {
+    msg.textContent = err.message;
+  }
+});
+</script>
+</body>
+</html>

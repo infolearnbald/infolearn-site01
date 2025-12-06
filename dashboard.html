@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Painel do Centro — InfoLearn</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="navbar">
+  <div class="logo">InfoLearn</div>
+  <nav><a href="index.html">Início</a></nav>
+  <div class="hamburger" onclick="toggleNav()">☰</div>
+</header>
+
+<section class="form-box">
+  <h2>Painel do Centro</h2>
+
+  <div id="statusArea" style="margin-bottom:12px;color:#333;"></div>
+
+  <form id="centerForm">
+    <label>Nome do Centro *</label>
+    <input id="centerName" required />
+
+    <label>Descrição</label>
+    <textarea id="centerDesc" rows="4" placeholder="Breve descrição"></textarea>
+
+    <label>Logo (PNG/JPG)</label>
+    <input type="file" id="centerLogo" accept="image/*" />
+
+    <label>Fotos do Centro (até 6)</label>
+    <input type="file" id="centerPhotos" accept="image/*" multiple />
+
+    <label>Modo de Aulas</label>
+    <select id="centerModes" multiple>
+      <option value="Presencial">Presencial</option>
+      <option value="Online - WhatsApp">Online - WhatsApp</option>
+      <option value="Online - Google Meet">Online - Google Meet</option>
+      <option value="Híbrido">Híbrido</option>
+    </select>
+
+    <label>Contacto (WhatsApp / Tel)</label>
+    <input id="centerContact" placeholder="Ex: +258841234567" />
+
+    <label>Link do vídeo-tutorial (YouTube/URL)</label>
+    <input id="centerVideoLink" placeholder="https://..." />
+
+    <label>Endereço (opcional)</label>
+    <input id="centerAddress" placeholder="Cidade / Rua ..." />
+
+    <button class="btn" type="submit">Salvar Centro</button>
+  </form>
+
+  <div style="margin-top:18px;">
+    <button class="btn" id="btnShareCenter">Partilhar este Centro</button>
+  </div>
+
+  <div id="centerPreview" style="margin-top:20px;"></div>
+</section>
+
+<script type="module">
+import { getCurrentUser, saveOrUpdateCenter, uploadFileToStorage, getCenterByUserId } from './auth.js';
+
+const statusArea = document.getElementById('statusArea');
+const form = document.getElementById('centerForm');
+const centerPreview = document.getElementById('centerPreview');
+const btnShare = document.getElementById('btnShareCenter');
+
+async function init() {
+  const user = await getCurrentUser();
+  if (!user) {
+    window.location.href = 'login.html';
+    return;
+  }
+  statusArea.textContent = `Logado como: ${user.email}`;
+  const center = await getCenterByUserId(user.uid);
+  if (center) populateForm(center);
+}
+
+function populateForm(center) {
+  document.getElementById('centerName').value = center.name || '';
+  document.getElementById('centerDesc').value = center.description || '';
+  document.getElementById('centerContact').value = center.contact || '';
+  document.getElementById('centerVideoLink').value = center.videoLink || '';
+  document.getElementById('centerAddress').value = center.address || '';
+  const modesSelect = document.getElementById('centerModes');
+  if (center.modes && center.modes.length) {
+    Array.from(modesSelect.options).forEach(opt => {
+      opt.selected = center.modes.includes(opt.value);
+    });
+  }
+  renderPreview(center);
+}
+
+function renderPreview(center) {
+  centerPreview.innerHTML = '';
+  if (!center) return;
+  const html = [];
+  if (center.logoUrl) html.push(`<img src="${center.logoUrl}" style="max-width:120px;border-radius:8px;margin-bottom:10px;">`);
+  if (center.name) html.push(`<h3>${center.name}</h3>`);
+  if (center.description) html.push(`<p>${center.description}</p>`);
+  if (center.videoLink) html.push(`<p><a href="${center.videoLink}" target="_blank">Ver tutorial</a></p>`);
+  if (center.photos && center.photos.length) {
+    const thumbs = center.photos.map(p => `<img src="${p}" style="width:80px;height:60px;object-fit:cover;margin:4px;border-radius:6px">`).join('');
+    html.push(`<div>${thumbs}</div>`);
+  }
+  centerPreview.innerHTML = html.join('');
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  statusArea.textContent = 'Salvando...';
+  const user = await getCurrentUser();
+  if (!user) { window.location.href = 'login.html'; return; }
+
+  const data = {
+    userId: user.uid,
+    name: document.getElementById('centerName').value.trim(),
+    description: document.getElementById('centerDesc').value.trim(),
+    contact: document.getElementById('centerContact').value.trim(),
+    videoLink: document.getElementById('centerVideoLink').value.trim(),
+    address: document.getElementById('centerAddress').value.trim(),
+    modes: Array.from(document.getElementById('centerModes').selectedOptions).map(o=>o.value)
+  };
+
+  const logoInput = document.getElementById('centerLogo');
+  if (logoInput.files && logoInput.files[0]) {
+    const file = logoInput.files[0];
+    const path = `centers/${user.uid}/logo_${Date.now()}_${file.name}`;
+    const url = await uploadFileToStorage(path, file);
+    data.logoUrl = url;
+  }
+
+  const photosInput = document.getElementById('centerPhotos');
+  if (photosInput.files && photosInput.files.length) {
+    data.photos = data.photos || [];
+    const files = Array.from(photosInput.files).slice(0,6);
+    for (const f of files) {
+      const path = `centers/${user.uid}/photo_${Date.now()}_${f.name}`;
+      const url = await uploadFileToStorage(path, f);
+      data.photos.push(url);
+    }
+  }
+
+  try {
+    await saveOrUpdateCenter(user.uid, data);
+    statusArea.textContent = 'Centro salvo com sucesso!';
+    renderPreview(data);
+  } catch (err) {
+    statusArea.textContent = 'Erro: ' + err.message;
+  }
+});
+
+// compartilhar centro
+btnShare.addEventListener('click', async () => {
+  const user = await getCurrentUser();
+  if (!user) return alert('Faça login primeiro.');
+  const center = await getCenterByUserId(user.uid);
+  const url = `${location.origin}/index.html#centro`;
+  if (navigator.share) {
+    navigator.share({ title: center?.name || 'Meu Centro', text: center?.description || '', url });
+  } else {
+    navigator.clipboard.writeText(url);
+    alert('Link copiado para área de transferência: ' + url);
+  }
+});
+
+init();
+</script>
+</body>
+</html>

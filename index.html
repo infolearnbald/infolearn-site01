@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>InfoLearn Academy</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#111827" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">InfoLearn</div>
+  <nav id="nav-links">
+    <a href="index.html">Início</a>
+    <a href="#cursos">Cursos</a>
+    <a href="dashboard.html">Criar Centro</a>
+    <a href="#cv">Gerador de CV</a>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Sign Up</a>
+  </nav>
+  <div class="hamburger" onclick="toggleNav()">☰</div>
+</header>
+
+<section class="hero">
+  <h1>Estude com tecnologias do futuro</h1>
+  <p>InfoLearn Academy conecta você aos melhores cursos e ferramentas digitais</p>
+  <div style="margin-top:18px;">
+    <!-- Botão simples do tutorial (opção 1) -->
+    <a class="btn" href="https://youtu.be/fqJ9HnUQy1I?feature=shared" target="_blank">Assistir Tutorial da Plataforma</a>
+  </div>
+</section>
+
+<section id="cursos" class="sec">
+  <h2>Cursos Disponíveis</h2>
+
+  <div class="cursos-grid">
+    <!-- Design Gráfico -->
+    <div class="curso-card" data-curso-id="design-grafico">
+      <img src="curso-design.jpeg" alt="Design Gráfico" class="curso-thumb">
+      <h3>Design Gráfico</h3>
+      <p class="curso-preco">Valor: 2.500 MZN (1 mês)</p>
+      <div class="curso-actions">
+        <button class="btn" onclick="openInscricao('Design Gráfico','25886711103','2.500 MZN')">Inscrever-se</button>
+        <button class="btn" onclick="shareCourse('Design Gráfico')">Partilhar</button>
+      </div>
+    </div>
+
+    <!-- Música -->
+    <div class="curso-card" data-curso-id="musica">
+      <img src="curso-musica.jpeg" alt="Música" class="curso-thumb">
+      <h3>Música</h3>
+      <p class="curso-preco">Valor: 1.500 MZN (1 mês)</p>
+      <div class="curso-actions">
+        <button class="btn" onclick="openInscricao('Música','258857521281','1.500 MZN')">Inscrever-se</button>
+        <button class="btn" onclick="shareCourse('Música')">Partilhar</button>
+      </div>
+    </div>
+
+    <!-- Inglês -->
+    <div class="curso-card" data-curso-id="ingles">
+      <img src="curso-ingles.jpg" alt="Inglês" class="curso-thumb">
+      <h3>Inglês</h3>
+      <p class="curso-preco">Valor: 1.200 MZN (1 mês) | 3.600 MZN (3 meses)</p>
+      <div class="curso-actions">
+        <button class="btn" onclick="openInscricao('Inglês','258877537100','1.200 MZN/3.600 MZN')">Inscrever-se</button>
+        <button class="btn" onclick="shareCourse('Inglês')">Partilhar</button>
+      </div>
+    </div>
+
+    <!-- IA Generativa -->
+    <div class="curso-card" data-curso-id="ia">
+      <img src="curso-ai.jpg" alt="IA Generativa" class="curso-thumb">
+      <h3>IA Generativa</h3>
+      <p class="curso-preco">900 MZN (1 mês) | 2.700 MZN (3 meses)</p>
+      <div class="curso-actions">
+        <button class="btn" onclick="openInscricao('IA Generativa','258874457331','900 MZN/2.700 MZN')">Inscrever-se</button>
+        <button class="btn" onclick="shareCourse('IA Generativa')">Partilhar</button>
+      </div>
+    </div>
+
+    <!-- Realidade Virtual -->
+    <div class="curso-card" data-curso-id="vr">
+      <img src="curso-vr.jpg" alt="Realidade Virtual" class="curso-thumb">
+      <h3>Realidade Virtual</h3>
+      <p class="curso-preco">900 MZN (1 mês) | 2.700 MZN (3 meses)</p>
+      <div class="curso-actions">
+        <button class="btn" onclick="openInscricao('Realidade Virtual','258874457331','900 MZN/2.700 MZN')">Inscrever-se</button>
+        <button class="btn" onclick="shareCourse('Realidade Virtual')">Partilhar</button>
+      </div>
+    </div>
+
+    <!-- MBS -->
+    <div class="curso-card" data-curso-id="mbs">
+      <img src="curso-mbs.jpg" alt="MBS" class="curso-thumb">
+      <h3>MBS - Master of Business</h3>
+      <p class="curso-preco">900 MZN (1 mês) | 2.700 MZN (3 meses)</p>
+      <div class="curso-actions">
+        <button class="btn" onclick="openInscricao('MBS - Master of Business','258874457331','900 MZN/2.700 MZN')">Inscrever-se</button>
+        <button class="btn" onclick="shareCourse('MBS - Master of Business')">Partilhar</button>
+      </div>
+    </div>
+
+    <!-- Inglês Corporativo -->
+    <div class="curso-card" data-curso-id="ingles-corp">
+      <img src="ing-corp.jpg" alt="Inglês Corporativo" class="curso-thumb">
+      <h3>Inglês Corporativo</h3>
+      <p class="curso-preco">700 MZN (1 mês) | 2.100 MZN (3 meses)</p>
+      <div class="curso-actions">
+        <button class="btn" onclick="openInscricao('Inglês Corporativo','258874457331','700 MZN/2.100 MZN')">Inscrever-se</button>
+        <button class="btn" onclick="shareCourse('Inglês Corporativo')">Partilhar</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="centro" class="sec">
+  <h2>Criar Centro de Formação</h2>
+  <p>Para criar centro você precisa estar logado. <a href="login.html">Entrar</a> / <a href="signup.html">Cadastrar</a></p>
+  <button class="btn" onclick="location.href='signup.html'">Criar Centro</button>
+</section>
+
+<section id="cv" class="sec">
+  <h2>Gerador de CV</h2>
+  <p>Use a nossa IA (Vagalume) para criar CVs profissionais.</p>
+  <a class="btn" href="inscricao.html" onclick="openInscricao('Gerador de CV','', '')">Usar Gerador (Vagalume)</a>
+</section>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://www.facebook.com/profile.php?id=100089787879627" target="_blank">Facebook</a>
+    <a href="https://www.linkedin.com/in/info-learn-94563a398" target="_blank">LinkedIn</a>
+    <a href="mailto:infolearn8441@gmail.com">Email</a>
+    <a href="https://www.instagram.com/infolearn15" target="_blank">Instagram</a>
+  </div>
+  <p>© 2025 InfoLearn Academy. Todos os direitos reservados.</p>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
