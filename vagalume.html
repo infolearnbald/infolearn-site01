@@ -20,14 +20,12 @@ body {
     color: var(--text);
 }
 
-/* ===== CONTAINER ===== */
 .container {
     max-width: 900px;
     margin: auto;
     padding: 30px 20px 60px;
 }
 
-/* ===== HEADER ===== */
 .header {
     text-align: center;
     margin-bottom: 40px;
@@ -47,7 +45,6 @@ body {
     color: #555;
 }
 
-/* ===== AVISO ===== */
 .aviso {
     background: var(--light-blue);
     border-left: 6px solid var(--blue);
@@ -57,7 +54,6 @@ body {
     font-size: 14px;
 }
 
-/* ===== FORM ===== */
 .form {
     background: #f9fafb;
     padding: 25px;
@@ -94,7 +90,6 @@ body {
     min-height: 90px;
 }
 
-/* ===== BUTTONS ===== */
 .buttons {
     display: flex;
     gap: 15px;
@@ -118,13 +113,13 @@ button.secondary {
     background: #1565c0;
 }
 
-/* ===== CV ===== */
 #respostaIA {
     margin-top: 40px;
     padding: 30px;
     border-radius: 12px;
     border: 1px solid #e5e7eb;
     background: #ffffff;
+    display: none;
 }
 
 .cv-title {
@@ -157,22 +152,18 @@ button.secondary {
 
 <div class="container">
 
-    <!-- HEADER -->
     <div class="header">
         <img src="vagalume.png" alt="Vagalume IA">
         <h1>Vagalume IA</h1>
         <p>A SECOS intelligence</p>
     </div>
 
-    <!-- AVISO -->
     <div class="aviso">
-        <strong>CV gratuito disponível.</strong><br><br>
-        Para um <strong>CV totalmente personalizado e profissional</strong>,
-        envie uma mensagem para <strong>infolearn8441@gmail.com</strong>.<br>
+         <strong>CV gratuito disponível.</strong><br><br>
+        Para um <strong>CV totalmente personalizado e profissional</strong>, envie mensagem para: <strong>infolearn8441@gmail.com</strong>.<br>
         Valor do serviço personalizado: <strong>105 MT</strong>
     </div>
 
-    <!-- FORM -->
     <div class="form">
         <h2>Preencha seus dados</h2>
 
@@ -203,12 +194,11 @@ button.secondary {
 
         <div class="buttons">
             <button onclick="gerarCV()">Gerar CV</button>
-            <button class="secondary" onclick="baixarPDF()">Baixar CV em PDF</button>
+            <button class="secondary" onclick="baixarPDF()">Baixar CV</button>
         </div>
     </div>
 
-    <!-- CV -->
-    <div id="respostaIA" style="display:none;">
+    <div id="respostaIA">
         <div class="cv-title">Currículo Vitae</div>
         <div class="cv-name" id="cvNome"></div>
 
@@ -231,6 +221,8 @@ button.secondary {
 </div>
 
 <script>
+const BACKEND = "https://backend-infolearn.onrender.com";
+
 function gerarCV() {
     document.getElementById("cvNome").innerText =
         document.getElementById("nome").value;
@@ -247,8 +239,33 @@ function gerarCV() {
     document.getElementById("respostaIA").style.display = "block";
 }
 
-function baixarPDF() {
-    alert("Conecte este botão ao backend Python para gerar o PDF.");
+async function baixarPDF() {
+    const dados = {
+        nome: document.getElementById("nome").value,
+        area: document.getElementById("area").value,
+        experiencia: document.getElementById("experiencia").value,
+        habilidades: document.getElementById("habilidades").value,
+        objetivo: document.getElementById("objetivo").value
+    };
+
+    const res = await fetch(BACKEND + "/gerar-pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados)
+    });
+
+    if (!res.ok) {
+        alert("Erro ao gerar PDF. Tente novamente.");
+        return;
+    }
+
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "CV-InfoLearn.pdf";
+    a.click();
 }
 </script>
 
