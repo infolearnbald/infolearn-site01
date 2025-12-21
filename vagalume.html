@@ -144,6 +144,21 @@ body {
     font-weight: bold;
     cursor: pointer;
 }
+
+/* ================== MENSAGEM PREMIUM ================== */
+.premium-msg {
+    padding:10px;
+    margin:10px;
+    background:#e3f2fd;
+    border-left:4px solid #1e88e5;
+    border-radius:5px;
+    font-size:13px;
+}
+.premium-msg a {
+    color:#1e88e5;
+    text-decoration:none;
+    font-weight:bold;
+}
 </style>
 </head>
 
@@ -170,6 +185,12 @@ body {
 
     <div class="chat-box" id="chat"></div>
 
+    <!-- MENSAGEM PREMIUM -->
+    <div class="premium-msg">
+      <strong>CV Premium:</strong> Deseja um Currículo totalmente profissional e personalizado? 
+      Entre em contacto: <a href="mailto:infolearn8441@gmail.com">infolearn8441@gmail.com</a> | Apenas 105 Meticais
+    </div>
+
     <div class="chat-input">
         <input id="input" placeholder="Digite aqui...">
         <button onclick="enviar()">Enviar</button>
@@ -181,7 +202,7 @@ const chat = document.getElementById("chat");
 const input = document.getElementById("input");
 
 /* BACKEND (Render) */
-const BACKEND = "https://backend-infolearn.onrender.com";
+const BACKEND = "https://backend-infolearn-1.onrender.com";
 
 /* CONTROLE */
 let etapa = 0;
