@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -7,265 +6,271 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root {
-    --blue: #1e88e5;
-    --light-blue: #e3f2fd;
-    --text: #1f2933;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
     font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f8ff;
+    color: #333;
+}
+
+/* ================== ANIMAÇÃO INICIAL ================== */
+.splash {
+    position: fixed;
+    inset: 0;
     background: #ffffff;
-    color: var(--text);
-}
-
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 30px 20px 60px;
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.header img {
-    width: 180px;
-}
-
-.header h1 {
-    margin: 15px 0 5px;
-    color: var(--blue);
-    font-size: 32px;
-}
-
-.header p {
-    color: #555;
-}
-
-.aviso {
-    background: var(--light-blue);
-    border-left: 6px solid var(--blue);
-    padding: 16px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-    font-size: 14px;
-}
-
-.form {
-    background: #f9fafb;
-    padding: 25px;
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
-}
-
-.form h2 {
-    color: var(--blue);
-    margin-bottom: 20px;
-}
-
-.group {
-    margin-bottom: 15px;
-}
-
-.group label {
-    font-weight: 600;
-    font-size: 14px;
-}
-
-.group input,
-.group textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    border-radius: 8px;
-    border: 1px solid #d1d5db;
-    font-size: 14px;
-}
-
-.group textarea {
-    resize: vertical;
-    min-height: 90px;
-}
-
-.buttons {
     display: flex;
-    gap: 15px;
-    margin-top: 25px;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    animation: splashOut 3s forwards;
 }
 
-button {
-    flex: 1;
+@keyframes splashOut {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+.splash-box {
+    text-align: center;
+    animation: scaleIn 1.5s ease;
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.splash-box img {
+    width: 150px;
+}
+
+.splash-box h1 {
+    color: #1e88e5;
+    margin: 10px 0 5px;
+}
+
+.splash-box p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* ================== CHAT ================== */
+.chat-container {
+    max-width: 420px;
+    height: 100vh;
+    margin: auto;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     padding: 14px;
-    border: none;
-    border-radius: 10px;
-    background: var(--blue);
+    background: #1e88e5;
+    color: white;
+}
+
+.chat-header img {
+    width: 42px;
+}
+
+.chat-header small {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.chat-box {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: #f9fbff;
+}
+
+.msg {
+    margin-bottom: 12px;
+    padding: 12px 15px;
+    border-radius: 15px;
+    max-width: 85%;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.ia {
+    background: #e3f2fd;
+    color: #0d47a1;
+}
+
+.user {
+    background: #1e88e5;
     color: #fff;
-    font-size: 16px;
+    margin-left: auto;
+}
+
+/* digitando */
+.typing {
+    font-style: italic;
+    opacity: 0.7;
+}
+
+.chat-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    background: #fff;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.chat-input button {
+    margin-left: 8px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    background: #1e88e5;
+    color: #fff;
     font-weight: bold;
     cursor: pointer;
-}
-
-button.secondary {
-    background: #1565c0;
-}
-
-#respostaIA {
-    margin-top: 40px;
-    padding: 30px;
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
-    background: #ffffff;
-    display: none;
-}
-
-.cv-title {
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.cv-name {
-    text-align: center;
-    font-size: 20px;
-    color: var(--blue);
-    margin-bottom: 25px;
-}
-
-.cv-section {
-    margin-bottom: 20px;
-}
-
-.cv-section h3 {
-    color: var(--blue);
-    border-bottom: 2px solid var(--light-blue);
-    padding-bottom: 5px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-
-    <div class="header">
-        <img src="vagalume.png" alt="Vagalume IA">
+<!-- SPLASH -->
+<div class="splash">
+    <div class="splash-box">
+        <img src="vagalume.png">
         <h1>Vagalume IA</h1>
-        <p>A SECOS intelligence</p>
+        <p>A SECOS Intelligence</p>
     </div>
+</div>
 
-    <div class="aviso">
-         <strong>CV gratuito disponível.</strong><br><br>
-        Para um <strong>CV totalmente personalizado e profissional</strong>, envie mensagem para: <strong>infolearn8441@gmail.com</strong>.<br>
-        Valor do serviço personalizado: <strong>105 MT</strong>
-    </div>
-
-    <div class="form">
-        <h2>Preencha seus dados</h2>
-
-        <div class="group">
-            <label>Nome completo</label>
-            <input id="nome">
-        </div>
-
-        <div class="group">
-            <label>Área / Profissão</label>
-            <input id="area">
-        </div>
-
-        <div class="group">
-            <label>Experiências profissionais</label>
-            <textarea id="experiencia" placeholder="Ano X – Fez X, Y e Z"></textarea>
-        </div>
-
-        <div class="group">
-            <label>Habilidades</label>
-            <textarea id="habilidades"></textarea>
-        </div>
-
-        <div class="group">
-            <label>Objetivo profissional</label>
-            <textarea id="objetivo"></textarea>
-        </div>
-
-        <div class="buttons">
-            <button onclick="gerarCV()">Gerar CV</button>
-            <button class="secondary" onclick="baixarPDF()">Baixar CV</button>
+<!-- CHAT -->
+<div class="chat-container">
+    <div class="chat-header">
+        <img src="vagalume.png">
+        <div>
+            <strong>Vagalume IA</strong><br>
+            <small>A SECOS Intelligence</small>
         </div>
     </div>
 
-    <div id="respostaIA">
-        <div class="cv-title">Currículo Vitae</div>
-        <div class="cv-name" id="cvNome"></div>
+    <div class="chat-box" id="chat"></div>
 
-        <div class="cv-section">
-            <h3>Experiências</h3>
-            <p id="cvExperiencia"></p>
-        </div>
-
-        <div class="cv-section">
-            <h3>Habilidades</h3>
-            <p id="cvHabilidades"></p>
-        </div>
-
-        <div class="cv-section">
-            <h3>Objetivo</h3>
-            <p id="cvObjetivo"></p>
-        </div>
+    <div class="chat-input">
+        <input id="input" placeholder="Digite aqui...">
+        <button onclick="enviar()">Enviar</button>
     </div>
-
 </div>
 
 <script>
+const chat = document.getElementById("chat");
+const input = document.getElementById("input");
+
+/* BACKEND (Render) */
 const BACKEND = "https://backend-infolearn.onrender.com";
 
-function gerarCV() {
-    document.getElementById("cvNome").innerText =
-        document.getElementById("nome").value;
+/* CONTROLE */
+let etapa = 0;
+let dados = {};
 
-    document.getElementById("cvExperiencia").innerText =
-        document.getElementById("experiencia").value;
+const perguntas = [
+    "Olá. Sou a Vagalume IA da InfoLearn Academy. Vamos criar seu currículo profissional. Qual é o seu nome completo?",
+    "Qual é sua área profissional ou especialidade técnica?",
+    "Descreva suas experiências profissionais (empresas, anos e funções).",
+    "Liste suas principais habilidades técnicas.",
+    "Qual é o seu objetivo profissional?"
+];
 
-    document.getElementById("cvHabilidades").innerText =
-        document.getElementById("habilidades").value;
-
-    document.getElementById("cvObjetivo").innerText =
-        document.getElementById("objetivo").value;
-
-    document.getElementById("respostaIA").style.display = "block";
+function addMsg(texto, tipo) {
+    const div = document.createElement("div");
+    div.className = "msg " + tipo;
+    div.innerText = texto;
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
 }
 
-async function baixarPDF() {
-    const dados = {
-        nome: document.getElementById("nome").value,
-        area: document.getElementById("area").value,
-        experiencia: document.getElementById("experiencia").value,
-        habilidades: document.getElementById("habilidades").value,
-        objetivo: document.getElementById("objetivo").value
-    };
+function typingIA(callback) {
+    const t = document.createElement("div");
+    t.className = "msg ia typing";
+    t.innerText = "Vagalume IA está digitando...";
+    chat.appendChild(t);
+    chat.scrollTop = chat.scrollHeight;
 
-    const res = await fetch(BACKEND + "/gerar-pdf", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dados)
+    setTimeout(() => {
+        chat.removeChild(t);
+        callback();
+    }, 1200);
+}
+
+setTimeout(() => {
+    addMsg(perguntas[0], "ia");
+}, 3000);
+
+function enviar() {
+    const texto = input.value.trim();
+    if (!texto) return;
+
+    addMsg(texto, "user");
+    input.value = "";
+
+    if (etapa === 0) dados.nome = texto;
+    if (etapa === 1) dados.area = texto;
+    if (etapa === 2) dados.experiencia = texto;
+    if (etapa === 3) dados.habilidades = texto;
+    if (etapa === 4) dados.objetivo = texto;
+
+    etapa++;
+
+    typingIA(() => {
+        if (etapa < perguntas.length) {
+            addMsg(perguntas[etapa], "ia");
+        } else {
+            addMsg(
+                "Excelente. Todas as informações técnicas foram coletadas. Vou gerar seu Currículo Vitae profissional em PDF.",
+                "ia"
+            );
+            gerarPDF();
+        }
     });
+}
 
-    if (!res.ok) {
-        alert("Erro ao gerar PDF. Tente novamente.");
-        return;
-    }
+async function gerarPDF() {
+    typingIA(async () => {
+        addMsg("Gerando o documento...", "ia");
 
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
+        const res = await fetch(BACKEND + "/gerar-pdf", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados)
+        });
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "CV-InfoLearn.pdf";
-    a.click();
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "Curriculo-InfoLearn.pdf";
+        a.click();
+
+        addMsg(
+            "Currículo gerado com sucesso. Obrigado por usar a Vagalume IA da InfoLearn Academy.",
+            "ia"
+        );
+    });
 }
 </script>
 
